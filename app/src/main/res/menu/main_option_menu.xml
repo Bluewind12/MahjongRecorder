@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="個人成績" android:id="@+id/menuPlayerData"/>
+    <item android:title="累計結果まとめ" android:id="@+id/menuResult"/>
+    <item android:title="Webサイトへ">
+        <menu
+        >
+            <item android:title="プライバシーポリシー" android:id="@+id/menuPrivacy"/>
+            <item android:title="レビュー" android:id="@+id/menuReview"/>
+        </menu>
+    </item>
+</menu>
