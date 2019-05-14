@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MahjongRecorder</string>
+    <string name="solo_result">個人成績</string>
+    <string name="all_result">累計結果まとめ</string>
+    <string name="jump_web">Webサイトへ</string>
+    <string name="privacy_policy">プライバシーポリシー</string>
+    <string name="review_string">レビュー</string>
 </resources>

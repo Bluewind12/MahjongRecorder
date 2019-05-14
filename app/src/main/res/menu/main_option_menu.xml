@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="個人成績" android:id="@+id/menuPlayerData"/>
-    <item android:title="累計結果まとめ" android:id="@+id/menuResult"/>
-    <item android:title="Webサイトへ">
+    <item android:title="@string/solo_result" android:id="@+id/menuPlayerData" android:icon="@drawable/icon_solo_player"
+          app:showAsAction="ifRoom"/>
+    <item android:title="@string/all_result" android:id="@+id/menuResult" android:icon="@drawable/icon_people"
+          app:showAsAction="ifRoom"/>
+    <item android:title="@string/jump_web">
         <menu
         >
-            <item android:title="プライバシーポリシー" android:id="@+id/menuPrivacy"/>
-            <item android:title="レビュー" android:id="@+id/menuReview"/>
+            <item android:title="@string/privacy_policy" android:id="@+id/menuPrivacy"/>
+            <item android:title="@string/review_string" android:id="@+id/menuReview"/>
         </menu>
     </item>
 </menu>
