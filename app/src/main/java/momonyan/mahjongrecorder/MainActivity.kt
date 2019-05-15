@@ -1,21 +1,41 @@
 package momonyan.mahjongrecorder
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
+import android.widget.SearchView
+import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_option_menu,menu)
-        return true
+
+        //検索
+        searchView.setIconifiedByDefault(false)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(text: String?): Boolean {
+                // 検索キーが押下された
+                Log.d("Search", "submit text: $text")
+                return false
+            }
+
+            override fun onQueryTextChange(text: String?): Boolean {
+                // テキストが変更された
+                Log.d("Search", "change text: $text")
+//                val itemListFragment = fragmentManager.findFragmentById(R.id.container)
+//                if (itemListFragment is ItemListFragment && text != null) {
+//                    itemListFragment.searchRequest(text)
+//                }
+                return false
+            }
+
+        })
+        searchView.queryHint = "検索文字を入力して下さい。"
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
