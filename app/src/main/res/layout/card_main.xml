@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true">
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp">
+
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+            <TextView
+                    android:text="@string/rank_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/rankTextView1"
+                    android:layout_weight="1"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/pointTextView1"
+                    android:layout_weight="3" tools:text="点数の表示場所"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/resultPointTextView1"
+                    android:layout_weight="3" tools:text="結果プラマイ"/>
+        </TableRow>
+
+        <Space
+                android:layout_width="wrap_content"
+                android:layout_height="5dp" android:background="@color/colorPrimary"/>
+
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+            <TextView
+                    android:text="@string/rank_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/rankTextView2"
+                    android:layout_weight="1"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/pointTextView2"
+                    android:layout_weight="3" tools:text="点数の表示場所"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/resultPointTextView2"
+                    android:layout_weight="3" tools:text="結果プラマイ"/>
+        </TableRow>
+
+        <Space
+                android:layout_width="wrap_content"
+                android:layout_height="5dp" android:background="@color/colorPrimary"/>
+
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+            <TextView
+                    android:text="@string/rank_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/rankTextView3"
+                    android:layout_weight="1"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/pointTextView3"
+                    android:layout_weight="3" tools:text="点数の表示場所"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/resultPointTextView3"
+                    android:layout_weight="3" tools:text="結果プラマイ"/>
+        </TableRow>
+
+        <Space
+                android:layout_width="wrap_content"
+                android:layout_height="5dp" android:background="@color/colorPrimary"/>
+
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+            <TextView
+                    android:text="四位"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/rankTextView4"
+                    android:layout_weight="1"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/pointTextView4"
+                    android:layout_weight="3" tools:text="点数の表示場所"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/resultPointTextView4"
+                    android:layout_weight="3" tools:text="結果プラマイ"/>
+        </TableRow>
+    </TableLayout>
+</android.support.v7.widget.CardView>

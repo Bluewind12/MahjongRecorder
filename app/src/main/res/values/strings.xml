@@ -5,4 +5,7 @@
     <string name="jump_web">Webサイトへ</string>
     <string name="privacy_policy">プライバシーポリシー</string>
     <string name="review_string">レビュー</string>
+    <string name="rank_1">一位</string>
+    <string name="rank_2">二位</string>
+    <string name="rank_3">三位</string>
 </resources>
