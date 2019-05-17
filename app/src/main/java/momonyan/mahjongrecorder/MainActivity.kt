@@ -9,6 +9,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
 import android.widget.SearchView
 import android.widget.TextView
@@ -16,6 +17,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.data_input_layout.view.*
 import momonyan.mahjongrecorder.datalist.ItemAdapter
 import momonyan.mahjongrecorder.datalist.ItemDataClass
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 
@@ -23,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private var mDataList: ArrayList<ItemDataClass> = ArrayList()
 
     private lateinit var adapter: ItemAdapter
+    private lateinit var dialogView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,16 +84,36 @@ class MainActivity : AppCompatActivity() {
 
 
         floatingActionButton.setOnClickListener {
-            val view = layoutInflater.inflate(R.layout.data_input_layout, null)
+            dialogView = layoutInflater.inflate(R.layout.data_input_layout, null)
 
-            setEditEvent(view.resultTextView1, view.pointEditText1, 50)
-            setEditEvent(view.resultTextView2, view.pointEditText2, 10)
-            setEditEvent(view.resultTextView3, view.pointEditText3, -10)
-            setEditEvent(view.resultTextView4, view.pointEditText4, -30)
-
-            AlertDialog.Builder(this)
+            val alert = AlertDialog.Builder(this)
                 .setTitle("登録")
-                .setView(view)
+
+            setEditEvent(dialogView.resultTextView1, dialogView.pointEditText1, 50)
+            setEditEvent(dialogView.resultTextView2, dialogView.pointEditText2, 10)
+            setEditEvent(dialogView.resultTextView3, dialogView.pointEditText3, -10)
+            setEditEvent(dialogView.resultTextView4, dialogView.pointEditText4, -30)
+
+            alert.setView(dialogView)
+                .setPositiveButton("OK") { _, _ ->
+                    val df = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+                    val date = Date()
+
+                    Log.e("LogData", "------------------------------")
+                    Log.d("LogData", dialogView.nameEditText1.text.toString())
+                    Log.d("LogData", dialogView.nameEditText2.text.toString())
+                    Log.d("LogData", dialogView.nameEditText3.text.toString())
+                    Log.d("LogData", dialogView.nameEditText4.text.toString())
+                    Log.e("LogData", "---")
+                    Log.d("LogData", dialogView.pointEditText1.text.toString())
+                    Log.d("LogData", dialogView.pointEditText2.text.toString())
+                    Log.d("LogData", dialogView.pointEditText3.text.toString())
+                    Log.d("LogData", dialogView.pointEditText4.text.toString())
+                    Log.e("LogData", "---")
+                    Log.d("LogData", df.format(date))
+                    Log.e("LogData", "------------------------------")
+                }
+                .setNegativeButton("Cancel", null)
                 .show()
         }
     }
@@ -97,22 +122,22 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.menuPlayerData -> {
                 //TODO プレイヤー個人の成績を出力するページへ（グラフとかあるといいかもしれぬ）
-                Log.d("Menu",item.itemId.toString())
+                Log.d("Menu", item.itemId.toString())
                 return true
             }
             R.id.menuResult -> {
                 //TODO 存在するプレイヤーの成績を簡易出力
-                Log.d("Menu",item.itemId.toString())
+                Log.d("Menu", item.itemId.toString())
                 return true
             }
             R.id.menuPrivacy -> {
                 //TODO プライバシーポリシーに飛ばす
-                Log.d("Menu",item.itemId.toString())
+                Log.d("Menu", item.itemId.toString())
                 return true
             }
             R.id.menuReview -> {
                 //TODO レビューへ飛ばす
-                Log.d("Menu",item.itemId.toString())
+                Log.d("Menu", item.itemId.toString())
                 return true
             }
         }
@@ -129,25 +154,48 @@ class MainActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
     }
 
-    fun setEditEvent(vText: TextView, editText: EditText, point: Int) {
+    private fun setEditEvent(vText: TextView, editText: EditText, point: Int) {
         editText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 Log.d("TEXT", p0.toString())
-                if (p0.toString() != "") {
-                    val res = (p0.toString().toDouble()) - 30000 / 1000.0 + point
-                    Log.d("Res", "flo$res")
-                    if (res >= 0) {
-                        vText.setTextColor(Color.BLACK)
-                    } else {
-                        vText.setTextColor(Color.RED)
-                    }
-                    vText.text = "$res"
+                val res = if (p0.toString() != "") {
+                    (p0.toString().toDouble() - 300) / 10.0 + point
+                } else {
+                    point * 1.0
                 }
+                if (res >= 0) {
+                    vText.setTextColor(Color.BLACK)
+                    vText.text = String.format("  %.1f", res)
+                } else {
+                    vText.setTextColor(Color.RED)
+                    vText.text = String.format("▲ %.1f", res)
+                }
+                setSunResults()
+
             }
         })
     }
+
+    fun setSunResults() {
+        var sum = 0.0
+
+        if (dialogView.pointEditText1.text.toString() != "") {
+            sum += dialogView.pointEditText1.text.toString().toDouble()
+        }
+        if (dialogView.pointEditText2.text.toString() != "") {
+            sum += dialogView.pointEditText2.text.toString().toDouble()
+        }
+        if (dialogView.pointEditText3.text.toString() != "") {
+            sum += dialogView.pointEditText3.text.toString().toDouble()
+        }
+        if (dialogView.pointEditText4.text.toString() != "") {
+            sum += dialogView.pointEditText4.text.toString().toDouble()
+        }
+        dialogView.sumTextView.text = String.format("計：%.0f点", sum * 100)
+    }
+
 
 }
 

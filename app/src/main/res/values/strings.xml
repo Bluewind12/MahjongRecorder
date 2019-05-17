@@ -9,4 +9,5 @@
     <string name="rank_2">二位</string>
     <string name="rank_3">三位</string>
     <string name="rank_4">四位</string>
+    <string name="zero_zero">00点</string>
 </resources>
