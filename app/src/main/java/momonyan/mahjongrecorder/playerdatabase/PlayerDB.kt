@@ -12,11 +12,13 @@ class PlayerDB {
 
     //Player1
     @ColumnInfo(name = "Name")
-    var name1: String = ""
+    var name: String = ""
 
     @ColumnInfo(name = "Point")
-    var point4: Int = 0
+    var point: Int = 0
 
+    @ColumnInfo(name = "Rank")
+    var rank: Int = 0
     //Data
     @ColumnInfo(name= "Date")
     var date :String = ""

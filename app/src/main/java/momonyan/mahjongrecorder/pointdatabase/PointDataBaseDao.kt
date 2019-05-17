@@ -2,7 +2,6 @@ package momonyan.mahjongrecorder.pointdatabase
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
 
@@ -18,11 +17,6 @@ interface PointDataBaseDao {
     //データ作成
     @Insert
     fun insert(pointDB: PointDB)
-
-
-    // データモデルのクラスを引数に渡すことで、データの削除ができる。主キーでデータを検索して削除する場合。
-    @Delete
-    fun delete(id: Int)
 
     // 条件でDelete
     @Query("DELETE FROM PointDB WHERE id = :id")

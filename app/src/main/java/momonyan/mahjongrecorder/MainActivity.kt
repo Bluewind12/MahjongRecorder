@@ -1,5 +1,6 @@
 package momonyan.mahjongrecorder
 
+import android.arch.persistence.room.Room
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -14,10 +15,17 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.SearchView
 import android.widget.TextView
+import com.facebook.stetho.Stetho
+import io.reactivex.Completable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.data_input_layout.view.*
 import momonyan.mahjongrecorder.datalist.ItemAdapter
 import momonyan.mahjongrecorder.datalist.ItemDataClass
+import momonyan.mahjongrecorder.playerdatabase.PlayerAppDataBase
+import momonyan.mahjongrecorder.playerdatabase.PlayerDB
+import momonyan.mahjongrecorder.pointdatabase.PointAppDataBase
+import momonyan.mahjongrecorder.pointdatabase.PointDB
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -30,10 +38,21 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: ItemAdapter
     private lateinit var dialogView: View
 
+    private lateinit var pointAppDataBase: PointAppDataBase
+    private lateinit var playerAppDataBase: PlayerAppDataBase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //DataBase
+        pointAppDataBase =
+            Room.databaseBuilder(this, PointAppDataBase::class.java, "MainPoint.db")
+                .build()
+
+        playerAppDataBase =
+            Room.databaseBuilder(this, PlayerAppDataBase::class.java, "MainPlayer.db")
+                .build()
 
         //検索
         searchView.setIconifiedByDefault(false)
@@ -77,6 +96,14 @@ class MainActivity : AppCompatActivity() {
                     resultList
                 )
             )
+
+            // 見るためよう（あとで消す）
+            Stetho.initialize(
+                Stetho.newInitializerBuilder(this)
+                    .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                    .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                    .build()
+            )
         }
 
         adapter = ItemAdapter(mDataList)
@@ -111,20 +138,60 @@ class MainActivity : AppCompatActivity() {
                     val df = SimpleDateFormat("yyyy/MM/dd HH:mm")
                     val date = Date()
 
+                    //DB入れ子
+                    val pointDataBaseHolder = PointDB()
+                    val playerDataBaseHolder =
+                        arrayListOf(PlayerDB(), PlayerDB(), PlayerDB(), PlayerDB())
+
+                    //取得
+                    val playerName = arrayListOf(
+                        dialogView.nameEditText1.text.toString(),
+                        dialogView.nameEditText2.text.toString(),
+                        dialogView.nameEditText3.text.toString(),
+                        dialogView.nameEditText4.text.toString()
+                    )
+
+                    //点数
+                    val points = arrayListOf(
+                        dialogView.pointEditText1.text.toString().toInt(),
+                        dialogView.pointEditText2.text.toString().toInt(),
+                        dialogView.pointEditText3.text.toString().toInt(),
+                        dialogView.pointEditText4.text.toString().toInt()
+                    )
+
+                    pointDataBaseHolder.name1 = playerName[0]
+                    pointDataBaseHolder.point1 = points[0]
+                    pointDataBaseHolder.name2 = playerName[1]
+                    pointDataBaseHolder.point2 = points[1]
+                    pointDataBaseHolder.name3 = playerName[2]
+                    pointDataBaseHolder.point3 = points[2]
+                    pointDataBaseHolder.name4 = playerName[3]
+                    pointDataBaseHolder.point4 = points[3]
+                    pointDataBaseHolder.date = df.format(date)
+
+                    Completable.fromAction { pointAppDataBase.pointDataBaseDao().insert(pointDataBaseHolder) }
+                        .subscribeOn(Schedulers.io())
+                        .subscribe()
+                    for (i in 0 until 4) {
+                        playerDataBaseHolder[i].name = playerName[i]
+                        playerDataBaseHolder[i].point = points[i]
+                        playerDataBaseHolder[i].rank = i + 1
+                        playerDataBaseHolder[i].date = df.format(date)
+                        Completable.fromAction { playerAppDataBase.playerDataBaseDao().insert(playerDataBaseHolder[i]) }
+                            .subscribeOn(Schedulers.io())
+                            .subscribe()
+                    }
+
+                    //Log
                     Log.e("LogData", "------------------------------")
-                    Log.d("LogData", dialogView.nameEditText1.text.toString())
-                    Log.d("LogData", dialogView.nameEditText2.text.toString())
-                    Log.d("LogData", dialogView.nameEditText3.text.toString())
-                    Log.d("LogData", dialogView.nameEditText4.text.toString())
+                    Log.d("LogData", "$playerName")
                     Log.e("LogData", "---")
-                    Log.d("LogData", dialogView.pointEditText1.text.toString())
-                    Log.d("LogData", dialogView.pointEditText2.text.toString())
-                    Log.d("LogData", dialogView.pointEditText3.text.toString())
-                    Log.d("LogData", dialogView.pointEditText4.text.toString())
+                    Log.d("LogData", "$points")
                     Log.e("LogData", "---")
                     Log.d("LogData", df.format(date))
                     Log.e("LogData", "------------------------------")
                 }
+
                 .setNegativeButton("Cancel", null)
                 .show()
         }
