@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.SearchView
 import android.widget.TextView
@@ -82,12 +83,23 @@ class MainActivity : AppCompatActivity() {
         dataRecyclerView.adapter = adapter
         dataRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
+        val names = arrayListOf("もも", "TEST", "蒼風")
+        val adapter = ArrayAdapter<String>(
+            this, android.R.layout.simple_dropdown_item_1line, names
+        )
 
         floatingActionButton.setOnClickListener {
             dialogView = layoutInflater.inflate(R.layout.data_input_layout, null)
 
+            dialogView.nameEditText1.setAdapter<ArrayAdapter<String>>(adapter)
+            dialogView.nameEditText2.setAdapter<ArrayAdapter<String>>(adapter)
+            dialogView.nameEditText3.setAdapter<ArrayAdapter<String>>(adapter)
+            dialogView.nameEditText4.setAdapter<ArrayAdapter<String>>(adapter)
+
             val alert = AlertDialog.Builder(this)
                 .setTitle("登録")
+
+            dialogView.nameEditText1
 
             setEditEvent(dialogView.resultTextView1, dialogView.pointEditText1, 50)
             setEditEvent(dialogView.resultTextView2, dialogView.pointEditText2, 10)
@@ -96,7 +108,7 @@ class MainActivity : AppCompatActivity() {
 
             alert.setView(dialogView)
                 .setPositiveButton("OK") { _, _ ->
-                    val df = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+                    val df = SimpleDateFormat("yyyy/MM/dd HH:mm")
                     val date = Date()
 
                     Log.e("LogData", "------------------------------")
