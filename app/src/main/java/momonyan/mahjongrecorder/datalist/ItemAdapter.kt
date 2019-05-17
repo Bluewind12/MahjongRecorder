@@ -18,7 +18,7 @@ class ItemAdapter(var mValue: ArrayList<ItemDataClass>) : RecyclerView.Adapter<I
     override fun onBindViewHolder(holder: ItemHolder, p1: Int) {
         val item = mValue[p1]
         Log.e("Check", "--------------------------")
-        Log.d("Check", "$p1")
+        Log.d("Check", "$p1:${item.dName} - ${item.dPoint},${item.dResult}")
         Log.e("Check", "--------------------------")
 
         for (i in 0 until 4) {
