@@ -262,7 +262,8 @@ class MainActivity : AppCompatActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 Log.d("TEXT", p0.toString())
-                val res = if (p0.toString() != "") {
+                val res = if (p0.toString() != "" && p0.toString() != "-") {
+                    Log.d("TAGAA", p0.toString())
                     (p0.toString().toDouble() - 300) / 10.0 + point
                 } else {
                     point * 1.0
@@ -293,16 +294,16 @@ class MainActivity : AppCompatActivity() {
     fun setSunResults() {
         var sum = 0.0
 
-        if (dialogView.pointEditText1.text.toString() != "") {
+        if (dialogView.pointEditText1.text.toString() != "" && dialogView.pointEditText1.text.toString() != "-") {
             sum += dialogView.pointEditText1.text.toString().toDouble()
         }
-        if (dialogView.pointEditText2.text.toString() != "") {
+        if (dialogView.pointEditText2.text.toString() != "" && dialogView.pointEditText2.text.toString() != "-") {
             sum += dialogView.pointEditText2.text.toString().toDouble()
         }
-        if (dialogView.pointEditText3.text.toString() != "") {
+        if (dialogView.pointEditText3.text.toString() != "" && dialogView.pointEditText3.text.toString() != "-") {
             sum += dialogView.pointEditText3.text.toString().toDouble()
         }
-        if (dialogView.pointEditText4.text.toString() != "") {
+        if (dialogView.pointEditText4.text.toString() != "" && dialogView.pointEditText4.text.toString() != "-") {
             sum += dialogView.pointEditText4.text.toString().toDouble()
         }
         dialogView.sumTextView.text = String.format("計：%.0f点", sum * 100)
