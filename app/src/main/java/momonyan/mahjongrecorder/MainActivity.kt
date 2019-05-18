@@ -310,14 +310,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun inputCheck() {
-        alert.getButton(Dialog.BUTTON_POSITIVE).isEnabled = dialogView.pointEditText1.text.toString() != "" &&
-                dialogView.pointEditText2.text.toString() != "" &&
-                dialogView.pointEditText3.text.toString() != "" &&
-                dialogView.pointEditText4.text.toString() != "" &&
-                dialogView.nameEditText1.text.toString() != "" &&
-                dialogView.nameEditText2.text.toString() != "" &&
-                dialogView.nameEditText3.text.toString() != "" &&
-                dialogView.nameEditText4.text.toString() != ""
+        alert.getButton(Dialog.BUTTON_POSITIVE).isEnabled =
+            dialogView.pointEditText1.text.toString() != "" &&
+                    dialogView.pointEditText2.text.toString() != "" &&
+                    dialogView.pointEditText3.text.toString() != "" &&
+                    dialogView.pointEditText4.text.toString() != "" &&
+                    dialogView.pointEditText1.text.toString() != "-" &&
+                    dialogView.pointEditText2.text.toString() != "-" &&
+                    dialogView.pointEditText3.text.toString() != "-" &&
+                    dialogView.pointEditText4.text.toString() != "-" &&
+                    dialogView.nameEditText1.text.toString() != "" &&
+                    dialogView.nameEditText2.text.toString() != "" &&
+                    dialogView.nameEditText3.text.toString() != "" &&
+                    dialogView.nameEditText4.text.toString() != ""
     }
 
 }

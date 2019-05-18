@@ -23,11 +23,11 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/pointTextView1"
-                    android:layout_weight="3" tools:text="点数の表示場所"/>
+                    android:layout_weight="3" tools:text="点数の表示場所" android:gravity="right"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/resultPointTextView1"
-                    android:layout_weight="3" tools:text="結果プラマイ"/>
+                    android:layout_weight="3" tools:text="結果プラマイ" android:gravity="right"/>
         </TableRow>
 
         <Space
@@ -47,11 +47,11 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/pointTextView2"
-                    android:layout_weight="3" tools:text="点数の表示場所"/>
+                    android:layout_weight="3" tools:text="点数の表示場所" android:gravity="right"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/resultPointTextView2"
-                    android:layout_weight="3" tools:text="結果プラマイ"/>
+                    android:layout_weight="3" tools:text="結果プラマイ" android:gravity="right"/>
         </TableRow>
 
         <Space
@@ -71,11 +71,11 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/pointTextView3"
-                    android:layout_weight="3" tools:text="点数の表示場所"/>
+                    android:layout_weight="3" tools:text="点数の表示場所" android:gravity="right"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/resultPointTextView3"
-                    android:layout_weight="3" tools:text="結果プラマイ"/>
+                    android:layout_weight="3" tools:text="結果プラマイ" android:gravity="right"/>
         </TableRow>
 
         <Space
@@ -95,11 +95,11 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/pointTextView4"
-                    android:layout_weight="3" tools:text="点数の表示場所"/>
+                    android:layout_weight="3" tools:text="点数の表示場所" android:gravity="right"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/resultPointTextView4"
-                    android:layout_weight="3" tools:text="結果プラマイ"/>
+                    android:layout_weight="3" tools:text="結果プラマイ" android:gravity="right"/>
         </TableRow>
     </TableLayout>
 </android.support.v7.widget.CardView>
