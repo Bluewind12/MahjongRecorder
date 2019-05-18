@@ -96,10 +96,10 @@ class MainActivity : AppCompatActivity() {
                     )
                 val pointList: MutableList<Int> =
                     mutableListOf(
-                        data[i].point1,
-                        data[i].point2,
-                        data[i].point3,
-                        data[i].point4
+                        data[i].point1 * 100,
+                        data[i].point2 * 100,
+                        data[i].point3 * 100,
+                        data[i].point4 * 100
                     )
                 val resultList: MutableList<Double> =
                     mutableListOf(
@@ -153,14 +153,8 @@ class MainActivity : AppCompatActivity() {
             alert = alertBuilder
                 .setTitle("登録")
                 .setView(dialogView)
-                .setPositiveButton("OK", null)
                 .setNegativeButton("Cancel", null)
-                .create()
-
-            alert.show()
-
-
-            alert.getButton(Dialog.BUTTON_POSITIVE).setOnClickListener {
+                .setPositiveButton("OK") { _, _ ->
 
                     val df = SimpleDateFormat("yyyy/MM/dd HH:mm")
                     val date = Date()
@@ -218,7 +212,9 @@ class MainActivity : AppCompatActivity() {
                     Log.d("LogData", df.format(date))
                     Log.e("LogData", "------------------------------")
                 }
+                .create()
 
+            alert.show()
 
             alert.getButton(Dialog.BUTTON_POSITIVE).isEnabled = false
         }
@@ -313,20 +309,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun inputCheck() {
-        if (dialogView.pointEditText1.text.toString() != "" &&
-            dialogView.pointEditText2.text.toString() != "" &&
-            dialogView.pointEditText3.text.toString() != "" &&
-            dialogView.pointEditText4.text.toString() != "" &&
-            dialogView.nameEditText1.text.toString() != "" &&
-            dialogView.nameEditText2.text.toString() != "" &&
-            dialogView.nameEditText3.text.toString() != "" &&
-            dialogView.nameEditText4.text.toString() != ""
-        ) {
-            alert.getButton(Dialog.BUTTON_POSITIVE).isEnabled = true
-        } else {
-            alert.getButton(Dialog.BUTTON_POSITIVE).isEnabled = false
-
-        }
+        alert.getButton(Dialog.BUTTON_POSITIVE).isEnabled = dialogView.pointEditText1.text.toString() != "" &&
+                dialogView.pointEditText2.text.toString() != "" &&
+                dialogView.pointEditText3.text.toString() != "" &&
+                dialogView.pointEditText4.text.toString() != "" &&
+                dialogView.nameEditText1.text.toString() != "" &&
+                dialogView.nameEditText2.text.toString() != "" &&
+                dialogView.nameEditText3.text.toString() != "" &&
+                dialogView.nameEditText4.text.toString() != ""
     }
 
 }
