@@ -1,9 +1,10 @@
 package momonyan.mahjongrecorder
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.arch.persistence.room.Room
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
@@ -29,7 +30,6 @@ import momonyan.mahjongrecorder.pointdatabase.PointDB
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.random.Random
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,6 +40,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var pointAppDataBase: PointAppDataBase
     private lateinit var playerAppDataBase: PlayerAppDataBase
+
+    private lateinit var alert: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +55,14 @@ class MainActivity : AppCompatActivity() {
         playerAppDataBase =
             Room.databaseBuilder(this, PlayerAppDataBase::class.java, "MainPlayer.db")
                 .build()
+
+        // 見るためよう（あとで消す）
+        Stetho.initialize(
+            Stetho.newInitializerBuilder(this)
+                .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                .build()
+        )
 
         //検索
         searchView.setIconifiedByDefault(false)
@@ -73,58 +83,59 @@ class MainActivity : AppCompatActivity() {
         })
         searchView.queryHint = "検索文字を入力して下さい。"
 
-        for (i in 0 until 10) {
-            val pointList: MutableList<Int> =
-                mutableListOf(
-                    (Random.nextInt(600) - 50) * 100,
-                    (Random.nextInt(450) - 100) * 100,
-                    (Random.nextInt(200) - 100) * 100,
-                    (Random.nextInt(100) - 100) * 100
+        //DBからの取得
+        pointAppDataBase.pointDataBaseDao().getAll().observe(this, android.arch.lifecycle.Observer { data ->
+            mDataList = ArrayList()
+            for (i in 0 until data!!.size) {
+                val nameList: MutableList<String> =
+                    mutableListOf(
+                        data[i].name1,
+                        data[i].name2,
+                        data[i].name3,
+                        data[i].name4
+                    )
+                val pointList: MutableList<Int> =
+                    mutableListOf(
+                        data[i].point1,
+                        data[i].point2,
+                        data[i].point3,
+                        data[i].point4
+                    )
+                val resultList: MutableList<Double> =
+                    mutableListOf(
+                        (pointList[0] - 300) / 10.0 + 50,
+                        (pointList[1] - 300) / 10.0 + 10,
+                        (pointList[2] - 300) / 10.0 - 10,
+                        (pointList[3] - 300) / 10.0 - 30
+                    )
+                mDataList.add(
+                    ItemDataClass(
+                        nameList,
+                        pointList,
+                        resultList
+                    )
                 )
-            pointList.sortDescending()
-            val resultList: MutableList<Double> =
-                mutableListOf(
-                    (pointList[0] - 30000) / 1000.0,
-                    (pointList[1] - 30000) / 1000.0,
-                    (pointList[2] - 30000) / 1000.0,
-                    (pointList[3] - 30000) / 1000.0
-                )
-            mDataList.add(
-                ItemDataClass(
-                    mutableListOf("A", "B", "C", "D"),
-                    pointList,
-                    resultList
-                )
-            )
+            }
+            adapter = ItemAdapter(mDataList)
+            dataRecyclerView.adapter = adapter
+            dataRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        })
 
-            // 見るためよう（あとで消す）
-            Stetho.initialize(
-                Stetho.newInitializerBuilder(this)
-                    .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
-                    .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
-                    .build()
-            )
-        }
-
-        adapter = ItemAdapter(mDataList)
-        dataRecyclerView.adapter = adapter
-        dataRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-        val names = arrayListOf("もも", "TEST", "蒼風")
-        val adapter = ArrayAdapter<String>(
-            this, android.R.layout.simple_dropdown_item_1line, names
-        )
-
+        //データ追加（Fab）
         floatingActionButton.setOnClickListener {
             dialogView = layoutInflater.inflate(R.layout.data_input_layout, null)
 
-            dialogView.nameEditText1.setAdapter<ArrayAdapter<String>>(adapter)
-            dialogView.nameEditText2.setAdapter<ArrayAdapter<String>>(adapter)
-            dialogView.nameEditText3.setAdapter<ArrayAdapter<String>>(adapter)
-            dialogView.nameEditText4.setAdapter<ArrayAdapter<String>>(adapter)
-
-            val alert = AlertDialog.Builder(this)
-                .setTitle("登録")
+            playerAppDataBase.playerDataBaseDao().getPlayerDistinct().observe(
+                this,
+                android.arch.lifecycle.Observer { t ->
+                    val adapter = ArrayAdapter<String>(
+                        this, android.R.layout.simple_dropdown_item_1line, t!!
+                    )
+                    dialogView.nameEditText1.setAdapter<ArrayAdapter<String>>(adapter)
+                    dialogView.nameEditText2.setAdapter<ArrayAdapter<String>>(adapter)
+                    dialogView.nameEditText3.setAdapter<ArrayAdapter<String>>(adapter)
+                    dialogView.nameEditText4.setAdapter<ArrayAdapter<String>>(adapter)
+                })
 
             dialogView.nameEditText1
 
@@ -133,8 +144,24 @@ class MainActivity : AppCompatActivity() {
             setEditEvent(dialogView.resultTextView3, dialogView.pointEditText3, -10)
             setEditEvent(dialogView.resultTextView4, dialogView.pointEditText4, -30)
 
-            alert.setView(dialogView)
-                .setPositiveButton("OK") { _, _ ->
+            setNameEditEvent(dialogView.nameEditText1)
+            setNameEditEvent(dialogView.nameEditText2)
+            setNameEditEvent(dialogView.nameEditText3)
+            setNameEditEvent(dialogView.nameEditText4)
+
+            val alertBuilder = AlertDialog.Builder(this)
+            alert = alertBuilder
+                .setTitle("登録")
+                .setView(dialogView)
+                .setPositiveButton("OK", null)
+                .setNegativeButton("Cancel", null)
+                .create()
+
+            alert.show()
+
+
+            alert.getButton(Dialog.BUTTON_POSITIVE).setOnClickListener {
+
                     val df = SimpleDateFormat("yyyy/MM/dd HH:mm")
                     val date = Date()
 
@@ -192,8 +219,8 @@ class MainActivity : AppCompatActivity() {
                     Log.e("LogData", "------------------------------")
                 }
 
-                .setNegativeButton("Cancel", null)
-                .show()
+
+            alert.getButton(Dialog.BUTTON_POSITIVE).isEnabled = false
         }
     }
 
@@ -252,7 +279,17 @@ class MainActivity : AppCompatActivity() {
                     vText.text = String.format("▲ %.1f", res)
                 }
                 setSunResults()
+                inputCheck()
+            }
+        })
+    }
 
+    private fun setNameEditEvent(editText: EditText) {
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                inputCheck()
             }
         })
     }
@@ -275,6 +312,22 @@ class MainActivity : AppCompatActivity() {
         dialogView.sumTextView.text = String.format("計：%.0f点", sum * 100)
     }
 
+    fun inputCheck() {
+        if (dialogView.pointEditText1.text.toString() != "" &&
+            dialogView.pointEditText2.text.toString() != "" &&
+            dialogView.pointEditText3.text.toString() != "" &&
+            dialogView.pointEditText4.text.toString() != "" &&
+            dialogView.nameEditText1.text.toString() != "" &&
+            dialogView.nameEditText2.text.toString() != "" &&
+            dialogView.nameEditText3.text.toString() != "" &&
+            dialogView.nameEditText4.text.toString() != ""
+        ) {
+            alert.getButton(Dialog.BUTTON_POSITIVE).isEnabled = true
+        } else {
+            alert.getButton(Dialog.BUTTON_POSITIVE).isEnabled = false
+
+        }
+    }
 
 }
 

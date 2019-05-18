@@ -13,6 +13,8 @@ interface PlayerDataBaseDao {
     @Query("SELECT * FROM PlayerDB WHERE id IN (:id)")
     fun getById(vararg id: Int): List<PlayerDB>
 
+    @Query("SELECT DISTINCT Name FROM PlayerDB")
+    fun getPlayerDistinct(): LiveData<Array<String>>
 
     //データ作成
     @Insert

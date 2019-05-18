@@ -10,7 +10,7 @@ class PlayerDB {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 
-    //Player1
+    //Player
     @ColumnInfo(name = "Name")
     var name: String = ""
 
