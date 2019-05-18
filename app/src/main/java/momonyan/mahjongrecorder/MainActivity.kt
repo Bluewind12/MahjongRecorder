@@ -249,7 +249,11 @@ class MainActivity : AppCompatActivity() {
     fun searchResult(text: String) {
         val adapter = adapter
         if (text != "") {
-            adapter.mValue = ArrayList(mDataList.filter { it.dName.contains(text) })
+            adapter.mValue = ArrayList(mDataList.filter {
+                it.dName[0].contains(text) || it.dName[1].contains(text) || it.dName[2].contains(text) || it.dName[3].contains(
+                    text
+                )
+            })
         } else {
             adapter.mValue = mDataList
         }
