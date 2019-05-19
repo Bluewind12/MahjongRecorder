@@ -5,9 +5,9 @@
     <string name="jump_web">Webサイトへ</string>
     <string name="privacy_policy">プライバシーポリシー</string>
     <string name="review_string">レビュー</string>
-    <string name="rank_1">一位</string>
-    <string name="rank_2">二位</string>
-    <string name="rank_3">三位</string>
-    <string name="rank_4">四位</string>
+    <string name="rank_1">1位</string>
+    <string name="rank_2">2位</string>
+    <string name="rank_3">3位</string>
+    <string name="rank_4">4位</string>
     <string name="zero_zero">00点</string>
 </resources>

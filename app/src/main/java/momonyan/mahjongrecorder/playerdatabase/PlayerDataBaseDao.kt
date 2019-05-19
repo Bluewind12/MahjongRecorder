@@ -13,19 +13,29 @@ interface PlayerDataBaseDao {
     @Query("SELECT * FROM PlayerDB WHERE id IN (:id)")
     fun getById(vararg id: Int): List<PlayerDB>
 
+
     @Query("SELECT DISTINCT Name FROM PlayerDB")
     fun getPlayerDistinct(): LiveData<Array<String>>
+
+
+    @Query("SELECT Point FROM PlayerDB WHERE name = :name")
+    fun getPoint(name: String): LiveData<Array<Int>>
+
+
+    @Query("SELECT Rank FROM PlayerDB WHERE name = :name")
+    fun getRank(name: String): LiveData<Array<Int>>
 
     //データ作成
     @Insert
     fun insert(playerDB: PlayerDB)
 
-
-
     // 条件でDelete
     @Query("DELETE FROM PlayerDB WHERE id = :id")
     fun deleteId(id: Int)
 
+    // 条件でDelete
+    @Query("DELETE FROM PlayerDB WHERE Name = :name AND Date = :date AND Point = :point")
+    fun deletePlayer(name: String, date: String, point: Int)
 
 /*
     // 編集
