@@ -3,6 +3,7 @@ package momonyan.mahjongrecorder
 import android.app.AlertDialog
 import android.app.Dialog
 import android.arch.persistence.room.Room
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -10,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
@@ -224,6 +226,8 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.menuPlayerData -> {
                 //TODO プレイヤー個人の成績を出力するページへ（グラフとかあるといいかもしれぬ）
+                val intent = Intent(this, PersonalScoreActivity::class.java)
+                startActivity(intent)
                 Log.d("Menu", item.itemId.toString())
                 return true
             }
@@ -244,6 +248,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_option_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     fun searchResult(text: String) {
