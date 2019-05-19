@@ -22,7 +22,7 @@
             android:layout_marginStart="16dp" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="16dp" android:textSize="18sp"/>
 
-    <com.github.mikephil.charting.charts.PieChart
+    <com.github.mikephil.charting.charts.LineChart
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
@@ -30,7 +30,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/tableLayout" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/tableLayout2"/>
+            app:layout_constraintBottom_toTopOf="@+id/tableLayout2" android:id="@+id/lineChart"/>
     <TableLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
