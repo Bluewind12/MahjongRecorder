@@ -112,114 +112,234 @@ class MainActivity : AppCompatActivity() {
                     )
                 mDataList.add(
                     ItemDataClass(
+                        data[i].id,
                         nameList,
                         pointList,
-                        resultList
+                        resultList,
+                        data[i].date
                     )
                 )
             }
-            adapter = ItemAdapter(mDataList)
+            adapter = ItemAdapter(mDataList, this)
             dataRecyclerView.adapter = adapter
             dataRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         })
 
         //データ追加（Fab）
         floatingActionButton.setOnClickListener {
-            dialogView = layoutInflater.inflate(R.layout.data_input_layout, null)
+            createDialog()
+        }
+    }
 
-            playerAppDataBase.playerDataBaseDao().getPlayerDistinct().observe(
-                this,
-                android.arch.lifecycle.Observer { t ->
-                    val adapter = ArrayAdapter<String>(
-                        this, android.R.layout.simple_dropdown_item_1line, t!!
-                    )
-                    dialogView.nameEditText1.setAdapter<ArrayAdapter<String>>(adapter)
-                    dialogView.nameEditText2.setAdapter<ArrayAdapter<String>>(adapter)
-                    dialogView.nameEditText3.setAdapter<ArrayAdapter<String>>(adapter)
-                    dialogView.nameEditText4.setAdapter<ArrayAdapter<String>>(adapter)
-                })
 
-            dialogView.nameEditText1
+    private fun createDialog() {
+        dialogView = layoutInflater.inflate(R.layout.data_input_layout, null)
 
-            setEditEvent(dialogView.resultTextView1, dialogView.pointEditText1, 50)
-            setEditEvent(dialogView.resultTextView2, dialogView.pointEditText2, 10)
-            setEditEvent(dialogView.resultTextView3, dialogView.pointEditText3, -10)
-            setEditEvent(dialogView.resultTextView4, dialogView.pointEditText4, -30)
+        playerAppDataBase.playerDataBaseDao().getPlayerDistinct().observe(
+            this,
+            android.arch.lifecycle.Observer { t ->
+                val adapter = ArrayAdapter<String>(
+                    this, android.R.layout.simple_dropdown_item_1line, t!!
+                )
+                dialogView.nameEditText1.setAdapter<ArrayAdapter<String>>(adapter)
+                dialogView.nameEditText2.setAdapter<ArrayAdapter<String>>(adapter)
+                dialogView.nameEditText3.setAdapter<ArrayAdapter<String>>(adapter)
+                dialogView.nameEditText4.setAdapter<ArrayAdapter<String>>(adapter)
+            })
 
-            setNameEditEvent(dialogView.nameEditText1)
-            setNameEditEvent(dialogView.nameEditText2)
-            setNameEditEvent(dialogView.nameEditText3)
-            setNameEditEvent(dialogView.nameEditText4)
+        dialogView.nameEditText1
 
-            val alertBuilder = AlertDialog.Builder(this)
-            alert = alertBuilder
-                .setTitle("登録")
-                .setView(dialogView)
-                .setNegativeButton("Cancel", null)
-                .setPositiveButton("OK") { _, _ ->
+        setEditEvent(dialogView.resultTextView1, dialogView.pointEditText1, 50)
+        setEditEvent(dialogView.resultTextView2, dialogView.pointEditText2, 10)
+        setEditEvent(dialogView.resultTextView3, dialogView.pointEditText3, -10)
+        setEditEvent(dialogView.resultTextView4, dialogView.pointEditText4, -30)
 
-                    val df = SimpleDateFormat("yyyy/MM/dd HH:mm")
-                    val date = Date()
+        setNameEditEvent(dialogView.nameEditText1)
+        setNameEditEvent(dialogView.nameEditText2)
+        setNameEditEvent(dialogView.nameEditText3)
+        setNameEditEvent(dialogView.nameEditText4)
 
-                    //DB入れ子
-                    val pointDataBaseHolder = PointDB()
-                    val playerDataBaseHolder =
-                        arrayListOf(PlayerDB(), PlayerDB(), PlayerDB(), PlayerDB())
+        val alertBuilder = AlertDialog.Builder(this)
+        alert = alertBuilder
+            .setTitle("登録")
+            .setView(dialogView)
+            .setNegativeButton("Cancel", null)
+            .setPositiveButton("OK") { _, _ ->
 
-                    //取得
-                    val playerName = arrayListOf(
-                        dialogView.nameEditText1.text.toString(),
-                        dialogView.nameEditText2.text.toString(),
-                        dialogView.nameEditText3.text.toString(),
-                        dialogView.nameEditText4.text.toString()
-                    )
+                val df = SimpleDateFormat("yyyy/MM/dd HH:mm")
+                val date = Date()
 
-                    //点数
-                    val points = arrayListOf(
-                        dialogView.pointEditText1.text.toString().toInt(),
-                        dialogView.pointEditText2.text.toString().toInt(),
-                        dialogView.pointEditText3.text.toString().toInt(),
-                        dialogView.pointEditText4.text.toString().toInt()
-                    )
+                //DB入れ子
+                val pointDataBaseHolder = PointDB()
+                val playerDataBaseHolder =
+                    arrayListOf(PlayerDB(), PlayerDB(), PlayerDB(), PlayerDB())
 
-                    pointDataBaseHolder.name1 = playerName[0]
-                    pointDataBaseHolder.point1 = points[0]
-                    pointDataBaseHolder.name2 = playerName[1]
-                    pointDataBaseHolder.point2 = points[1]
-                    pointDataBaseHolder.name3 = playerName[2]
-                    pointDataBaseHolder.point3 = points[2]
-                    pointDataBaseHolder.name4 = playerName[3]
-                    pointDataBaseHolder.point4 = points[3]
-                    pointDataBaseHolder.date = df.format(date)
+                //取得
+                val playerName = arrayListOf(
+                    dialogView.nameEditText1.text.toString(),
+                    dialogView.nameEditText2.text.toString(),
+                    dialogView.nameEditText3.text.toString(),
+                    dialogView.nameEditText4.text.toString()
+                )
 
-                    Completable.fromAction { pointAppDataBase.pointDataBaseDao().insert(pointDataBaseHolder) }
+                //点数
+                val points = arrayListOf(
+                    dialogView.pointEditText1.text.toString().toInt(),
+                    dialogView.pointEditText2.text.toString().toInt(),
+                    dialogView.pointEditText3.text.toString().toInt(),
+                    dialogView.pointEditText4.text.toString().toInt()
+                )
+
+                pointDataBaseHolder.name1 = playerName[0]
+                pointDataBaseHolder.point1 = points[0]
+                pointDataBaseHolder.name2 = playerName[1]
+                pointDataBaseHolder.point2 = points[1]
+                pointDataBaseHolder.name3 = playerName[2]
+                pointDataBaseHolder.point3 = points[2]
+                pointDataBaseHolder.name4 = playerName[3]
+                pointDataBaseHolder.point4 = points[3]
+                pointDataBaseHolder.date = df.format(date)
+
+                Completable.fromAction { pointAppDataBase.pointDataBaseDao().insert(pointDataBaseHolder) }
+                    .subscribeOn(Schedulers.io())
+                    .subscribe()
+                for (i in 0 until 4) {
+                    playerDataBaseHolder[i].name = playerName[i]
+                    playerDataBaseHolder[i].point = points[i]
+                    playerDataBaseHolder[i].rank = i + 1
+                    playerDataBaseHolder[i].date = df.format(date)
+                    Completable.fromAction { playerAppDataBase.playerDataBaseDao().insert(playerDataBaseHolder[i]) }
                         .subscribeOn(Schedulers.io())
                         .subscribe()
-                    for (i in 0 until 4) {
-                        playerDataBaseHolder[i].name = playerName[i]
-                        playerDataBaseHolder[i].point = points[i]
-                        playerDataBaseHolder[i].rank = i + 1
-                        playerDataBaseHolder[i].date = df.format(date)
-                        Completable.fromAction { playerAppDataBase.playerDataBaseDao().insert(playerDataBaseHolder[i]) }
+                }
+            }
+            .create()
+
+        alert.show()
+
+        alert.getButton(Dialog.BUTTON_POSITIVE).isEnabled = false
+    }
+
+    fun createChangeDialog(id: Int, names: MutableList<String>, point: MutableList<Int>, date: String) {
+        dialogView = layoutInflater.inflate(R.layout.data_input_layout, null)
+
+        playerAppDataBase.playerDataBaseDao().getPlayerDistinct().observe(
+            this,
+            android.arch.lifecycle.Observer { t ->
+                val adapter = ArrayAdapter<String>(
+                    this, android.R.layout.simple_dropdown_item_1line, t!!
+                )
+                dialogView.nameEditText1.setAdapter<ArrayAdapter<String>>(adapter)
+                dialogView.nameEditText2.setAdapter<ArrayAdapter<String>>(adapter)
+                dialogView.nameEditText3.setAdapter<ArrayAdapter<String>>(adapter)
+                dialogView.nameEditText4.setAdapter<ArrayAdapter<String>>(adapter)
+            })
+
+        dialogView.nameEditText1.setText(names[0], TextView.BufferType.NORMAL)
+        dialogView.nameEditText2.setText(names[1], TextView.BufferType.NORMAL)
+        dialogView.nameEditText3.setText(names[2], TextView.BufferType.NORMAL)
+        dialogView.nameEditText4.setText(names[3], TextView.BufferType.NORMAL)
+
+        dialogView.pointEditText1.setText((point[0] / 100).toString(), TextView.BufferType.NORMAL)
+        dialogView.pointEditText2.setText((point[1] / 100).toString(), TextView.BufferType.NORMAL)
+        dialogView.pointEditText3.setText((point[2] / 100).toString(), TextView.BufferType.NORMAL)
+        dialogView.pointEditText4.setText((point[3] / 100).toString(), TextView.BufferType.NORMAL)
+
+        setResultText(dialogView.resultTextView1, (point[0] - 30000) / 1000.0 + 50)
+        setResultText(dialogView.resultTextView2, (point[0] - 30000) / 1000.0 + 10)
+        setResultText(dialogView.resultTextView3, (point[0] - 30000) / 1000.0 - 10)
+        setResultText(dialogView.resultTextView4, (point[0] - 30000) / 1000.0 - 30)
+
+        setEditEvent(dialogView.resultTextView1, dialogView.pointEditText1, 50)
+        setEditEvent(dialogView.resultTextView2, dialogView.pointEditText2, 10)
+        setEditEvent(dialogView.resultTextView3, dialogView.pointEditText3, -10)
+        setEditEvent(dialogView.resultTextView4, dialogView.pointEditText4, -30)
+
+        setNameEditEvent(dialogView.nameEditText1)
+        setNameEditEvent(dialogView.nameEditText2)
+        setNameEditEvent(dialogView.nameEditText3)
+        setNameEditEvent(dialogView.nameEditText4)
+
+        val alertBuilder = AlertDialog.Builder(this)
+        alert = alertBuilder
+            .setTitle("登録")
+            .setView(dialogView)
+            .setNegativeButton("Cancel", null)
+            .setPositiveButton("OK") { _, _ ->
+
+                val df = SimpleDateFormat("yyyy/MM/dd HH:mm")
+                val dateString = Date()
+
+                //DB入れ子
+                val pointDataBaseHolder = PointDB()
+                val playerDataBaseHolder =
+                    arrayListOf(PlayerDB(), PlayerDB(), PlayerDB(), PlayerDB())
+
+                //取得
+                val playerName = arrayListOf(
+                    dialogView.nameEditText1.text.toString(),
+                    dialogView.nameEditText2.text.toString(),
+                    dialogView.nameEditText3.text.toString(),
+                    dialogView.nameEditText4.text.toString()
+                )
+
+                //点数
+                val points = arrayListOf(
+                    dialogView.pointEditText1.text.toString().toInt(),
+                    dialogView.pointEditText2.text.toString().toInt(),
+                    dialogView.pointEditText3.text.toString().toInt(),
+                    dialogView.pointEditText4.text.toString().toInt()
+                )
+
+                pointDataBaseHolder.name1 = playerName[0]
+                pointDataBaseHolder.point1 = points[0]
+                pointDataBaseHolder.name2 = playerName[1]
+                pointDataBaseHolder.point2 = points[1]
+                pointDataBaseHolder.name3 = playerName[2]
+                pointDataBaseHolder.point3 = points[2]
+                pointDataBaseHolder.name4 = playerName[3]
+                pointDataBaseHolder.point4 = points[3]
+                pointDataBaseHolder.date = df.format(dateString)
+
+                Completable.fromAction { pointAppDataBase.pointDataBaseDao().insert(pointDataBaseHolder) }
+                    .subscribeOn(Schedulers.io())
+                    .subscribe()
+                for (i in 0 until 4) {
+                    playerDataBaseHolder[i].name = playerName[i]
+                    playerDataBaseHolder[i].point = points[i]
+                    playerDataBaseHolder[i].rank = i + 1
+                    playerDataBaseHolder[i].date = df.format(dateString)
+                    Completable.fromAction { playerAppDataBase.playerDataBaseDao().insert(playerDataBaseHolder[i]) }
+                        .subscribeOn(Schedulers.io())
+                        .subscribe()
+                }
+            }
+            .setNeutralButton("データ削除") { _, _ ->
+                AlertDialog.Builder(this)
+                    .setTitle("削除します")
+                    .setPositiveButton("OK") { _, _ ->
+                        //削除
+                        Completable.fromAction { pointAppDataBase.pointDataBaseDao().deleteId(id) }
                             .subscribeOn(Schedulers.io())
                             .subscribe()
+                        //削除
+                        for (i in 0 until 4) {
+                            Log.d("ZZZ", names[i] + date + point[i])
+                            Completable.fromAction {
+                                playerAppDataBase.playerDataBaseDao().deletePlayer(names[i], date, point[i] / 100)
+                            }
+                                .subscribeOn(Schedulers.io())
+                                .subscribe()
+                        }
                     }
+                    .setNegativeButton("Cancel", null)
+                    .show()
+            }
+            .create()
 
-                    //Log
-                    Log.e("LogData", "------------------------------")
-                    Log.d("LogData", "$playerName")
-                    Log.e("LogData", "---")
-                    Log.d("LogData", "$points")
-                    Log.e("LogData", "---")
-                    Log.d("LogData", df.format(date))
-                    Log.e("LogData", "------------------------------")
-                }
-                .create()
+        alert.show()
 
-            alert.show()
-
-            alert.getButton(Dialog.BUTTON_POSITIVE).isEnabled = false
-        }
+        alert.getButton(Dialog.BUTTON_POSITIVE).isEnabled = false
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -286,7 +406,7 @@ class MainActivity : AppCompatActivity() {
                     vText.text = String.format("  %.1f", res)
                 } else {
                     vText.setTextColor(Color.RED)
-                    vText.text = String.format("▲ %.1f", res)
+                    vText.text = String.format("▲ %.1f", res * -1)
                 }
                 setSunResults()
                 inputCheck()
@@ -336,6 +456,16 @@ class MainActivity : AppCompatActivity() {
                     dialogView.nameEditText2.text.toString() != "" &&
                     dialogView.nameEditText3.text.toString() != "" &&
                     dialogView.nameEditText4.text.toString() != ""
+    }
+
+    private fun setResultText(textView: TextView, res: Double) {
+        if (res >= 0) {
+            textView.setTextColor(Color.BLACK)
+            textView.text = String.format("  %.1f", res)
+        } else {
+            textView.setTextColor(Color.RED)
+            textView.text = String.format("▲ %.1f", res * -1)
+        }
     }
 
 }

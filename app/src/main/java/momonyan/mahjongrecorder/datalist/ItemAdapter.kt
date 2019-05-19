@@ -5,9 +5,11 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import momonyan.mahjongrecorder.MainActivity
 import momonyan.mahjongrecorder.R
 
-class ItemAdapter(var mValue: ArrayList<ItemDataClass>) : RecyclerView.Adapter<ItemHolder>() {
+class ItemAdapter(var mValue: ArrayList<ItemDataClass>, private val activity: MainActivity?) :
+    RecyclerView.Adapter<ItemHolder>() {
     //作成
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ItemHolder {
         val hView = LayoutInflater.from(p0.context).inflate(R.layout.card_main, p0, false)
@@ -38,12 +40,18 @@ class ItemAdapter(var mValue: ArrayList<ItemDataClass>) : RecyclerView.Adapter<I
                 holder.vResult[i].text = "▲${item.dResult[i] * -1}"
             }
         }
+        if (activity != null) {
+            holder.vCardView.setOnClickListener {
+                activity.createChangeDialog(item.id, item.dName, item.dPoint, item.dDate)
+            }
+        }
     }
 
     //カウント
     override fun getItemCount(): Int {
         return mValue.size
     }
+
 }
 
 

@@ -1,6 +1,12 @@
 package momonyan.mahjongrecorder.datalist
 
-class ItemDataClass(val dName: MutableList<String>, val dPoint: MutableList<Int>, val dResult: MutableList<Double>) {
+class ItemDataClass(
+    val id: Int,
+    val dName: MutableList<String>,
+    val dPoint: MutableList<Int>,
+    val dResult: MutableList<Double>,
+    val dDate: String
+) {
     //Getter
     //Player
     fun getPlayerName(): MutableList<String> {

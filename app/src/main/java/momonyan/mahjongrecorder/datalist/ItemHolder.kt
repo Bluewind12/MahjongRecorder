@@ -1,5 +1,6 @@
 package momonyan.mahjongrecorder.datalist
 
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
@@ -18,5 +19,6 @@ class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
         view.resultPointTextView3,
         view.resultPointTextView4
     )
+    val vCardView: CardView = view.cardView
 
 }

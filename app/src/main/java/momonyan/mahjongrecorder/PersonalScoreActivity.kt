@@ -117,19 +117,19 @@ class PersonalScoreActivity : AppCompatActivity() {
                         )
                     mDataList.add(
                         ItemDataClass(
+                            data[i].id,
                             nameList,
                             pointList,
-                            resultList
+                            resultList,
+                            data[i].date
                         )
                     )
                 }
-                val adapter = ItemAdapter(mDataList)
+                val adapter = ItemAdapter(mDataList, null)
                 personRecyclerView.adapter = adapter
                 personRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             })
         }
-
-
     }
 
 }
