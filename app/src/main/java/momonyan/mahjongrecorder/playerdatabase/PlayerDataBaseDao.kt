@@ -37,6 +37,14 @@ interface PlayerDataBaseDao {
     @Query("DELETE FROM PlayerDB WHERE Name = :name AND Date = :date AND Point = :point")
     fun deletePlayer(name: String, date: String, point: Int)
 
+    // 編集
+    @Query("UPDATE PlayerDB SET name = :newName , point = :newPoint WHERE name = :oldName ")
+    fun updateData(
+        oldName: String,
+        newName: String,
+        newPoint: Int
+    )
+
 /*
     // 編集
     @Query("UPDATE user SET memo = :changeMemo WHERE userId = :id ")

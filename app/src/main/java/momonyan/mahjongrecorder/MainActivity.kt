@@ -291,25 +291,27 @@ class MainActivity : AppCompatActivity() {
                     dialogView.pointEditText4.text.toString().toInt()
                 )
 
-                pointDataBaseHolder.name1 = playerName[0]
-                pointDataBaseHolder.point1 = points[0]
-                pointDataBaseHolder.name2 = playerName[1]
-                pointDataBaseHolder.point2 = points[1]
-                pointDataBaseHolder.name3 = playerName[2]
-                pointDataBaseHolder.point3 = points[2]
-                pointDataBaseHolder.name4 = playerName[3]
-                pointDataBaseHolder.point4 = points[3]
-                pointDataBaseHolder.date = df.format(dateString)
 
-                Completable.fromAction { pointAppDataBase.pointDataBaseDao().insert(pointDataBaseHolder) }
+
+                Completable.fromAction {
+                    pointAppDataBase.pointDataBaseDao().updateData(
+                        id,
+                        playerName[0],
+                        points[0],
+                        playerName[1],
+                        points[1],
+                        playerName[2],
+                        points[2],
+                        playerName[3],
+                        points[3]
+                    )
+                }
                     .subscribeOn(Schedulers.io())
                     .subscribe()
                 for (i in 0 until 4) {
-                    playerDataBaseHolder[i].name = playerName[i]
-                    playerDataBaseHolder[i].point = points[i]
-                    playerDataBaseHolder[i].rank = i + 1
-                    playerDataBaseHolder[i].date = df.format(dateString)
-                    Completable.fromAction { playerAppDataBase.playerDataBaseDao().insert(playerDataBaseHolder[i]) }
+                    Completable.fromAction {
+                        playerAppDataBase.playerDataBaseDao().updateData(names[i], playerName[i], points[i])
+                    }
                         .subscribeOn(Schedulers.io())
                         .subscribe()
                 }

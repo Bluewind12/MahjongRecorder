@@ -26,11 +26,18 @@ interface PointDataBaseDao {
     fun deleteId(id: Int)
 
 
-
-/*
     // 編集
-    @Query("UPDATE user SET memo = :changeMemo WHERE userId = :id ")
-    fun editMemo(id: Int, changeMemo: String)
-*/
+    @Query("UPDATE PointDB SET Name1 = :name1 ,Point1 = :point1,Name2 = :name2 ,Point2 = :point2,Name3 = :name3 ,Point3 = :point3,Name4 = :name4 ,Point4 = :point4 WHERE id = :id ")
+    fun updateData(
+        id: Int,
+        name1: String,
+        point1: Int,
+        name2: String,
+        point2: Int,
+        name3: String,
+        point3: Int,
+        name4: String,
+        point4: Int
+    )
 
 }
