@@ -23,28 +23,31 @@ class ItemAdapter(var mValue: ArrayList<ItemDataClass>, private val activity: Ma
         Log.d("Check", "$p1:${item.dName} - ${item.dPoint},${item.dResult}")
         Log.e("Check", "--------------------------")
 
+        //点数など
         for (i in 0 until 4) {
-            holder.vNames[i].text = item.dName[i]
-            holder.vPoint[i].text = "${item.dPoint[i]}点"
+            holder.vNameTextViews[i].text = item.dName[i]
+            holder.vPointTextViews[i].text = String.format("%d点", item.dPoint[i])
             if (item.dPoint[i] > 0) {
-                holder.vPoint[i].setTextColor(Color.BLACK)
+                holder.vPointTextViews[i].setTextColor(Color.BLACK)
             } else {
-                holder.vPoint[i].setTextColor(Color.RED)
+                holder.vPointTextViews[i].setTextColor(Color.RED)
             }
             if (item.dResult[i] >= 0) {
-                holder.vResult[i].setTextColor(Color.BLACK)
-                holder.vResult[i].text = "${item.dResult[i]}"
+                holder.vResultTextViews[i].setTextColor(Color.BLACK)
+                holder.vResultTextViews[i].text = String.format("%.2f", item.dResult[i])
 
             } else {
-                holder.vResult[i].setTextColor(Color.RED)
-                holder.vResult[i].text = "▲${item.dResult[i] * -1}"
+                holder.vResultTextViews[i].setTextColor(Color.RED)
+                holder.vResultTextViews[i].text = String.format("▲%.2f", item.dResult[i] * -1)
             }
         }
+        holder.vDateTextViews.text = item.dDate
         if (activity != null) {
             holder.vCardView.setOnClickListener {
                 activity.createChangeDialog(item.id, item.dName, item.dPoint, item.dDate)
             }
         }
+
     }
 
     //カウント

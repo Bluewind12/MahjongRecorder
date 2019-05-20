@@ -101,5 +101,13 @@
                     android:layout_height="wrap_content" android:id="@+id/resultPointTextView4"
                     android:layout_weight="3" tools:text="結果プラマイ" android:gravity="end"/>
         </TableRow>
+        <Space
+                android:layout_width="wrap_content"
+                android:layout_height="5dp" android:background="@color/colorPrimary"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/dateTextView"
+                android:layout_weight="1" tools:text="日付表示" android:gravity="end" android:textSize="12sp"/>
     </TableLayout>
+
 </android.support.v7.widget.CardView>
