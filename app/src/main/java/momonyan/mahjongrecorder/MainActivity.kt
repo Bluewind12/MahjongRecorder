@@ -14,10 +14,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.SearchView
-import android.widget.TextView
+import android.widget.*
 import com.facebook.stetho.Stetho
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
@@ -44,6 +41,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var playerAppDataBase: PlayerAppDataBase
 
     private lateinit var alert: AlertDialog
+
+    private lateinit var nameEditTexts: ArrayList<AutoCompleteTextView>
+    private lateinit var pointEditTexts: ArrayList<EditText>
+    private lateinit var resultTextViews: ArrayList<TextView>
+
+    private val pointData = arrayListOf(50, 10, -10, -30)
+
+    private var pointCheckFrag = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -135,29 +140,41 @@ class MainActivity : AppCompatActivity() {
     private fun createDialog() {
         dialogView = layoutInflater.inflate(R.layout.data_input_layout, null)
 
+        nameEditTexts = arrayListOf(
+            dialogView.nameEditText1,
+            dialogView.nameEditText2,
+            dialogView.nameEditText3,
+            dialogView.nameEditText4
+        )
+        pointEditTexts = arrayListOf(
+            dialogView.pointEditText1,
+            dialogView.pointEditText2,
+            dialogView.pointEditText3,
+            dialogView.pointEditText4
+        )
+        resultTextViews = arrayListOf(
+            dialogView.resultTextView1,
+            dialogView.resultTextView2,
+            dialogView.resultTextView3,
+            dialogView.resultTextView4
+        )
+
         playerAppDataBase.playerDataBaseDao().getPlayerDistinct().observe(
             this,
             android.arch.lifecycle.Observer { t ->
                 val adapter = ArrayAdapter<String>(
                     this, android.R.layout.simple_dropdown_item_1line, t!!
                 )
-                dialogView.nameEditText1.setAdapter<ArrayAdapter<String>>(adapter)
-                dialogView.nameEditText2.setAdapter<ArrayAdapter<String>>(adapter)
-                dialogView.nameEditText3.setAdapter<ArrayAdapter<String>>(adapter)
-                dialogView.nameEditText4.setAdapter<ArrayAdapter<String>>(adapter)
+                nameEditTexts.forEach {
+                    it.setAdapter<ArrayAdapter<String>>(adapter)
+                }
             })
 
-        dialogView.nameEditText1
 
-        setEditEvent(dialogView.resultTextView1, dialogView.pointEditText1, 50)
-        setEditEvent(dialogView.resultTextView2, dialogView.pointEditText2, 10)
-        setEditEvent(dialogView.resultTextView3, dialogView.pointEditText3, -10)
-        setEditEvent(dialogView.resultTextView4, dialogView.pointEditText4, -30)
-
-        setNameEditEvent(dialogView.nameEditText1)
-        setNameEditEvent(dialogView.nameEditText2)
-        setNameEditEvent(dialogView.nameEditText3)
-        setNameEditEvent(dialogView.nameEditText4)
+        for (i in 0 until 4) {
+            setEditEvent(resultTextViews[i], pointEditTexts[i], pointData[i])
+            setNameEditEvent(nameEditTexts[i])
+        }
 
         val alertBuilder = AlertDialog.Builder(this)
         alert = alertBuilder
@@ -176,27 +193,27 @@ class MainActivity : AppCompatActivity() {
 
                 //取得
                 val playerName = arrayListOf(
-                    dialogView.nameEditText1.text.toString(),
-                    dialogView.nameEditText2.text.toString(),
-                    dialogView.nameEditText3.text.toString(),
-                    dialogView.nameEditText4.text.toString()
+                    nameEditTexts[0].text.toString(),
+                    nameEditTexts[1].text.toString(),
+                    nameEditTexts[2].text.toString(),
+                    nameEditTexts[3].text.toString()
                 )
 
                 //点数
                 val points = arrayListOf(
-                    dialogView.pointEditText1.text.toString().toInt(),
-                    dialogView.pointEditText2.text.toString().toInt(),
-                    dialogView.pointEditText3.text.toString().toInt(),
-                    dialogView.pointEditText4.text.toString().toInt()
+                    pointEditTexts[0].text.toString().toInt(),
+                    pointEditTexts[1].text.toString().toInt(),
+                    pointEditTexts[2].text.toString().toInt(),
+                    pointEditTexts[3].text.toString().toInt()
                 )
 
                 pointDataBaseHolder.name1 = playerName[0]
-                pointDataBaseHolder.point1 = points[0]
                 pointDataBaseHolder.name2 = playerName[1]
-                pointDataBaseHolder.point2 = points[1]
                 pointDataBaseHolder.name3 = playerName[2]
-                pointDataBaseHolder.point3 = points[2]
                 pointDataBaseHolder.name4 = playerName[3]
+                pointDataBaseHolder.point1 = points[0]
+                pointDataBaseHolder.point2 = points[1]
+                pointDataBaseHolder.point3 = points[2]
                 pointDataBaseHolder.point4 = points[3]
                 pointDataBaseHolder.date = df.format(date)
 
@@ -223,6 +240,8 @@ class MainActivity : AppCompatActivity() {
     fun createChangeDialog(id: Int, names: MutableList<String>, point: MutableList<Int>, date: String) {
         dialogView = layoutInflater.inflate(R.layout.data_input_layout, null)
 
+
+
         playerAppDataBase.playerDataBaseDao().getPlayerDistinct().observe(
             this,
             android.arch.lifecycle.Observer { t ->
@@ -234,31 +253,17 @@ class MainActivity : AppCompatActivity() {
                 dialogView.nameEditText3.setAdapter<ArrayAdapter<String>>(adapter)
                 dialogView.nameEditText4.setAdapter<ArrayAdapter<String>>(adapter)
             })
+        for (i in 0 until 4) {
+            nameEditTexts[i].setText(names[i], TextView.BufferType.NORMAL)
 
-        dialogView.nameEditText1.setText(names[0], TextView.BufferType.NORMAL)
-        dialogView.nameEditText2.setText(names[1], TextView.BufferType.NORMAL)
-        dialogView.nameEditText3.setText(names[2], TextView.BufferType.NORMAL)
-        dialogView.nameEditText4.setText(names[3], TextView.BufferType.NORMAL)
+            pointEditTexts[i].setText((point[i] / 100).toString(), TextView.BufferType.NORMAL)
 
-        dialogView.pointEditText1.setText((point[0] / 100).toString(), TextView.BufferType.NORMAL)
-        dialogView.pointEditText2.setText((point[1] / 100).toString(), TextView.BufferType.NORMAL)
-        dialogView.pointEditText3.setText((point[2] / 100).toString(), TextView.BufferType.NORMAL)
-        dialogView.pointEditText4.setText((point[3] / 100).toString(), TextView.BufferType.NORMAL)
+            setResultText(resultTextViews[i], (point[i] - 30000) / 1000.0 + pointData[i])
 
-        setResultText(dialogView.resultTextView1, (point[0] - 30000) / 1000.0 + 50)
-        setResultText(dialogView.resultTextView2, (point[0] - 30000) / 1000.0 + 10)
-        setResultText(dialogView.resultTextView3, (point[0] - 30000) / 1000.0 - 10)
-        setResultText(dialogView.resultTextView4, (point[0] - 30000) / 1000.0 - 30)
+            setEditEvent(resultTextViews[i], pointEditTexts[i], pointData[i])
 
-        setEditEvent(dialogView.resultTextView1, dialogView.pointEditText1, 50)
-        setEditEvent(dialogView.resultTextView2, dialogView.pointEditText2, 10)
-        setEditEvent(dialogView.resultTextView3, dialogView.pointEditText3, -10)
-        setEditEvent(dialogView.resultTextView4, dialogView.pointEditText4, -30)
-
-        setNameEditEvent(dialogView.nameEditText1)
-        setNameEditEvent(dialogView.nameEditText2)
-        setNameEditEvent(dialogView.nameEditText3)
-        setNameEditEvent(dialogView.nameEditText4)
+            setNameEditEvent(nameEditTexts[i])
+        }
 
         val alertBuilder = AlertDialog.Builder(this)
         alert = alertBuilder
@@ -429,19 +434,13 @@ class MainActivity : AppCompatActivity() {
     fun setSunResults() {
         var sum = 0.0
 
-        if (dialogView.pointEditText1.text.toString() != "" && dialogView.pointEditText1.text.toString() != "-") {
-            sum += dialogView.pointEditText1.text.toString().toDouble()
-        }
-        if (dialogView.pointEditText2.text.toString() != "" && dialogView.pointEditText2.text.toString() != "-") {
-            sum += dialogView.pointEditText2.text.toString().toDouble()
-        }
-        if (dialogView.pointEditText3.text.toString() != "" && dialogView.pointEditText3.text.toString() != "-") {
-            sum += dialogView.pointEditText3.text.toString().toDouble()
-        }
-        if (dialogView.pointEditText4.text.toString() != "" && dialogView.pointEditText4.text.toString() != "-") {
-            sum += dialogView.pointEditText4.text.toString().toDouble()
+        pointEditTexts.forEach {
+            if (it.text.toString() != "" && it.text.toString() != "-") {
+                sum += it.text.toString().toDouble()
+            }
         }
         dialogView.sumTextView.text = String.format("計：%.0f点", sum * 100)
+        pointCheckFrag = sum == 0.0
     }
 
     fun inputCheck() {
@@ -457,7 +456,9 @@ class MainActivity : AppCompatActivity() {
                     dialogView.nameEditText1.text.toString() != "" &&
                     dialogView.nameEditText2.text.toString() != "" &&
                     dialogView.nameEditText3.text.toString() != "" &&
-                    dialogView.nameEditText4.text.toString() != ""
+                    dialogView.nameEditText4.text.toString() != "" &&
+                    pointCheckFrag
+
     }
 
     private fun setResultText(textView: TextView, res: Double) {
