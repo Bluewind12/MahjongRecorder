@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:nendsdk="http://schemas.android.com/apk/res-auto"
                                              xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
                                              android:layout_height="match_parent">
 
@@ -108,7 +109,7 @@
             android:layout_marginLeft="8dp" android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
             android:id="@+id/tableLayout2"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent">
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/nendPersonal">
 
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
             <TextView
@@ -119,7 +120,7 @@
             <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content" android:id="@+id/pointSumTextView" android:layout_weight="3"
-                    tools:text="-----点" android:gravity="end" android:textSize="24sp" android:textStyle="bold"/>
+                    tools:text="-----点" android:gravity="end" android:textSize="14sp" android:textStyle="bold"/>
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
             <TextView
@@ -130,18 +131,19 @@
             <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content" android:id="@+id/pointAveTextView" android:layout_weight="3"
-                    tools:text="-----点" android:gravity="end" android:textSize="24sp" android:textStyle="bold"/>
+                    tools:text="-----点" android:gravity="end" android:textSize="14sp" android:textStyle="bold"/>
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent"
         >
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="match_parent" android:id="@+id/pointMaxTitleText" android:text="@string/max_score"
+                    android:layout_height="match_parent" android:id="@+id/pointMaxTitleText"
+                    android:text="@string/max_score"
                     android:layout_weight="1" android:gravity="center"/>
             <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content" android:id="@+id/pointMaxTextView" android:layout_weight="3"
-                    tools:text="-----点" android:gravity="end" android:textSize="24sp" android:textStyle="bold"/>
+                    tools:text="-----点" android:gravity="end" android:textSize="14sp" android:textStyle="bold"/>
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
             <TextView
@@ -152,7 +154,7 @@
             <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content" android:id="@+id/pointMinTextView" android:layout_weight="3"
-                    tools:text="-----点" android:gravity="end" android:textSize="24sp" android:textStyle="bold"/>
+                    tools:text="-----点" android:gravity="end" android:textSize="14sp" android:textStyle="bold"/>
         </TableRow>
     </TableLayout>
     <android.support.v7.widget.RecyclerView
@@ -161,7 +163,7 @@
             app:layout_constraintTop_toBottomOf="@+id/personalSpinner" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
             app:layout_constraintBottom_toTopOf="@+id/space" android:id="@+id/personRecyclerView"/>
     <Space
             android:layout_width="wrap_content"
@@ -171,4 +173,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" android:id="@+id/space"
             app:layout_constraintVertical_bias="0.375"/>
+
+    <net.nend.android.NendAdView
+            android:id="@+id/nendPersonal"
+            android:layout_width="320dp"
+            android:layout_height="50dp"
+            nendsdk:NendApiKey="@string/nend_personal_key"
+            nendsdk:NendSpotId="@integer/nend_personal_id" android:layout_marginBottom="0dp"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"/>
 </android.support.constraint.ConstraintLayout>

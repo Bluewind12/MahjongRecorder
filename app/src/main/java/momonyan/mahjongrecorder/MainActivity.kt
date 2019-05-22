@@ -26,6 +26,7 @@ import momonyan.mahjongrecorder.playerdatabase.PlayerAppDataBase
 import momonyan.mahjongrecorder.playerdatabase.PlayerDB
 import momonyan.mahjongrecorder.pointdatabase.PointAppDataBase
 import momonyan.mahjongrecorder.pointdatabase.PointDB
+import net.nend.android.NendAdInterstitialVideo
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -50,9 +51,19 @@ class MainActivity : AppCompatActivity() {
 
     private var pointCheckFrag = false
 
+    private lateinit var nendAdInterstitialVideo: NendAdInterstitialVideo
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //Nend(動画)
+        nendAdInterstitialVideo = NendAdInterstitialVideo(
+            this,
+            resources.getInteger(R.integer.nend_set_end_id),
+            getString(R.string.nend_set_end_key)
+        )
+        nendAdInterstitialVideo.loadAd()
 
         //DataBase
         pointAppDataBase =
@@ -110,10 +121,10 @@ class MainActivity : AppCompatActivity() {
                     )
                 val resultList: MutableList<Double> =
                     mutableListOf(
-                        (pointList[0] - 300) / 10.0 + 50,
-                        (pointList[1] - 300) / 10.0 + 10,
-                        (pointList[2] - 300) / 10.0 - 10,
-                        (pointList[3] - 300) / 10.0 - 30
+                        (pointList[0] - 30000) / 1000.0 + 50,
+                        (pointList[1] - 30000) / 1000.0 + 10,
+                        (pointList[2] - 30000) / 1000.0 - 10,
+                        (pointList[3] - 30000) / 1000.0 - 30
                     )
                 mDataList.add(
                     ItemDataClass(
@@ -230,6 +241,11 @@ class MainActivity : AppCompatActivity() {
                         .subscribe()
                 }
             }
+            .setOnDismissListener {
+                if (nendAdInterstitialVideo.isLoaded) {
+                    nendAdInterstitialVideo.showAd(this)
+                }
+            }
             .create()
 
         alert.show()
@@ -239,9 +255,24 @@ class MainActivity : AppCompatActivity() {
 
     fun createChangeDialog(id: Int, names: MutableList<String>, point: MutableList<Int>, date: String) {
         dialogView = layoutInflater.inflate(R.layout.data_input_layout, null)
-
-
-
+        nameEditTexts = arrayListOf(
+            dialogView.nameEditText1,
+            dialogView.nameEditText2,
+            dialogView.nameEditText3,
+            dialogView.nameEditText4
+        )
+        pointEditTexts = arrayListOf(
+            dialogView.pointEditText1,
+            dialogView.pointEditText2,
+            dialogView.pointEditText3,
+            dialogView.pointEditText4
+        )
+        resultTextViews = arrayListOf(
+            dialogView.resultTextView1,
+            dialogView.resultTextView2,
+            dialogView.resultTextView3,
+            dialogView.resultTextView4
+        )
         playerAppDataBase.playerDataBaseDao().getPlayerDistinct().observe(
             this,
             android.arch.lifecycle.Observer { t ->
@@ -255,13 +286,9 @@ class MainActivity : AppCompatActivity() {
             })
         for (i in 0 until 4) {
             nameEditTexts[i].setText(names[i], TextView.BufferType.NORMAL)
-
             pointEditTexts[i].setText((point[i] / 100).toString(), TextView.BufferType.NORMAL)
-
             setResultText(resultTextViews[i], (point[i] - 30000) / 1000.0 + pointData[i])
-
             setEditEvent(resultTextViews[i], pointEditTexts[i], pointData[i])
-
             setNameEditEvent(nameEditTexts[i])
         }
 
@@ -341,6 +368,11 @@ class MainActivity : AppCompatActivity() {
                     }
                     .setNegativeButton("Cancel", null)
                     .show()
+            }
+            .setOnDismissListener {
+                if (nendAdInterstitialVideo.isLoaded) {
+                    nendAdInterstitialVideo.showAd(this)
+                }
             }
             .create()
 
@@ -440,7 +472,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
         dialogView.sumTextView.text = String.format("計：%.0f点", sum * 100)
-        pointCheckFrag = sum == 0.0
+        Log.d("SUM", sum.toString())
+        pointCheckFrag = sum == 1000.0
     }
 
     fun inputCheck() {
@@ -462,6 +495,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setResultText(textView: TextView, res: Double) {
+        Log.d("RES", res.toString())
         if (res >= 0) {
             textView.setTextColor(Color.BLACK)
             textView.text = String.format("  %.1f", res)

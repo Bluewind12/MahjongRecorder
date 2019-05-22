@@ -118,10 +118,10 @@ class PersonalScoreActivity : AppCompatActivity() {
                         )
                     val resultList: MutableList<Double> =
                         mutableListOf(
-                            (pointList[0] - 300) / 10.0 + 50,
-                            (pointList[1] - 300) / 10.0 + 10,
-                            (pointList[2] - 300) / 10.0 - 10,
-                            (pointList[3] - 300) / 10.0 - 30
+                            (pointList[0] - 30000) / 1000.0 + 50,
+                            (pointList[1] - 30000) / 1000.0 + 10,
+                            (pointList[2] - 30000) / 1000.0 - 10,
+                            (pointList[3] - 30000) / 1000.0 - 30
                         )
                     mDataList.add(
                         ItemDataClass(
