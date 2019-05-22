@@ -14,7 +14,7 @@
             android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/playerTitleTextView"/>
     <TextView
-            android:text="Player"
+            android:text="@string/player_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/playerTitleTextView" app:layout_constraintStart_toStartOf="parent"
@@ -44,60 +44,60 @@
             <TextView
                     android:text="@string/rank_1"
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/rank1TextView" android:layout_weight="1"
+                    android:layout_height="match_parent" android:id="@+id/rank1TextView" android:layout_weight="1"
                     android:textSize="18sp" android:gravity="center"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/rank1CountTextView" tools:text="-- 回/ -- 回"
+                    android:layout_height="match_parent" android:id="@+id/rank1CountTextView" tools:text="-- 回/ -- 回"
                     android:layout_weight="3" android:gravity="end" android:textSize="18sp"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/rank1PercentTextView" tools:text="--%"
+                    android:layout_height="match_parent" android:id="@+id/rank1PercentTextView" tools:text="--%"
                     android:layout_weight="3" android:gravity="end" android:textSize="18sp"/>
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
             <TextView
                     android:text="@string/rank_2"
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/rank2TextView" android:layout_weight="1"
+                    android:layout_height="match_parent" android:id="@+id/rank2TextView" android:layout_weight="1"
                     android:textSize="18sp" android:gravity="center"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/rank2CountTextView" tools:text="-- 回/ -- 回"
+                    android:layout_height="match_parent" android:id="@+id/rank2CountTextView" tools:text="-- 回/ -- 回"
                     android:layout_weight="3" android:gravity="end" android:textSize="18sp"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/rank2PercentTextView" tools:text="--%"
+                    android:layout_height="match_parent" android:id="@+id/rank2PercentTextView" tools:text="--%"
                     android:layout_weight="3" android:gravity="end" android:textSize="18sp"/>
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
             <TextView
                     android:text="@string/rank_3"
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/rank3TextView" android:layout_weight="1"
+                    android:layout_height="match_parent" android:id="@+id/rank3TextView" android:layout_weight="1"
                     android:textSize="18sp" android:gravity="center"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/rank3CountTextView" tools:text="-- 回/ -- 回"
+                    android:layout_height="match_parent" android:id="@+id/rank3CountTextView" tools:text="-- 回/ -- 回"
                     android:layout_weight="3" android:gravity="end" android:textSize="18sp"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/rank3PercentTextView" tools:text="--%"
+                    android:layout_height="match_parent" android:id="@+id/rank3PercentTextView" tools:text="--%"
                     android:layout_weight="3" android:gravity="end" android:textSize="18sp"/>
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
             <TextView
                     android:text="@string/rank_4"
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/rank4TextView" android:layout_weight="1"
+                    android:layout_height="match_parent" android:id="@+id/rank4TextView" android:layout_weight="1"
                     android:textSize="18sp" android:gravity="center"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/rank4CountTextView" tools:text="-- 回/ -- 回"
+                    android:layout_height="match_parent" android:id="@+id/rank4CountTextView" tools:text="-- 回/ -- 回"
                     android:layout_weight="3" android:gravity="end" android:textSize="18sp"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/rank4PercentTextView" tools:text="--%"
+                    android:layout_height="match_parent" android:id="@+id/rank4PercentTextView" tools:text="--%"
                     android:layout_weight="3" android:gravity="end" android:textSize="18sp"/>
         </TableRow>
     </TableLayout>
@@ -112,9 +112,9 @@
 
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
             <TextView
-                    android:text="累計点数"
+                    android:text="@string/sum_score"
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/pointSumTitleText" android:layout_weight="1"
+                    android:layout_height="match_parent" android:id="@+id/pointSumTitleText" android:layout_weight="1"
                     android:gravity="center"/>
             <TextView
                     android:layout_width="0dip"
@@ -123,9 +123,9 @@
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
             <TextView
-                    android:text="平均点数"
+                    android:text="@string/ave_score"
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/pointAveTitleText3"
+                    android:layout_height="match_parent" android:id="@+id/pointAveTitleText3"
                     android:layout_weight="1" android:gravity="center"/>
             <TextView
                     android:layout_width="0dip"
@@ -136,7 +136,7 @@
         >
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/pointMaxTitleText" android:text="最大点数"
+                    android:layout_height="match_parent" android:id="@+id/pointMaxTitleText" android:text="@string/max_score"
                     android:layout_weight="1" android:gravity="center"/>
             <TextView
                     android:layout_width="0dip"
@@ -145,9 +145,9 @@
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
             <TextView
-                    android:text="最小点数"
+                    android:text="@string/min_score"
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/pointMinTitleText" android:layout_weight="1"
+                    android:layout_height="match_parent" android:id="@+id/pointMinTitleText" android:layout_weight="1"
                     android:gravity="center"/>
             <TextView
                     android:layout_width="0dip"

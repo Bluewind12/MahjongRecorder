@@ -349,10 +349,14 @@ class MainActivity : AppCompatActivity() {
         alert.getButton(Dialog.BUTTON_POSITIVE).isEnabled = false
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_option_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menuPlayerData -> {
-                //TODO プレイヤー個人の成績を出力するページへ（グラフとかあるといいかもしれぬ）
                 val intent = Intent(this, PersonalScoreActivity::class.java)
                 startActivity(intent)
                 Log.d("Menu", item.itemId.toString())
@@ -375,11 +379,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return true
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_option_menu, menu)
-        return super.onCreateOptionsMenu(menu)
     }
 
     fun searchResult(text: String) {

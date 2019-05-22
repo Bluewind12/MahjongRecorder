@@ -10,4 +10,9 @@
     <string name="rank_3">3位</string>
     <string name="rank_4">4位</string>
     <string name="zero_zero">00点</string>
+    <string name="min_score">最小点数</string>
+    <string name="ave_score">平均点数</string>
+    <string name="sum_score">累計点数</string>
+    <string name="max_score">最大点数</string>
+    <string name="player_select">プレイヤー選択</string>
 </resources>
