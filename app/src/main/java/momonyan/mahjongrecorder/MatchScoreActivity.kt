@@ -86,7 +86,6 @@ class MatchScoreActivity : AppCompatActivity() {
         nameList[pos] = name
         playerNameTextViewList[pos].text = name
         if (nameList.filter { it != "プレイヤーを選択してください" }.distinct().size == 4) {
-            //TODO 回数とかの取得、表示。
             //DBからの取得
             pointAppDataBase.pointDataBaseDao().getMatchData(nameList[0], nameList[1], nameList[2], nameList[3])
                 .observe(this, android.arch.lifecycle.Observer { data ->

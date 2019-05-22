@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ホーム 50 -->
+    <string name="nend_home_key">c5cb8bc474345961c6e7a9778c947957ed8e1e4f</string>
+    <integer name="nend_home_id">3174</integer>
+    <!--個人戦績-->
+    <string name="nend_personal_key">c5cb8bc474345961c6e7a9778c947957ed8e1e4f</string>
+    <integer name="nend_personal_id">3174</integer>
+    <!--対戦戦績-->
+    <string name="nend_match_key">c5cb8bc474345961c6e7a9778c947957ed8e1e4f</string>
+    <integer name="nend_match_id">3174</integer>
+    <!--入力終了時-->
+    <string name="nend_set_end_key">e9527a2ac8d1f39a667dfe0f7c169513b090ad44</string>
+    <integer name="nend_set_end_id">802559</integer>
+</resources>
