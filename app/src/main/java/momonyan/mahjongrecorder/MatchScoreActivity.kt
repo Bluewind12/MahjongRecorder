@@ -3,17 +3,20 @@ package momonyan.mahjongrecorder
 import android.arch.persistence.room.Room
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import kotlinx.android.synthetic.main.match_score_layout.*
+import momonyan.mahjongrecorder.datalist.ItemAdapter
 import momonyan.mahjongrecorder.datalist.ItemDataClass
 import momonyan.mahjongrecorder.playerdatabase.PlayerAppDataBase
 import momonyan.mahjongrecorder.pointdatabase.PointAppDataBase
 
 class MatchScoreActivity : AppCompatActivity() {
+    private var mDataList: ArrayList<ItemDataClass> = ArrayList()
     private lateinit var pointAppDataBase: PointAppDataBase
     private lateinit var playerAppDataBase: PlayerAppDataBase
 
@@ -84,7 +87,74 @@ class MatchScoreActivity : AppCompatActivity() {
         playerNameTextViewList[pos].text = name
         if (nameList.filter { it != "プレイヤーを選択してください" }.distinct().size == 4) {
             //TODO 回数とかの取得、表示。
+            //DBからの取得
+            pointAppDataBase.pointDataBaseDao().getMatchData(nameList[0], nameList[1], nameList[2], nameList[3])
+                .observe(this, android.arch.lifecycle.Observer { data ->
+                    mDataList = ArrayList()
+                    for (i in 0 until data!!.size) {
+                        val nameList: MutableList<String> =
+                            mutableListOf(
+                                data[i].name1,
+                                data[i].name2,
+                                data[i].name3,
+                                data[i].name4
+                            )
+                        val pointList: MutableList<Int> =
+                            mutableListOf(
+                                data[i].point1 * 100,
+                                data[i].point2 * 100,
+                                data[i].point3 * 100,
+                                data[i].point4 * 100
+                            )
+                        val resultList: MutableList<Double> =
+                            mutableListOf(
+                                (pointList[0] - 300) / 10.0 + 50,
+                                (pointList[1] - 300) / 10.0 + 10,
+                                (pointList[2] - 300) / 10.0 - 10,
+                                (pointList[3] - 300) / 10.0 - 30
+                            )
+                        mDataList.add(
+                            ItemDataClass(
+                                data[i].id,
+                                nameList,
+                                pointList,
+                                resultList,
+                                data[i].date
+                            )
+                        )
+                    }
+                    val adapter = ItemAdapter(mDataList, null)
+                    matchRecyclerView.adapter = adapter
+                    matchRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
+                    for (j in 0 until 4) {
+                        val countList = mutableListOf(0, 0, 0, 0)
+                        nameList[j]
+                        val matchCount = data.size.toDouble()
+                        data.forEach {
+                            if (it.name1 == nameList[j]) {
+                                countList[0]++
+                            }
+                            if (it.name2 == nameList[j]) {
+                                countList[1]++
+                            }
+                            if (it.name3 == nameList[j]) {
+                                countList[2]++
+                            }
+                            if (it.name4 == nameList[j]) {
+                                countList[3]++
+                            }
+                        }
+                        playerRank1TextViewList[j].text =
+                            String.format("%d回：%.0f%%", countList[0], (countList[0] / matchCount) * 100)
+                        playerRank2TextViewList[j].text =
+                            String.format("%d回：%.0f%%", countList[1], (countList[1] / matchCount) * 100)
+                        playerRank3TextViewList[j].text =
+                            String.format("%d回：%.0f%%", countList[2], (countList[2] / matchCount) * 100)
+                        playerRank4TextViewList[j].text =
+                            String.format("%d回：%.0f%%", countList[3], (countList[3] / matchCount) * 100)
+                    }
+                })
         }
     }
 }
