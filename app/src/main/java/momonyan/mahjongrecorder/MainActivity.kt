@@ -363,7 +363,8 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.menuResult -> {
-                //TODO 存在するプレイヤーの成績を簡易出力
+                val intent = Intent(this, MatchScoreActivity::class.java)
+                startActivity(intent)
                 Log.d("Menu", item.itemId.toString())
                 return true
             }
