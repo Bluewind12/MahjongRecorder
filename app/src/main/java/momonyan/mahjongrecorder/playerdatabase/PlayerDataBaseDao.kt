@@ -25,6 +25,9 @@ interface PlayerDataBaseDao {
     @Query("SELECT Rank FROM PlayerDB WHERE name = :name")
     fun getRank(name: String): LiveData<Array<Int>>
 
+    @Query("SELECT * FROM PlayerDB WHERE name = :name")
+    fun getPersonalData(name: String): LiveData<Array<PlayerDB>>
+
     //データ作成
     @Insert
     fun insert(playerDB: PlayerDB)
