@@ -45,7 +45,7 @@ class PersonalScoreActivity : AppCompatActivity() {
         playerAppDataBase.playerDataBaseDao().getPlayerDistinct()
             .observe(this, android.arch.lifecycle.Observer { data ->
                 val mutableList = mutableListOf("プレイヤーを選択してください")
-                mutableList += data!!
+                mutableList += data!!.sortedArray()
                 val dataAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mutableList)
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 personalSpinner.adapter = dataAdapter
@@ -66,11 +66,10 @@ class PersonalScoreActivity : AppCompatActivity() {
     fun dataSet(name: String) {
         if (name != "" && name != "プレイヤーを選択してください") {
             playerAppDataBase.playerDataBaseDao().getPoint(name).observe(this, android.arch.lifecycle.Observer { data ->
-                Log.d("?????", "koko")
-                val maxPoint = data!!.max()
-                val minPoint = data.min()
-                val sumPoint = data.sum()
-                val avePoint = data.average()
+                val maxPoint = data!!.max()!! * 100
+                val minPoint = data.min()!! * 100
+                val sumPoint = data.sum() * 100
+                val avePoint = data.average() * 100
 
                 pointSumTextView.text = String.format("%d 点", sumPoint)
                 pointAveTextView.text = String.format("%.2f点", avePoint)
@@ -133,6 +132,7 @@ class PersonalScoreActivity : AppCompatActivity() {
                         )
                     )
                 }
+                mDataList.reverse()
                 val adapter = ItemAdapter(mDataList, null)
                 personRecyclerView.adapter = adapter
                 personRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -142,7 +142,16 @@ class PersonalScoreActivity : AppCompatActivity() {
         }
     }
 
-    private fun setChart(data: Array<Int>) {
+    private fun setChart(basicData: Array<Int>) {
+        val data = mutableListOf<Float>()
+        var sumData = 0.0f
+        for (i in 0 until basicData.size) {
+            sumData += basicData[i] * 100
+            data.add(sumData / (i + 1))
+            Log.d("Data", "$i - $sumData")
+        }
+
+        Log.d("DataRes", "$data")
         val mChart = lineChart
 
         // Grid背景色
@@ -171,7 +180,7 @@ class PersonalScoreActivity : AppCompatActivity() {
         val values = ArrayList<Entry>()
 
         for (i in data.indices) {
-            values.add(Entry(i.toFloat(), data[i].toFloat(), null, null))
+            values.add(Entry(i.toFloat(), data[i], null, null))
         }
 
         val set1: LineDataSet
@@ -184,7 +193,7 @@ class PersonalScoreActivity : AppCompatActivity() {
             mChart.notifyDataSetChanged()
         } else {
             // create a dataset and give it a type
-            set1 = LineDataSet(values, "点数")
+            set1 = LineDataSet(values, "点数平均")
 
             set1.setDrawIcons(false)
             set1.color = Color.BLUE
