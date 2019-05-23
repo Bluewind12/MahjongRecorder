@@ -136,6 +136,7 @@ class MainActivity : AppCompatActivity() {
                     )
                 )
             }
+            mDataList.reverse()
             adapter = ItemAdapter(mDataList, this)
             dataRecyclerView.adapter = adapter
             dataRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
