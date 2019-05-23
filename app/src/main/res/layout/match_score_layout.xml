@@ -92,19 +92,19 @@
                     android:layout_weight="1.5" tools:text="プレイヤー名" android:background="@drawable/table_background"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/playerRank1TextView"
+                    android:layout_height="match_parent" android:id="@+id/playerRank1TextView"
                     android:layout_weight="1" tools:text="回数の表示" android:background="@drawable/table_background"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/playerRank2TextView"
+                    android:layout_height="match_parent" android:id="@+id/playerRank2TextView"
                     android:layout_weight="1" tools:text="回数の表示" android:background="@drawable/table_background"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/playerRank3TextView"
+                    android:layout_height="match_parent" android:id="@+id/playerRank3TextView"
                     android:layout_weight="1" tools:text="回数の表示" android:background="@drawable/table_background"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/playerRank4TextView"
+                    android:layout_height="match_parent" android:id="@+id/playerRank4TextView"
                     android:layout_weight="1" tools:text="回数の表示" android:background="@drawable/table_background"/>
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
@@ -114,19 +114,19 @@
                     android:layout_weight="1.5" tools:text="プレイヤー名" android:background="@drawable/table_background"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/playerRank1TextView2"
+                    android:layout_height="match_parent" android:id="@+id/playerRank1TextView2"
                     android:layout_weight="1" tools:text="回数の表示" android:background="@drawable/table_background"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/playerRank2TextView2"
+                    android:layout_height="match_parent" android:id="@+id/playerRank2TextView2"
                     android:layout_weight="1" tools:text="回数の表示" android:background="@drawable/table_background"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/playerRank3TextView2"
+                    android:layout_height="match_parent" android:id="@+id/playerRank3TextView2"
                     android:layout_weight="1" tools:text="回数の表示" android:background="@drawable/table_background"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/playerRank4TextView2"
+                    android:layout_height="match_parent" android:id="@+id/playerRank4TextView2"
                     android:layout_weight="1" tools:text="回数の表示" android:background="@drawable/table_background"/>
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
@@ -136,19 +136,19 @@
                     android:layout_weight="1.5" tools:text="プレイヤー名" android:background="@drawable/table_background"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/playerRank1TextView3"
+                    android:layout_height="match_parent" android:id="@+id/playerRank1TextView3"
                     android:layout_weight="1" tools:text="回数の表示" android:background="@drawable/table_background"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/playerRank2TextView3"
+                    android:layout_height="match_parent" android:id="@+id/playerRank2TextView3"
                     android:layout_weight="1" tools:text="回数の表示" android:background="@drawable/table_background"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/playerRank3TextView3"
+                    android:layout_height="match_parent" android:id="@+id/playerRank3TextView3"
                     android:layout_weight="1" tools:text="回数の表示" android:background="@drawable/table_background"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/playerRank4TextView3"
+                    android:layout_height="match_parent" android:id="@+id/playerRank4TextView3"
                     android:layout_weight="1" tools:text="回数の表示" android:background="@drawable/table_background"/>
         </TableRow>
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
@@ -158,19 +158,19 @@
                     android:layout_weight="1.5" tools:text="プレイヤー名" android:background="@drawable/table_background"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/playerRank1TextView4"
+                    android:layout_height="match_parent" android:id="@+id/playerRank1TextView4"
                     android:layout_weight="1" tools:text="回数の表示" android:background="@drawable/table_background"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/playerRank2TextView4"
+                    android:layout_height="match_parent" android:id="@+id/playerRank2TextView4"
                     android:layout_weight="1" tools:text="回数の表示" android:background="@drawable/table_background"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/playerRank3TextView4"
+                    android:layout_height="match_parent" android:id="@+id/playerRank3TextView4"
                     android:layout_weight="1" tools:text="回数の表示" android:background="@drawable/table_background"/>
             <TextView
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content" android:id="@+id/playerRank4TextView4"
+                    android:layout_height="match_parent" android:id="@+id/playerRank4TextView4"
                     android:layout_weight="1" tools:text="回数の表示" android:background="@drawable/table_background"/>
         </TableRow>
     </TableLayout>
@@ -183,5 +183,5 @@
             nendsdk:NendSpotId="@integer/nend_match_id"
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:background="@drawable/table_background"/>
+            app:layout_constraintStart_toStartOf="parent"/>
 </android.support.constraint.ConstraintLayout>
