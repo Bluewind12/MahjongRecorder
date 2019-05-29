@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
             Room.databaseBuilder(this, PlayerAppDataBase::class.java, "MainPlayer.db")
                 .build()
 
-        // 見るためよう（あとで消す）
+        //TODO 見るためよう（あとで消す）
         Stetho.initialize(
             Stetho.newInitializerBuilder(this)
                 .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
@@ -404,6 +404,8 @@ class MainActivity : AppCompatActivity() {
             R.id.menuPrivacy -> {
                 //TODO プライバシーポリシーに飛ばす
                 Log.d("Menu", item.itemId.toString())
+                val intent = Intent(this, CardListActivity::class.java)
+                startActivity(intent)
                 return true
             }
             R.id.menuReview -> {
