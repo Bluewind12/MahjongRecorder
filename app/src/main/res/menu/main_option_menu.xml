@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="@string/solo_result" android:id="@+id/menuPlayerData" android:icon="@drawable/icon_solo_player"
-          app:showAsAction="ifRoom"/>
-    <item android:title="@string/all_result" android:id="@+id/menuResult" android:icon="@drawable/icon_people"
-          app:showAsAction="ifRoom"/>
+    <item android:title="@string/summary">
+        <menu>
+            <item android:title="@string/data_list_easy" android:id="@+id/menuDataList"/>
+            <item android:title="@string/solo_result" android:id="@+id/menuPlayerData"
+                  android:icon="@drawable/icon_solo_player"/>
+            <item android:title="@string/all_result" android:id="@+id/menuResult"
+                  android:icon="@drawable/icon_people"/>
+        </menu>
+    </item>
+
     <item android:title="@string/jump_web">
-        <menu
-        >
+        <menu>
             <item android:title="@string/privacy_policy" android:id="@+id/menuPrivacy"/>
             <item android:title="@string/review_string" android:id="@+id/menuReview"/>
         </menu>

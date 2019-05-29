@@ -17,4 +17,6 @@
     <string name="player_select">プレイヤー選択</string>
     <string name="point">点数</string>
     <string name="result">集計</string>
+    <string name="data_list_easy">簡易表</string>
+    <string name="summary">まとめ</string>
 </resources>

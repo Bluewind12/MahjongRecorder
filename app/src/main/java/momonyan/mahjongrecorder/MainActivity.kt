@@ -3,6 +3,7 @@ package momonyan.mahjongrecorder
 import android.app.AlertDialog
 import android.app.Dialog
 import android.arch.persistence.room.Room
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var pointEditTexts: ArrayList<EditText>
     private lateinit var resultTextViews: ArrayList<TextView>
 
-    private val pointData = arrayListOf(50, 10, -10, -30)
+    private var pointData = arrayListOf(50, 10, -10, -30)
 
     private var pointCheckFrag = false
 
@@ -121,10 +122,10 @@ class MainActivity : AppCompatActivity() {
                     )
                 val resultList: MutableList<Double> =
                     mutableListOf(
-                        (pointList[0] - 30000) / 1000.0 + 50,
-                        (pointList[1] - 30000) / 1000.0 + 10,
-                        (pointList[2] - 30000) / 1000.0 - 10,
-                        (pointList[3] - 30000) / 1000.0 - 30
+                        (pointList[0] - 30000) / 1000.0 + pointData[0],
+                        (pointList[1] - 30000) / 1000.0 + pointData[1],
+                        (pointList[2] - 30000) / 1000.0 + pointData[2],
+                        (pointList[3] - 30000) / 1000.0 + pointData[3]
                     )
                 mDataList.add(
                     ItemDataClass(
@@ -299,15 +300,6 @@ class MainActivity : AppCompatActivity() {
             .setView(dialogView)
             .setNegativeButton("Cancel", null)
             .setPositiveButton("OK") { _, _ ->
-
-                val df = SimpleDateFormat("yyyy/MM/dd HH:mm")
-                val dateString = Date()
-
-                //DB入れ子
-                val pointDataBaseHolder = PointDB()
-                val playerDataBaseHolder =
-                    arrayListOf(PlayerDB(), PlayerDB(), PlayerDB(), PlayerDB())
-
                 //取得
                 val playerName = arrayListOf(
                     dialogView.nameEditText1.text.toString(),
@@ -392,25 +384,24 @@ class MainActivity : AppCompatActivity() {
             R.id.menuPlayerData -> {
                 val intent = Intent(this, PersonalScoreActivity::class.java)
                 startActivity(intent)
-                Log.d("Menu", item.itemId.toString())
                 return true
             }
             R.id.menuResult -> {
                 val intent = Intent(this, MatchScoreActivity::class.java)
                 startActivity(intent)
-                Log.d("Menu", item.itemId.toString())
                 return true
             }
-            R.id.menuPrivacy -> {
-                //TODO プライバシーポリシーに飛ばす
-                Log.d("Menu", item.itemId.toString())
+            R.id.menuDataList -> {
                 val intent = Intent(this, CardListActivity::class.java)
                 startActivity(intent)
                 return true
             }
+            R.id.menuPrivacy -> {
+                //TODO プライバシーポリシーに飛ばす
+                return true
+            }
             R.id.menuReview -> {
                 //TODO レビューへ飛ばす
-                Log.d("Menu", item.itemId.toString())
                 return true
             }
         }
