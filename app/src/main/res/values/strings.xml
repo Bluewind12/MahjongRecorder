@@ -15,4 +15,6 @@
     <string name="sum_score">累計点数</string>
     <string name="max_score">最大点数</string>
     <string name="player_select">プレイヤー選択</string>
+    <string name="point">点数</string>
+    <string name="result">集計</string>
 </resources>
