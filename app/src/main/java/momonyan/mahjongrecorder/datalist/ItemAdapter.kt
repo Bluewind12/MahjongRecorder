@@ -19,10 +19,6 @@ class ItemAdapter(var mValue: ArrayList<ItemDataClass>, private val activity: Ma
     //内部
     override fun onBindViewHolder(holder: ItemHolder, p1: Int) {
         val item = mValue[p1]
-        Log.e("Check", "--------------------------")
-        Log.d("Check", "$p1:${item.dName} - ${item.dPoint},${item.dResult}")
-        Log.e("Check", "--------------------------")
-
         //点数など
         for (i in 0 until 4) {
             holder.vNameTextViews[i].text = item.dName[i]
@@ -56,6 +52,3 @@ class ItemAdapter(var mValue: ArrayList<ItemDataClass>, private val activity: Ma
     }
 
 }
-
-
-
