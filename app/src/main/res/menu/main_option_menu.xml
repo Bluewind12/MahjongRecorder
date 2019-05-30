@@ -4,10 +4,8 @@
     <item android:title="@string/summary">
         <menu>
             <item android:title="@string/data_list_easy" android:id="@+id/menuDataList"/>
-            <item android:title="@string/solo_result" android:id="@+id/menuPlayerData"
-                  android:icon="@drawable/icon_solo_player"/>
-            <item android:title="@string/all_result" android:id="@+id/menuResult"
-                  android:icon="@drawable/icon_people"/>
+            <item android:title="@string/solo_result" android:id="@+id/menuPlayerData"/>
+            <item android:title="@string/all_result" android:id="@+id/menuResult"/>
         </menu>
     </item>
 
