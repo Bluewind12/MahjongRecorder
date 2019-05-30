@@ -3,7 +3,6 @@ package momonyan.mahjongrecorder
 import android.app.AlertDialog
 import android.app.Dialog
 import android.arch.persistence.room.Room
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -57,6 +56,21 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //ドロワー
+        menuCard.setOnClickListener {
+            val intent = Intent(this, PersonalScoreActivity::class.java)
+            startActivity(intent)
+        }
+        menuCard2.setOnClickListener {
+            val intent = Intent(this, CardListActivity::class.java)
+            startActivity(intent)
+        }
+        menuCard3.setOnClickListener {
+            val intent = Intent(this, MatchScoreActivity::class.java)
+            startActivity(intent)
+        }
+
 
         //Nend(動画)
         nendAdInterstitialVideo = NendAdInterstitialVideo(
