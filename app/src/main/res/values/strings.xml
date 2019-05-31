@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MahjongRecorder</string>
+    <string name="app_name">麻雀記録表！</string>
     <string name="solo_result">個人成績</string>
     <string name="all_result">累計結果まとめ</string>
     <string name="jump_web">Webサイトへ</string>

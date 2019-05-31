@@ -39,11 +39,10 @@
         <android.support.design.widget.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:srcCompat="@android:drawable/btn_star"
                 android:id="@+id/floatingActionButton"
                 android:layout_marginBottom="32dp"
                 app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="32dp"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="32dp"/>
+                app:layout_constraintEnd_toEndOf="parent" android:src="@drawable/icon_plus"/>
         <net.nend.android.NendAdView
                 android:id="@+id/nendHome"
                 android:layout_width="320dp"
