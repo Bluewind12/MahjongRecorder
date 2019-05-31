@@ -7,13 +7,13 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.view.GravityCompat
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import com.facebook.stetho.Stetho
@@ -58,33 +58,47 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setSupportActionBar(tool_bar)
+        val actionBarDrawerToggle = ActionBarDrawerToggle(
+            this, drawer_layout, tool_bar, R.string.drawer_open, R.string.drawer_close
+        )
+        drawer_layout.addDrawerListener(actionBarDrawerToggle)
+        actionBarDrawerToggle.syncState()
+
         //ドロワー
-        menuCard.setOnClickListener {
-            val intent = Intent(this, PersonalScoreActivity::class.java)
-            startActivity(intent)
-        }
-        menuCard2.setOnClickListener {
-            val intent = Intent(this, CardListActivity::class.java)
-            startActivity(intent)
-        }
-        menuCard3.setOnClickListener {
-            val intent = Intent(this, MatchScoreActivity::class.java)
-            startActivity(intent)
-        }
-        menuCard4.setOnClickListener {
-            val url = Uri.parse(getString(R.string.privacy_url))
-            val intent =  Intent(Intent.ACTION_VIEW,url)
-            startActivity(intent)
-        }
-        menuCard5.setOnClickListener {
-            val url = Uri.parse(getString(R.string.home_url))
-            val intent =  Intent(Intent.ACTION_VIEW,url)
-            startActivity(intent)
-        }
-        menuCard6.setOnClickListener {
-            val url = Uri.parse(getString(R.string.review_url))
-            val intent =  Intent(Intent.ACTION_VIEW,url)
-            startActivity(intent)
+        nav_view.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menuDataList -> {
+                    val intent = Intent(this, CardListActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.menuPlayerData -> {
+                    val intent = Intent(this, PersonalScoreActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.menuResult -> {
+                    val intent = Intent(this, MatchScoreActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.menuPrivacy -> {
+                    val url = Uri.parse(getString(R.string.privacy_url))
+                    val intent = Intent(Intent.ACTION_VIEW, url)
+                    startActivity(intent)
+                }
+                R.id.menuHp -> {
+                    val url = Uri.parse(getString(R.string.home_url))
+                    val intent = Intent(Intent.ACTION_VIEW, url)
+                    startActivity(intent)
+                }
+                R.id.menuReview -> {
+                    val url = Uri.parse(getString(R.string.review_url))
+                    val intent = Intent(Intent.ACTION_VIEW, url)
+                    startActivity(intent)
+                }
+                else -> {
+                }
+            }
+            false
         }
 
 
@@ -402,46 +416,6 @@ class MainActivity : AppCompatActivity() {
         alert.show()
 
         alert.getButton(Dialog.BUTTON_POSITIVE).isEnabled = false
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_option_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menuPlayerData -> {
-                val intent = Intent(this, PersonalScoreActivity::class.java)
-                startActivity(intent)
-                return true
-            }
-            R.id.menuResult -> {
-                val intent = Intent(this, MatchScoreActivity::class.java)
-                startActivity(intent)
-                return true
-            }
-            R.id.menuDataList -> {
-                val intent = Intent(this, CardListActivity::class.java)
-                startActivity(intent)
-                return true
-            }
-            R.id.menuPrivacy -> {
-                //TODO プライバシーポリシーに飛ばす
-                val url = Uri.parse(getString(R.string.privacy_url))
-                val intent =  Intent(Intent.ACTION_VIEW,url)
-                startActivity(intent)
-                return true
-            }
-            R.id.menuReview -> {
-                //TODO レビューへ飛ばす
-                val url = Uri.parse(getString(R.string.review_url))
-                val intent =  Intent(Intent.ACTION_VIEW,url)
-                startActivity(intent)
-                return true
-            }
-        }
-        return true
     }
 
     fun searchResult(text: String) {

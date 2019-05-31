@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">麻雀記録表！</string>
     <string name="solo_result">個人成績</string>
-    <string name="all_result">累計結果まとめ</string>
+    <string name="all_result">対戦検索</string>
     <string name="jump_web">Webサイトへ</string>
     <string name="privacy_policy">プライバシーポリシー</string>
     <string name="review_string">レビュー</string>
@@ -19,10 +19,12 @@
     <string name="result">集計</string>
     <string name="data_list_easy">簡易表</string>
     <string name="summary">データまとめ</string>
-    <string name="fight">対戦検索</string>
     <string name="hp_home">幻想乃桜工房のHP</string>
+    <string name="drawer_open">開く</string>
+    <string name="drawer_close">閉じる</string>
 
     <string name="privacy_url">https://www.gensounosakura.work/posts/6348381</string>
     <string name="home_url">https://www.gensounosakura.work</string>
     <string name="review_url">market://details?id=momonyan.mahjongrecorder</string>
+    <string name="back_string">戻る</string>
 </resources>
