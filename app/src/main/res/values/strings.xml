@@ -21,4 +21,8 @@
     <string name="summary">データまとめ</string>
     <string name="fight">対戦検索</string>
     <string name="hp_home">幻想乃桜工房のHP</string>
+
+    <string name="privacy_url">http://</string>
+    <string name="home_url">https://www.gensounosakura.work</string>
+    <string name="review_url">market://details?id=momonyan.mahjongrecorder</string>
 </resources>

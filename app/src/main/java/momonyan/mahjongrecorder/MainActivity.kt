@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.arch.persistence.room.Room
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -68,6 +69,21 @@ class MainActivity : AppCompatActivity() {
         }
         menuCard3.setOnClickListener {
             val intent = Intent(this, MatchScoreActivity::class.java)
+            startActivity(intent)
+        }
+        menuCard4.setOnClickListener {
+            val url = Uri.parse(getString(R.string.privacy_url))
+            val intent =  Intent(Intent.ACTION_VIEW,url)
+            startActivity(intent)
+        }
+        menuCard5.setOnClickListener {
+            val url = Uri.parse(getString(R.string.home_url))
+            val intent =  Intent(Intent.ACTION_VIEW,url)
+            startActivity(intent)
+        }
+        menuCard6.setOnClickListener {
+            val url = Uri.parse(getString(R.string.review_url))
+            val intent =  Intent(Intent.ACTION_VIEW,url)
             startActivity(intent)
         }
 
@@ -412,10 +428,16 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.menuPrivacy -> {
                 //TODO プライバシーポリシーに飛ばす
+                val url = Uri.parse(getString(R.string.privacy_url))
+                val intent =  Intent(Intent.ACTION_VIEW,url)
+                startActivity(intent)
                 return true
             }
             R.id.menuReview -> {
                 //TODO レビューへ飛ばす
+                val url = Uri.parse(getString(R.string.review_url))
+                val intent =  Intent(Intent.ACTION_VIEW,url)
+                startActivity(intent)
                 return true
             }
         }
