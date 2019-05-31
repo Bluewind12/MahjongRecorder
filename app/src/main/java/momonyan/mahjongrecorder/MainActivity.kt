@@ -119,14 +119,6 @@ class MainActivity : AppCompatActivity() {
             Room.databaseBuilder(this, PlayerAppDataBase::class.java, "MainPlayer.db")
                 .build()
 
-        //TODO 見るためよう（あとで消す）
-        Stetho.initialize(
-            Stetho.newInitializerBuilder(this)
-                .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
-                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
-                .build()
-        )
-
         //検索
         searchView.setIconifiedByDefault(false)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
