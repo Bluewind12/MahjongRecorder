@@ -31,7 +31,7 @@ class CardListActivity : AppCompatActivity() {
             .observe(this, android.arch.lifecycle.Observer { data ->
                 mDataList = ArrayList()
                 for (i in 0 until data!!.size) {
-                    var matchCount = 0
+                    var matchCount: Int
                     var pointSum = 0
                     var resultSum = 0.0
                     val rankList = mutableListOf(0, 0, 0, 0)

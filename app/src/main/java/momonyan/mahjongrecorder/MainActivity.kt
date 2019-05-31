@@ -7,7 +7,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -16,7 +15,6 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.*
-import com.facebook.stetho.Stetho
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
@@ -376,6 +374,10 @@ class MainActivity : AppCompatActivity() {
                         .subscribeOn(Schedulers.io())
                         .subscribe()
                 }
+
+                if (nendAdInterstitialVideo.isLoaded && Random().nextInt(100) >= 50) {
+                    nendAdInterstitialVideo.showAd(this)
+                }
             }
             .setNeutralButton("データ削除") { _, _ ->
                 AlertDialog.Builder(this)
@@ -394,14 +396,19 @@ class MainActivity : AppCompatActivity() {
                                 .subscribeOn(Schedulers.io())
                                 .subscribe()
                         }
+                        if (nendAdInterstitialVideo.isLoaded && Random().nextInt(100) >= 80) {
+                            nendAdInterstitialVideo.showAd(this)
+                        }
                     }
-                    .setNegativeButton("Cancel", null)
+                    .setNegativeButton("Cancel") { _, _ ->
+                        if (nendAdInterstitialVideo.isLoaded && Random().nextInt(100) >= 80) {
+                            nendAdInterstitialVideo.showAd(this)
+                        }
+                    }
                     .show()
+
             }
             .setOnDismissListener {
-                if (nendAdInterstitialVideo.isLoaded) {
-                    nendAdInterstitialVideo.showAd(this)
-                }
             }
             .create()
 
