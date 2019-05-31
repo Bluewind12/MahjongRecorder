@@ -8,13 +8,13 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity"
-        android:descendantFocusability="beforeDescendants"
-        android:focusableInTouchMode="true">
+        tools:context=".MainActivity">
 
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true">
         <SearchView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -32,7 +32,10 @@
                 android:layout_marginRight="8dp"
                 android:id="@+id/dataRecyclerView" app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintVertical_bias="1.0" android:layout_width="0dp" android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/nendHome"/>
+                app:layout_constraintBottom_toTopOf="@+id/nendHome"
+                android:cacheColorHint="?attr/colorPrimary"
+                android:requiresFadingEdge="horizontal|vertical"
+        />
         <android.support.design.widget.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

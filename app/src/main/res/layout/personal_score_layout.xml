@@ -244,6 +244,8 @@
                 android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
+                android:cacheColorHint="?attr/colorPrimary"
+                android:requiresFadingEdge="horizontal|vertical"
                 app:layout_constraintBottom_toTopOf="@+id/space" android:id="@+id/personRecyclerView"/>
         <Space
                 android:layout_width="wrap_content"
