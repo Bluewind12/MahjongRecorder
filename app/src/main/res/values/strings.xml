@@ -18,5 +18,7 @@
     <string name="point">点数</string>
     <string name="result">集計</string>
     <string name="data_list_easy">簡易表</string>
-    <string name="summary">まとめ</string>
+    <string name="summary">データまとめ</string>
+    <string name="fight">対戦検索</string>
+    <string name="hp_home">幻想乃桜工房のHP</string>
 </resources>
