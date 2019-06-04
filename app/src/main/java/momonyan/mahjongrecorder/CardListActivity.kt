@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_cardlist.*
@@ -41,9 +42,11 @@ class CardListActivity : AppCompatActivity() {
                             matchCount = playerData!!.size
                             for (j in 0 until matchCount) {
                                 pointSum += playerData[j].point * 100
-                                resultSum += playerData[j].point / 10 + pointStand[playerData[j].rank - 1]
+                                resultSum += (playerData[j].point - 300) / 10.0 + pointStand[playerData[j].rank - 1]
+                                Log.e("ListData", "${playerData[j].point}  ${pointStand[playerData[j].rank - 1]}")
                                 rankList[playerData[j].rank - 1]++
                             }
+
                             mDataList.add(
                                 CardListDataClass(
                                     data[i],
@@ -52,6 +55,12 @@ class CardListActivity : AppCompatActivity() {
                                     rankList,
                                     matchCount
                                 )
+                            )
+
+                            Log.e("ListData", "$pointSum $resultSum  ${matchCount.toDouble()}")
+                            Log.e(
+                                "ListData",
+                                String.format("集計\n合計 %.1f\n平均 %.2f", resultSum, resultSum / matchCount.toDouble())
                             )
 
                             adapter = CardListAdapter(mDataList)

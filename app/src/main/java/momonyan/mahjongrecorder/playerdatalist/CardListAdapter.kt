@@ -23,7 +23,7 @@ class CardListAdapter(var mValue: ArrayList<CardListDataClass>) :
 
         for(i in 0 until 4) {
             holder.vRankTextViews[i].text =
-                String.format("%d位　%d回/%.0f%%", i, item.dRank[i], (item.dRank[i] / item.dCount.toDouble()) * 100)
+                String.format("%d位　%d回/%.0f%%", i+1, item.dRank[i], (item.dRank[i] / item.dCount.toDouble()) * 100)
         }
     }
 
