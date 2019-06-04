@@ -50,8 +50,8 @@ class CardListActivity : AppCompatActivity() {
                             mDataList.add(
                                 CardListDataClass(
                                     data[i],
-                                    String.format("点数\n合計 %d\n平均 %.2f\n", pointSum, pointSum / matchCount.toDouble()),
-                                    String.format("集計\n合計 %.1f\n平均 %.2f", resultSum, resultSum / matchCount.toDouble()),
+                                    String.format("点数\n\t合計\t%d\n\t平均\t%.2f", pointSum, pointSum / matchCount.toDouble()),
+                                    String.format("集計\n\t合計\t%.1f\n\t平均\t%.2f", resultSum, resultSum / matchCount.toDouble()),
                                     rankList,
                                     matchCount
                                 )
