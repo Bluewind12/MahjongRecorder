@@ -3,7 +3,9 @@ package momonyan.mahjongrecorder
 import android.app.AlertDialog
 import android.app.Dialog
 import android.arch.persistence.room.Room
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -64,6 +66,7 @@ class MainActivity : AppCompatActivity() {
         actionBarDrawerToggle.syncState()
 
         //ドロワー
+        nav_view.getHeaderView(0).findViewById<TextView>(R.id.versionTextView).text = "Version:${getVersionName(this)}"
         nav_view.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menuDataList -> {
@@ -508,5 +511,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * バージョン名を取得する
+     *
+     * @param context
+     * @return
+     */
+    private fun getVersionName(context: Context): String {
+        val pm = context.packageManager
+        var versionName = ""
+        try {
+            val packageInfo = pm.getPackageInfo(context.packageName, 0)
+            versionName = packageInfo.versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+        return versionName
+    }
 }
 
