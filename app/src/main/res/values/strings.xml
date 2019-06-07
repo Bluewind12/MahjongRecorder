@@ -27,4 +27,6 @@
     <string name="home_url">https://www.gensounosakura.work</string>
     <string name="review_url">market://details?id=momonyan.mahjongrecorder</string>
     <string name="back_string">戻る</string>
+    <string name="other_app">他アプリ</string>
+    <string name="other_app_name1">楽々麻雀ツール！</string>
 </resources>

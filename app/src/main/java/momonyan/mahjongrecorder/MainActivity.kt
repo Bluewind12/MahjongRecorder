@@ -96,6 +96,16 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(Intent.ACTION_VIEW, url)
                     startActivity(intent)
                 }
+                R.id.menuAppMJ -> {
+                    val packageName = "momonyan.mahjongg_tools"
+                    val className = "momonyan.mahjongg_tools.MainActivity"
+                    intent.setClassName(packageName, className)
+                    try {
+                        startActivity(intent)
+                    } catch (e: Exception) {
+                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
+                    }
+                }
                 else -> {
                 }
             }

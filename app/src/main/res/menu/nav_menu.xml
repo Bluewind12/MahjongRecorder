@@ -21,4 +21,10 @@
                   android:icon="@drawable/icon_rev"/>
         </menu>
     </item>
+    <item android:title="@string/other_app">
+        <menu>
+            <item android:title="@string/other_app_name1" android:id="@+id/menuAppMJ"
+                  android:icon="@drawable/icon_mj_app"/>
+        </menu>
+    </item>
 </menu>
