@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="@string/summary">
+    <item android:title="@string/summary" android:id="@+id/menuItemTitle">
         <menu>
             <item android:title="@string/data_list_easy" android:id="@+id/menuDataList"
                   android:icon="@drawable/icon_human"/>
@@ -11,17 +11,17 @@
         </menu>
     </item>
 
-    <item android:title="@string/jump_web">
+    <item android:title="@string/jump_web" android:id="@+id/menuItemTitle2">
         <menu>
-            <item android:title="@string/privacy_policy" android:id="@+id/menuPrivacy"
-                  android:icon="@drawable/icon_kami"/>
             <item android:title="@string/hp_home" android:id="@+id/menuHp"
                   android:icon="@drawable/icon_sakura"/>
+            <item android:title="@string/privacy_policy" android:id="@+id/menuPrivacy"
+                  android:icon="@drawable/icon_kami"/>
             <item android:title="@string/review_string" android:id="@+id/menuReview"
                   android:icon="@drawable/icon_rev"/>
         </menu>
     </item>
-    <item android:title="@string/other_app">
+    <item android:title="@string/other_app" android:id="@+id/menuItemTitle3">
         <menu>
             <item android:title="@string/other_app_name1" android:id="@+id/menuAppMJ"
                   android:icon="@drawable/icon_mj"/>

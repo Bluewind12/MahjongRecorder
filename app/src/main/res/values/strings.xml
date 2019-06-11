@@ -29,4 +29,6 @@
     <string name="back_string">戻る</string>
     <string name="other_app">他アプリ</string>
     <string name="other_app_name1">楽々麻雀ツール！</string>
+
+    <string name="version_names">Version:%s</string>
 </resources>

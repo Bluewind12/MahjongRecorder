@@ -3,4 +3,6 @@
     <color name="colorPrimary">#96D65E</color>
     <color name="colorPrimaryDark">#5B995A</color>
     <color name="colorAccent">#F3A800</color>
+    <color name="sakura">#f09199</color>
+    <color name="iconColor">#5B995A</color>
 </resources>

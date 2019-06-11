@@ -7,8 +7,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -65,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onDrawerStateChanged(newState: Int) {
                     val imm = getSystemService(Context.INPUT_METHOD_SERVICE)
                     if (imm is InputMethodManager) {
-                        imm.hideSoftInputFromWindow(currentFocus.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+                        imm.hideSoftInputFromWindow(currentFocus!!.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
                     }
                 }
             }
@@ -73,7 +75,28 @@ class MainActivity : AppCompatActivity() {
         actionBarDrawerToggle.syncState()
 
         //ドロワー
-        nav_view.getHeaderView(0).findViewById<TextView>(R.id.versionTextView).text = "Version:${getVersionName(this)}"
+        nav_view.getHeaderView(0).findViewById<TextView>(R.id.versionTextView).text = getString(R.string.version_names,getVersionName(this))
+        val navMenu = nav_view.menu
+        navMenu.findItem(R.id.menuDataList).icon.setColorFilter(
+            ContextCompat.getColor(this, R.color.iconColor),
+            PorterDuff.Mode.SRC_IN
+        )
+        navMenu.findItem(R.id.menuPlayerData).icon.setColorFilter(
+            ContextCompat.getColor(this, R.color.iconColor),
+            PorterDuff.Mode.SRC_IN
+        )
+        navMenu.findItem(R.id.menuResult).icon.setColorFilter(
+            ContextCompat.getColor(this, R.color.iconColor),
+            PorterDuff.Mode.SRC_IN
+        )
+        navMenu.findItem(R.id.menuAppMJ).icon.setColorFilter(
+            ContextCompat.getColor(this, R.color.colorPrimaryDark),
+            PorterDuff.Mode.SRC_IN
+        )
+        navMenu.findItem(R.id.menuHp).icon.setColorFilter(
+            ContextCompat.getColor(this, R.color.sakura),
+            PorterDuff.Mode.SRC_IN
+        )
         nav_view.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menuDataList -> {
