@@ -16,6 +16,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
@@ -59,9 +60,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(tool_bar)
-        val actionBarDrawerToggle = ActionBarDrawerToggle(
-            this, drawer_layout, tool_bar, R.string.drawer_open, R.string.drawer_close
-        )
+        val actionBarDrawerToggle =
+            object : ActionBarDrawerToggle(this, drawer_layout, tool_bar, R.string.drawer_open, R.string.drawer_close) {
+                override fun onDrawerStateChanged(newState: Int) {
+                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE)
+                    if (imm is InputMethodManager) {
+                        imm.hideSoftInputFromWindow(currentFocus.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+                    }
+                }
+            }
         drawer_layout.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
 
@@ -147,7 +154,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
-        searchView.queryHint = "検索文字を入力して下さい。"
+        searchView.queryHint = "検索したい名前を入力してください。"
 
         //DBからの取得
         pointAppDataBase.pointDataBaseDao().getAll().observe(this, android.arch.lifecycle.Observer { data ->
