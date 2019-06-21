@@ -20,11 +20,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".CardListActivity" android:theme="@style/AppTheme"
+                  android:label="@string/data_list_easy"
+                  android:screenOrientation="portrait"
+        />
         <activity android:name=".PersonalScoreActivity" android:theme="@style/AppTheme"
+                  android:label="@string/solo_result"
                   android:screenOrientation="portrait"/>
         <activity android:name=".MatchScoreActivity" android:theme="@style/AppTheme"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".CardListActivity" android:theme="@style/AppTheme"
+                  android:label="@string/all_result"
                   android:screenOrientation="portrait"/>
     </application>
 
