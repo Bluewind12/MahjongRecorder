@@ -32,9 +32,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-                android:id="@+id/lineChart"/>
+                app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+                android:id="@+id/lineChart" android:layout_marginTop="8dp"/>
         <TableLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -135,7 +134,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp"
                 android:id="@+id/tableLayout2"
-                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/lineChart">
+                app:layout_constraintTop_toBottomOf="@+id/lineChart" android:layout_marginTop="8dp">
 
             <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
                 <TextView
@@ -235,8 +234,8 @@
                 nendsdk:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp" nendsdk:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
-                android:id="@+id/lineChart2" app:layout_constraintTop_toBottomOf="@id/tableLayout2"/>
+                android:id="@+id/lineChart2" app:layout_constraintTop_toBottomOf="@+id/titleTextView2"
+                android:layout_marginTop="8dp"/>
         <android.support.v7.widget.RecyclerView
                 android:layout_width="0dp"
                 android:layout_height="0dp" android:layout_marginTop="24dp"
@@ -268,6 +267,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintHorizontal_bias="0.493" app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginTop="4dp" app:layout_constraintTop_toBottomOf="@id/tableLayout3"/>
+        <TextView
+                android:text="点数"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/titleTextView"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/tableLayout"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp" android:textSize="18sp"/>
+        <TextView
+                android:text="10-30集計"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/titleTextView2" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/tableLayout2" android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"/>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
 
