@@ -1,13 +1,14 @@
 package momonyan.mahjongrecorder
 
+import android.arch.lifecycle.Observer
 import android.arch.persistence.room.Room
 import android.graphics.Color
 import android.graphics.DashPathEffect
+import android.graphics.Paint
 import android.graphics.Point
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -60,6 +61,7 @@ class PersonalScoreActivity : AppCompatActivity() {
 
             })
 
+        //プレイヤー選択
         personalSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
@@ -68,6 +70,11 @@ class PersonalScoreActivity : AppCompatActivity() {
                 dataSet(personalSpinner.selectedItem.toString())
             }
         }
+
+        //テキスト下線引き
+        titleTextView.paintFlags = titleTextView.paintFlags or Paint.UNDERLINE_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
+        titleTextView2.paintFlags = titleTextView2.paintFlags or Paint.UNDERLINE_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
+
 
 
     }
@@ -80,17 +87,37 @@ class PersonalScoreActivity : AppCompatActivity() {
                 val disp = wm.defaultDisplay
                 val size = Point()
                 disp.getSize(size)
-                lineChart.layoutParams.height = size.x * 2 / 3
-                lineChart2.layoutParams.height = size.x * 2 / 3
+                lineChart.layoutParams.height = size.x * 1 / 3
+                lineChart2.layoutParams.height = size.x * 1 / 3
             }
 
+            //順位取得
+            playerAppDataBase.playerDataBaseDao().getRank(name).observe(this, Observer { data ->
+                val countRank1 = data!!.count { it == 1 }
+                val countRank2 = data.count { it == 2 }
+                val countRank3 = data.count { it == 3 }
+                val countRank4 = data.count { it == 4 }
+                val allCount = data.count()
+
+                rank1CountTextView.text = String.format("%d 回 / %d 回", countRank1, allCount)
+                rank2CountTextView.text = String.format("%d 回 / %d 回", countRank2, allCount)
+                rank3CountTextView.text = String.format("%d 回 / %d 回", countRank3, allCount)
+                rank4CountTextView.text = String.format("%d 回 / %d 回", countRank4, allCount)
+
+                rank1PercentTextView.text = String.format("%.0f %%", countRank1 / allCount.toDouble() * 100)
+                rank2PercentTextView.text = String.format("%.0f %%", countRank2 / allCount.toDouble() * 100)
+                rank3PercentTextView.text = String.format("%.0f %%", countRank3 / allCount.toDouble() * 100)
+                rank4PercentTextView.text = String.format("%.0f %%", countRank4 / allCount.toDouble() * 100)
+            })
+
+
+            //点数取得
             playerAppDataBase.playerDataBaseDao().getPersonalData(name)
-                .observe(this, android.arch.lifecycle.Observer { data ->
+                .observe(this, Observer { data ->
                     val pointMutableList = mutableListOf<Float>()
                     data!!.forEach {
                         pointMutableList.add((it.point * 100 - 30000) / 1000.0f + pointCriterion[it.rank - 1])
                     }
-                    setResultChart(pointMutableList)
                     val sum = pointMutableList.sum()
                     val ave = pointMutableList.average()
                     if (sum >= 0) {
@@ -108,9 +135,12 @@ class PersonalScoreActivity : AppCompatActivity() {
                         resultAveTextView.text = String.format("▲ %.3f", -ave)
                         resultAveTextView.setTextColor(Color.RED)
                     }
+                    //チャート書き
+                    setResultChart(pointMutableList)
                 })
 
-            playerAppDataBase.playerDataBaseDao().getPoint(name).observe(this, android.arch.lifecycle.Observer { data ->
+            //10−30清算取得
+            playerAppDataBase.playerDataBaseDao().getPoint(name).observe(this, Observer { data ->
                 val maxPoint = data!!.max()!! * 100
                 val minPoint = data.min()!! * 100
                 val sumPoint = data.sum() * 100
@@ -120,29 +150,11 @@ class PersonalScoreActivity : AppCompatActivity() {
                 pointAveTextView.text = String.format("%.2f点", avePoint)
                 pointMaxTextView.text = String.format("%d点", maxPoint)
                 pointMinTextView.text = String.format("%d点", minPoint)
-
+                //チャート書き
                 setPointChart(data)
             })
-
-            playerAppDataBase.playerDataBaseDao().getRank(name).observe(this, android.arch.lifecycle.Observer { data ->
-                val countRank1 = data!!.count { it == 1 }
-                val countRank2 = data.count { it == 2 }
-                val countRank3 = data.count { it == 3 }
-                val countRank4 = data.count { it == 4 }
-                val allCount = data.count()
-
-                rank1CountTextView.text = String.format("%d 回 / %d 回", countRank1, allCount)
-                rank2CountTextView.text = String.format("%d 回 / %d 回", countRank2, allCount)
-                rank3CountTextView.text = String.format("%d 回 / %d 回", countRank3, allCount)
-                rank4CountTextView.text = String.format("%d 回 / %d 回", countRank4, allCount)
-
-                rank1PercentTextView.text = String.format("%.0f %%", countRank1 / allCount.toDouble() * 100)
-                rank2PercentTextView.text = String.format("%.0f %%", countRank2 / allCount.toDouble() * 100)
-                rank3PercentTextView.text = String.format("%.0f %%", countRank3 / allCount.toDouble() * 100)
-                rank4PercentTextView.text = String.format("%.0f %%", countRank4 / allCount.toDouble() * 100)
-            })
             //DBからの取得
-            pointAppDataBase.pointDataBaseDao().getByName(name).observe(this, android.arch.lifecycle.Observer { data ->
+            pointAppDataBase.pointDataBaseDao().getByName(name).observe(this, Observer { data ->
                 mDataList = ArrayList()
                 for (i in 0 until data!!.size) {
                     val nameList: MutableList<String> =
@@ -186,16 +198,14 @@ class PersonalScoreActivity : AppCompatActivity() {
         }
     }
 
+    //グラフ作成（点数）
     private fun setPointChart(basicData: Array<Int>) {
-        val data = mutableListOf<Float>()
+        val aveDataList = mutableListOf<Float>()
         var sumData = 0.0f
         for (i in 0 until basicData.size) {
             sumData += basicData[i]
-            data.add(sumData / (i + 1))
-            Log.d("Data", "$i - $sumData")
+            aveDataList.add(sumData / (i + 1))
         }
-
-        Log.d("DataRes", "$data")
         val mChart = lineChart
 
         // Grid背景色
@@ -224,8 +234,8 @@ class PersonalScoreActivity : AppCompatActivity() {
         val values = ArrayList<Entry>()
         val values2 = ArrayList<Entry>()
 
-        for (i in data.indices) {
-            values.add(Entry(i.toFloat(), data[i] * 100, null, null))
+        for (i in aveDataList.indices) {
+            values.add(Entry(i.toFloat(), aveDataList[i] * 100, null, null))
             values2.add(Entry(i.toFloat(), basicData[i].toFloat() * 100, null, null))
         }
 
@@ -271,8 +281,8 @@ class PersonalScoreActivity : AppCompatActivity() {
 
 
             val dataSets = ArrayList<ILineDataSet>()
-            dataSets.add(set1) // add the datasets
             dataSets.add(set2) // add the datasets
+            dataSets.add(set1) // add the datasets
 
             // create a data object with the datasets
             val lineData = LineData(dataSets)
@@ -284,12 +294,13 @@ class PersonalScoreActivity : AppCompatActivity() {
         }
     }
 
+    //グラフ作成（１０−３０清算後）
     private fun setResultChart(basicData: MutableList<Float>) {
-        val data = mutableListOf<Float>()
+        val aveDataList = mutableListOf<Float>()
         var sumData = 0.0f
         for (i in 0 until basicData.size) {
             sumData += basicData[i]
-            data.add(sumData)
+            aveDataList.add(sumData / (i + 1))
         }
         val mChart = lineChart2
 
@@ -316,8 +327,8 @@ class PersonalScoreActivity : AppCompatActivity() {
         val values = ArrayList<Entry>()
         val values2 = ArrayList<Entry>()
 
-        for (i in data.indices) {
-            values.add(Entry(i.toFloat(), data[i], null, null))
+        for (i in aveDataList.indices) {
+            values.add(Entry(i.toFloat(), aveDataList[i], null, null))
             values2.add(Entry(i.toFloat(), basicData[i], null, null))
         }
 
@@ -333,7 +344,7 @@ class PersonalScoreActivity : AppCompatActivity() {
             mChart.notifyDataSetChanged()
         } else {
             // create a dataset and give it a type
-            set1 = LineDataSet(values, "累積")
+            set1 = LineDataSet(values, "平均")
             set1.setDrawIcons(false)
             set1.color = Color.BLUE
             set1.setCircleColor(Color.BLUE)
@@ -362,8 +373,8 @@ class PersonalScoreActivity : AppCompatActivity() {
             set2.fillColor = Color.argb(0, 255, 255, 255)
 
             val dataSets = ArrayList<ILineDataSet>()
-            dataSets.add(set1) // add the datasets
             dataSets.add(set2) // add the datasets
+            dataSets.add(set1) // add the datasets
 
             // create a data object with the datasets
             val lineData = LineData(dataSets)
