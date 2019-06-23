@@ -190,8 +190,8 @@ class PersonalScoreActivity : AppCompatActivity() {
                 }
                 mDataList.reverse()
                 val adapter = ItemAdapter(mDataList, null)
-                personRecyclerView.adapter = adapter
-                personRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                personalRecyclerView.adapter = adapter
+                personalRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             })
 
 
