@@ -1,5 +1,6 @@
 package momonyan.mahjongrecorder.playerdatalist
 
+import android.graphics.Paint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,6 +19,9 @@ class CardListAdapter(var mValue: ArrayList<CardListDataClass>) :
         val item = mValue[p1]
         //名前など
         holder.vNameTextViews.text = item.dName
+        holder.vNameTextViews.paintFlags =
+            holder.vNameTextViews.paintFlags or Paint.UNDERLINE_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
+
         holder.vPointTextViews.text = item.dPoint
         holder.vResultTextViews.text = item.dResult
 
