@@ -87,8 +87,9 @@ class PersonalScoreActivity : AppCompatActivity() {
                 val disp = wm.defaultDisplay
                 val size = Point()
                 disp.getSize(size)
-                lineChart.layoutParams.height = size.x * 1 / 3
-                lineChart2.layoutParams.height = size.x * 1 / 3
+                personalRecyclerView.layoutParams.height = size.x * 2 / 3
+                lineChart.layoutParams.height = size.x * 2 / 5
+                lineChart2.layoutParams.height = size.x * 2 / 5
             }
 
             //順位取得
