@@ -1,12 +1,14 @@
 package momonyan.mahjongrecorder
 
 import android.arch.persistence.room.Room
+import android.graphics.Point
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
@@ -86,8 +88,20 @@ class MatchScoreActivity : AppCompatActivity() {
     //データ出し
     private fun dataSet(name: String, pos: Int) {
         nameList[pos] = name
-        playerNameTextViewList[pos].text = name
+        if (name != "プレイヤーを選択してください") {
+            playerNameTextViewList[pos].text = name
+        } else {
+            playerNameTextViewList[pos].text = "選択無し"
+        }
         if (nameList.filter { it != "プレイヤーを選択してください" }.distinct().size == 4) {
+
+            val wm = getSystemService(WINDOW_SERVICE)
+            if (wm is WindowManager) {
+                val disp = wm.defaultDisplay
+                val size = Point()
+                disp.getSize(size)
+                matchRecyclerView.layoutParams.height = size.x * 3 / 5
+            }
             //DBからの取得
             pointAppDataBase.pointDataBaseDao().getMatchData(nameList[0], nameList[1], nameList[2], nameList[3])
                 .observe(this, android.arch.lifecycle.Observer { data ->
@@ -147,13 +161,13 @@ class MatchScoreActivity : AppCompatActivity() {
                             }
                         }
                         playerRank1TextViewList[j].text =
-                            String.format("%d回：%.0f%%", countList[0], (countList[0] / matchCount) * 100)
+                            String.format("%d回：\n%.0f%%", countList[0], (countList[0] / matchCount) * 100)
                         playerRank2TextViewList[j].text =
-                            String.format("%d回：%.0f%%", countList[1], (countList[1] / matchCount) * 100)
+                            String.format("%d回：\n%.0f%%", countList[1], (countList[1] / matchCount) * 100)
                         playerRank3TextViewList[j].text =
-                            String.format("%d回：%.0f%%", countList[2], (countList[2] / matchCount) * 100)
+                            String.format("%d回：\n%.0f%%", countList[2], (countList[2] / matchCount) * 100)
                         playerRank4TextViewList[j].text =
-                            String.format("%d回：%.0f%%", countList[3], (countList[3] / matchCount) * 100)
+                            String.format("%d回：\n%.0f%%", countList[3], (countList[3] / matchCount) * 100)
                     }
                 })
         }
