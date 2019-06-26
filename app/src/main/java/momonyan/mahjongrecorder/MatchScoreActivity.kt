@@ -94,7 +94,6 @@ class MatchScoreActivity : AppCompatActivity() {
             playerNameTextViewList[pos].text = "選択無し"
         }
         if (nameList.filter { it != "プレイヤーを選択してください" }.distinct().size == 4) {
-
             val wm = getSystemService(WINDOW_SERVICE)
             if (wm is WindowManager) {
                 val disp = wm.defaultDisplay
@@ -102,7 +101,6 @@ class MatchScoreActivity : AppCompatActivity() {
                 disp.getSize(size)
                 matchRecyclerView.layoutParams.height = size.x * 3 / 5
             }
-            //DBからの取得
             pointAppDataBase.pointDataBaseDao().getMatchData(nameList[0], nameList[1], nameList[2], nameList[3])
                 .observe(this, android.arch.lifecycle.Observer { data ->
                     mDataList = ArrayList()
@@ -144,7 +142,6 @@ class MatchScoreActivity : AppCompatActivity() {
 
                     for (j in 0 until 4) {
                         val countList = mutableListOf(0, 0, 0, 0)
-                        nameList[j]
                         val matchCount = data.size.toDouble()
                         data.forEach {
                             if (it.name1 == nameList[j]) {

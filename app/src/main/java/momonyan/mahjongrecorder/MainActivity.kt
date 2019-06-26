@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onDrawerStateChanged(newState: Int) {
                     val imm = getSystemService(Context.INPUT_METHOD_SERVICE)
                     if (imm is InputMethodManager) {
-                        imm.hideSoftInputFromWindow(currentFocus!!.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+                        imm.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
                     }
                 }
             }
