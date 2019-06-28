@@ -6,4 +6,5 @@
     <color name="sakura">#f09199</color>
     <color name="iconColor">#5B995A</color>
     <color name="colorBlue">#FF0000FF</color>
+    <color name="colorTransparent">#00FF0000</color>
 </resources>

@@ -297,6 +297,7 @@ class MainActivity : AppCompatActivity() {
                     pointEditTexts[3].text.toString().toInt()
                 )
 
+
                 pointDataBaseHolder.name1 = playerName[0]
                 pointDataBaseHolder.name2 = playerName[1]
                 pointDataBaseHolder.name3 = playerName[2]

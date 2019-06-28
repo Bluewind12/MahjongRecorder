@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
              android:layout_height="wrap_content" android:padding="8dp">
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content" android:id="@+id/textView" android:text="登録"
+                android:textSize="24sp" android:textStyle="bold" android:layout_weight="5" android:padding="8dp"/>
+        <ImageButton
+                android:layout_width="0dip"
+                android:layout_height="match_parent" app:srcCompat="@drawable/icon_share" android:id="@+id/imageButton"
+                android:layout_weight="1" android:scaleType="fitCenter" android:adjustViewBounds="true"
+                android:background="@color/colorTransparent" android:padding="8dp"/>
+    </TableRow>
     <TableRow android:layout_width="match_parent" android:layout_height="match_parent"
               android:gravity="center_vertical">
         <TextView
