@@ -230,6 +230,8 @@ class MainActivity : AppCompatActivity() {
     private fun createDialog() {
         dialogView = layoutInflater.inflate(R.layout.data_input_layout, null)
 
+        dialogView.dialogTitleTextView.text = "登録"
+        dialogView.shareImageButton.visibility = View.INVISIBLE
         nameEditTexts = arrayListOf(
             dialogView.nameEditText1,
             dialogView.nameEditText2,
@@ -268,7 +270,6 @@ class MainActivity : AppCompatActivity() {
 
         val alertBuilder = AlertDialog.Builder(this)
         alert = alertBuilder
-            .setTitle("登録")
             .setView(dialogView)
             .setNegativeButton("Cancel", null)
             .setPositiveButton("OK") { _, _ ->
@@ -335,6 +336,8 @@ class MainActivity : AppCompatActivity() {
 
     fun createChangeDialog(id: Int, names: MutableList<String>, point: MutableList<Int>, date: String) {
         dialogView = layoutInflater.inflate(R.layout.data_input_layout, null)
+        dialogView.dialogTitleTextView.text = "変更"
+
         nameEditTexts = arrayListOf(
             dialogView.nameEditText1,
             dialogView.nameEditText2,
@@ -353,6 +356,27 @@ class MainActivity : AppCompatActivity() {
             dialogView.resultTextView3,
             dialogView.resultTextView4
         )
+
+        //シェアボタン
+        dialogView.shareImageButton.visibility = View.VISIBLE
+        dialogView.shareImageButton.setOnClickListener {
+            var shareStringData = ""
+            for (i in 0 until 4) {
+                shareStringData += getString(
+                    R.string.share_format_string_data,
+                    i+1,
+                    nameEditTexts[i].text,
+                    pointEditTexts[i].text
+                )
+            }
+            shareStringData += "\n" + date
+            val intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_TEXT, shareStringData)
+            startActivity(intent)
+        }
+
         playerAppDataBase.playerDataBaseDao().getPlayerDistinct().observe(
             this,
             android.arch.lifecycle.Observer { t ->
@@ -374,7 +398,6 @@ class MainActivity : AppCompatActivity() {
 
         val alertBuilder = AlertDialog.Builder(this)
         alert = alertBuilder
-            .setTitle("登録")
             .setView(dialogView)
             .setNegativeButton("Cancel", null)
             .setPositiveButton("OK") { _, _ ->

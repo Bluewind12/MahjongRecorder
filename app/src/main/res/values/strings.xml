@@ -32,4 +32,6 @@
 
     <string name="version_names">Version:%s</string>
     <string name="liquidation">10-30集計</string>
+
+    <string name="share_format_string_data">%d位 %s:%s00点\n</string>
 </resources>

@@ -7,11 +7,12 @@
             android:layout_height="match_parent">
         <TextView
                 android:layout_width="0dip"
-                android:layout_height="wrap_content" android:id="@+id/textView" android:text="登録"
-                android:textSize="24sp" android:textStyle="bold" android:layout_weight="5" android:padding="8dp"/>
+                android:layout_height="wrap_content" android:id="@+id/dialogTitleTextView"
+                android:textSize="24sp" android:textStyle="bold" android:layout_weight="5" android:padding="8dp"
+                tools:text="登録 or 変更"/>
         <ImageButton
                 android:layout_width="0dip"
-                android:layout_height="match_parent" app:srcCompat="@drawable/icon_share" android:id="@+id/imageButton"
+                android:layout_height="match_parent" app:srcCompat="@drawable/icon_share" android:id="@+id/shareImageButton"
                 android:layout_weight="1" android:scaleType="fitCenter" android:adjustViewBounds="true"
                 android:background="@color/colorTransparent" android:padding="8dp"/>
     </TableRow>
