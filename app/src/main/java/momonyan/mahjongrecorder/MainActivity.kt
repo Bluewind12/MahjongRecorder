@@ -250,6 +250,7 @@ class MainActivity : AppCompatActivity() {
             dialogView.resultTextView3,
             dialogView.resultTextView4
         )
+        dialogView.sumTextView.text = String.format("計：0点\n(残り100000点)")
 
         playerAppDataBase.playerDataBaseDao().getPlayerDistinct().observe(
             this,
@@ -380,13 +381,13 @@ class MainActivity : AppCompatActivity() {
         playerAppDataBase.playerDataBaseDao().getPlayerDistinct().observe(
             this,
             android.arch.lifecycle.Observer { t ->
-                val adapter = ArrayAdapter<String>(
+                val adapter = ArrayAdapter(
                     this, android.R.layout.simple_dropdown_item_1line, t!!
                 )
-                dialogView.nameEditText1.setAdapter<ArrayAdapter<String>>(adapter)
-                dialogView.nameEditText2.setAdapter<ArrayAdapter<String>>(adapter)
-                dialogView.nameEditText3.setAdapter<ArrayAdapter<String>>(adapter)
-                dialogView.nameEditText4.setAdapter<ArrayAdapter<String>>(adapter)
+                dialogView.nameEditText1.setAdapter(adapter)
+                dialogView.nameEditText2.setAdapter(adapter)
+                dialogView.nameEditText3.setAdapter(adapter)
+                dialogView.nameEditText4.setAdapter(adapter)
             })
         for (i in 0 until 4) {
             nameEditTexts[i].setText(names[i], TextView.BufferType.NORMAL)
@@ -541,7 +542,7 @@ class MainActivity : AppCompatActivity() {
                 sum += it.text.toString().toDouble()
             }
         }
-        dialogView.sumTextView.text = String.format("計：%.0f点", sum * 100)
+        dialogView.sumTextView.text = String.format("計：%.0f点\n(残り%.0f点)", sum * 100, 100000 - (sum * 100))
         Log.d("SUM", sum.toString())
         pointCheckFrag = sum == 1000.0
     }
