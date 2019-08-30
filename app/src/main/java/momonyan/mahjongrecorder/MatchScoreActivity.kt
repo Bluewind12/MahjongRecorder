@@ -63,11 +63,15 @@ class MatchScoreActivity : AppCompatActivity() {
             .observe(this, android.arch.lifecycle.Observer { data ->
                 val mutableList = mutableListOf("プレイヤーを選択してください")
                 mutableList += data!!
-                val dataAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mutableList)
+                val dataAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, mutableList)
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinnerList.forEach {
                     it.adapter = dataAdapter
                 }
+                mutableList += "その他のプレイヤー"
+                val dataAnyAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, mutableList)
+                dataAnyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinnerList[3].adapter = dataAnyAdapter
             })
 
         //Listenerセット
@@ -101,72 +105,141 @@ class MatchScoreActivity : AppCompatActivity() {
                 disp.getSize(size)
                 matchRecyclerView.layoutParams.height = size.x * 3 / 5
             }
-            pointAppDataBase.pointDataBaseDao().getMatchData(nameList[0], nameList[1], nameList[2], nameList[3])
-                .observe(this, android.arch.lifecycle.Observer { data ->
-                    mDataList = ArrayList()
-                    for (i in 0 until data!!.size) {
-                        val nameList: MutableList<String> =
-                            mutableListOf(
-                                data[i].name1,
-                                data[i].name2,
-                                data[i].name3,
-                                data[i].name4
+            if (nameList[3] != "その他のプレイヤー") {
+                pointAppDataBase.pointDataBaseDao().getMatchData(nameList[0], nameList[1], nameList[2], nameList[3])
+                    .observe(this, android.arch.lifecycle.Observer { data ->
+                        mDataList = ArrayList()
+                        for (i in 0 until data!!.size) {
+                            val nameList: MutableList<String> =
+                                mutableListOf(
+                                    data[i].name1,
+                                    data[i].name2,
+                                    data[i].name3,
+                                    data[i].name4
+                                )
+                            val pointList: MutableList<Int> =
+                                mutableListOf(
+                                    data[i].point1 * 100,
+                                    data[i].point2 * 100,
+                                    data[i].point3 * 100,
+                                    data[i].point4 * 100
+                                )
+                            val resultList: MutableList<Double> =
+                                mutableListOf(
+                                    (pointList[0] - 300) / 10.0 + 50,
+                                    (pointList[1] - 300) / 10.0 + 10,
+                                    (pointList[2] - 300) / 10.0 - 10,
+                                    (pointList[3] - 300) / 10.0 - 30
+                                )
+                            mDataList.add(
+                                ItemDataClass(
+                                    data[i].id,
+                                    nameList,
+                                    pointList,
+                                    resultList,
+                                    data[i].date
+                                )
                             )
-                        val pointList: MutableList<Int> =
-                            mutableListOf(
-                                data[i].point1 * 100,
-                                data[i].point2 * 100,
-                                data[i].point3 * 100,
-                                data[i].point4 * 100
-                            )
-                        val resultList: MutableList<Double> =
-                            mutableListOf(
-                                (pointList[0] - 300) / 10.0 + 50,
-                                (pointList[1] - 300) / 10.0 + 10,
-                                (pointList[2] - 300) / 10.0 - 10,
-                                (pointList[3] - 300) / 10.0 - 30
-                            )
-                        mDataList.add(
-                            ItemDataClass(
-                                data[i].id,
-                                nameList,
-                                pointList,
-                                resultList,
-                                data[i].date
-                            )
-                        )
-                    }
-                    val adapter = ItemAdapter(mDataList, null)
-                    matchRecyclerView.adapter = adapter
-                    matchRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-                    for (j in 0 until 4) {
-                        val countList = mutableListOf(0, 0, 0, 0)
-                        val matchCount = data.size.toDouble()
-                        data.forEach {
-                            if (it.name1 == nameList[j]) {
-                                countList[0]++
-                            }
-                            if (it.name2 == nameList[j]) {
-                                countList[1]++
-                            }
-                            if (it.name3 == nameList[j]) {
-                                countList[2]++
-                            }
-                            if (it.name4 == nameList[j]) {
-                                countList[3]++
-                            }
                         }
-                        playerRank1TextViewList[j].text =
-                            String.format("%d回：\n%.0f%%", countList[0], (countList[0] / matchCount) * 100)
-                        playerRank2TextViewList[j].text =
-                            String.format("%d回：\n%.0f%%", countList[1], (countList[1] / matchCount) * 100)
-                        playerRank3TextViewList[j].text =
-                            String.format("%d回：\n%.0f%%", countList[2], (countList[2] / matchCount) * 100)
-                        playerRank4TextViewList[j].text =
-                            String.format("%d回：\n%.0f%%", countList[3], (countList[3] / matchCount) * 100)
-                    }
-                })
+                        val adapter = ItemAdapter(mDataList, null)
+                        matchRecyclerView.adapter = adapter
+                        matchRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+                        for (j in 0 until 4) {
+                            val countList = mutableListOf(0, 0, 0, 0)
+                            val matchCount = data.size.toDouble()
+                            data.forEach {
+                                if (it.name1 == nameList[j]) {
+                                    countList[0]++
+                                }
+                                if (it.name2 == nameList[j]) {
+                                    countList[1]++
+                                }
+                                if (it.name3 == nameList[j]) {
+                                    countList[2]++
+                                }
+                                if (it.name4 == nameList[j]) {
+                                    countList[3]++
+                                }
+                            }
+                            playerRank1TextViewList[j].text =
+                                String.format("%d回：\n%.0f%%", countList[0], (countList[0] / matchCount) * 100)
+                            playerRank2TextViewList[j].text =
+                                String.format("%d回：\n%.0f%%", countList[1], (countList[1] / matchCount) * 100)
+                            playerRank3TextViewList[j].text =
+                                String.format("%d回：\n%.0f%%", countList[2], (countList[2] / matchCount) * 100)
+                            playerRank4TextViewList[j].text =
+                                String.format("%d回：\n%.0f%%", countList[3], (countList[3] / matchCount) * 100)
+                        }
+                    })
+            }else{
+                pointAppDataBase.pointDataBaseDao().getAnyMatchData(nameList[0], nameList[1], nameList[2])
+                    .observe(this, android.arch.lifecycle.Observer { data ->
+                        mDataList = ArrayList()
+                        for (i in 0 until data!!.size) {
+                            val nameList: MutableList<String> =
+                                mutableListOf(
+                                    data[i].name1,
+                                    data[i].name2,
+                                    data[i].name3,
+                                    data[i].name4
+                                )
+                            val pointList: MutableList<Int> =
+                                mutableListOf(
+                                    data[i].point1 * 100,
+                                    data[i].point2 * 100,
+                                    data[i].point3 * 100,
+                                    data[i].point4 * 100
+                                )
+                            val resultList: MutableList<Double> =
+                                mutableListOf(
+                                    (pointList[0] - 300) / 10.0 + 50,
+                                    (pointList[1] - 300) / 10.0 + 10,
+                                    (pointList[2] - 300) / 10.0 - 10,
+                                    (pointList[3] - 300) / 10.0 - 30
+                                )
+                            mDataList.add(
+                                ItemDataClass(
+                                    data[i].id,
+                                    nameList,
+                                    pointList,
+                                    resultList,
+                                    data[i].date
+                                )
+                            )
+                        }
+                        val adapter = ItemAdapter(mDataList, null)
+                        matchRecyclerView.adapter = adapter
+                        matchRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+                        for (j in 0 until 4) {
+                            val countList = mutableListOf(0, 0, 0, 0)
+                            val matchCount = data.size.toDouble()
+                            data.forEach {
+                                if (it.name1 == nameList[j]) {
+                                    countList[0]++
+                                }
+                                if (it.name2 == nameList[j]) {
+                                    countList[1]++
+                                }
+                                if (it.name3 == nameList[j]) {
+                                    countList[2]++
+                                }
+                                if (it.name4 == nameList[j]) {
+                                    countList[3]++
+                                }
+                            }
+                            playerRank1TextViewList[j].text =
+                                String.format("%d回：\n%.0f%%", countList[0], (countList[0] / matchCount) * 100)
+                            playerRank2TextViewList[j].text =
+                                String.format("%d回：\n%.0f%%", countList[1], (countList[1] / matchCount) * 100)
+                            playerRank3TextViewList[j].text =
+                                String.format("%d回：\n%.0f%%", countList[2], (countList[2] / matchCount) * 100)
+                            playerRank4TextViewList[j].text =
+                                String.format("%d回：\n%.0f%%", countList[3], (countList[3] / matchCount) * 100)
+                        }
+                    })
+            }
         }
     }
 

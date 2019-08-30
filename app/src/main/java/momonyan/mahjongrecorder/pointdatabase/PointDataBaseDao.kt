@@ -14,6 +14,10 @@ interface PointDataBaseDao {
     @Query("SELECT * FROM PointDB WHERE( name1 = :name OR name2 = :name OR name3 = :name OR name4 = :name) AND( name1 = :name2 OR name2 = :name2 OR name3 = :name2 OR name4 = :name2)AND( name1 = :name3 OR name2 = :name3 OR name3 = :name3 OR name4 = :name3)AND( name1 = :name4 OR name2 = :name4 OR name3 = :name4 OR name4 = :name4)")
     fun getMatchData(name: String,name2: String,name3: String,name4: String): LiveData<List<PointDB>>
 
+
+    @Query("SELECT * FROM PointDB WHERE( name1 = :name OR name2 = :name OR name3 = :name OR name4 = :name) AND( name1 = :name2 OR name2 = :name2 OR name3 = :name2 OR name4 = :name2)AND( name1 = :name3 OR name2 = :name3 OR name3 = :name3 OR name4 = :name3)")
+    fun getAnyMatchData(name: String,name2: String,name3:String): LiveData<List<PointDB>>
+
     @Query("SELECT * FROM PointDB WHERE id IN (:id)")
     fun getById(vararg id: Int): List<PointDB>
 
