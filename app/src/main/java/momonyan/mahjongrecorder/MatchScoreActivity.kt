@@ -68,8 +68,8 @@ class MatchScoreActivity : AppCompatActivity() {
                 spinnerList.forEach {
                     it.adapter = dataAdapter
                 }
-                mutableList += "その他のプレイヤー"
-                val dataAnyAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, mutableList)
+                val anyMutable = mutableList + "その他のプレイヤー"
+                val dataAnyAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, anyMutable)
                 dataAnyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinnerList[3].adapter = dataAnyAdapter
             })
@@ -212,7 +212,7 @@ class MatchScoreActivity : AppCompatActivity() {
                         matchRecyclerView.adapter = adapter
                         matchRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-                        for (j in 0 until 4) {
+                        for (j in 0 until 3) {
                             val countList = mutableListOf(0, 0, 0, 0)
                             val matchCount = data.size.toDouble()
                             data.forEach {
@@ -238,6 +238,11 @@ class MatchScoreActivity : AppCompatActivity() {
                             playerRank4TextViewList[j].text =
                                 String.format("%d回：\n%.0f%%", countList[3], (countList[3] / matchCount) * 100)
                         }
+
+                        playerRank1TextViewList[3].text = "その他"
+                        playerRank2TextViewList[3].text = "その他"
+                        playerRank3TextViewList[3].text = "その他"
+                        playerRank4TextViewList[3].text = "その他"
                     })
             }
         }
