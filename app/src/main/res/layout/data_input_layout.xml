@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/rankTextView" android:layout_weight="1"
                 android:gravity="center"/>
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:id="@+id/textInputLayout1_1" android:layout_weight="3">
@@ -33,17 +33,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/nameEditText1"
                     android:layout_weight="1" android:hint="名前" android:inputType="text"/>
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:id="@+id/textInputLayout1_2" android:layout_weight="3">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="点数" android:id="@+id/pointEditText1" android:inputType="numberSigned|number"/>
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
         <TextView
                 android:text="@string/zero_zero"
                 android:layout_width="0dip"
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/rankTextView2" android:layout_weight="1"
                 android:gravity="center"/>
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:id="@+id/textInputLayout2_1" android:layout_weight="3">
@@ -74,17 +74,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/nameEditText2"
                     android:layout_weight="1" android:hint="名前" android:inputType="text"/>
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:id="@+id/textInputLayout2_2" android:layout_weight="3">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="点数" android:id="@+id/pointEditText2" android:inputType="numberSigned|number"/>
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
         <TextView
                 android:text="@string/zero_zero"
                 android:layout_width="0dip"
@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/rankTextView3" android:layout_weight="1"
                 android:gravity="center"/>
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:id="@+id/textInputLayout3_1" android:layout_weight="3">
@@ -115,17 +115,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/nameEditText3"
                     android:layout_weight="1" android:hint="名前" android:inputType="text"/>
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:id="@+id/textInputLayout3_2" android:layout_weight="3">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="点数" android:id="@+id/pointEditText3" android:inputType="numberSigned|number"/>
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
         <TextView
                 android:text="@string/zero_zero"
                 android:layout_width="0dip"
@@ -147,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/rankTextView4" android:layout_weight="1"
                 android:gravity="center"/>
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:id="@+id/textInputLayout4_1" android:layout_weight="3">
@@ -156,17 +156,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/nameEditText4"
                     android:layout_weight="1" android:hint="名前" android:inputType="text"/>
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:id="@+id/textInputLayout4_2" android:layout_weight="3">
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="点数" android:id="@+id/pointEditText4" android:inputType="numberSigned|number"/>
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
         <TextView
                 android:text="@string/zero_zero"
                 android:layout_width="0dip"

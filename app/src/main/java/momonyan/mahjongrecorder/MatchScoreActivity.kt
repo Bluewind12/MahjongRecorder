@@ -1,10 +1,10 @@
 package momonyan.mahjongrecorder
 
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import android.graphics.Point
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -60,7 +60,7 @@ class MatchScoreActivity : AppCompatActivity() {
 
         //DBデータ取得
         playerAppDataBase.playerDataBaseDao().getPlayerDistinct()
-            .observe(this, android.arch.lifecycle.Observer { data ->
+            .observe(this, androidx.lifecycle.Observer { data ->
                 val mutableList = mutableListOf("プレイヤーを選択してください")
                 mutableList += data!!
                 val dataAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, mutableList)
@@ -107,7 +107,7 @@ class MatchScoreActivity : AppCompatActivity() {
             }
             if (nameList[3] != "その他のプレイヤー") {
                 pointAppDataBase.pointDataBaseDao().getMatchData(nameList[0], nameList[1], nameList[2], nameList[3])
-                    .observe(this, android.arch.lifecycle.Observer { data ->
+                    .observe(this, androidx.lifecycle.Observer { data ->
                         mDataList = ArrayList()
                         for (i in 0 until data!!.size) {
                             val nameList: MutableList<String> =
@@ -143,7 +143,11 @@ class MatchScoreActivity : AppCompatActivity() {
                         }
                         val adapter = ItemAdapter(mDataList, null)
                         matchRecyclerView.adapter = adapter
-                        matchRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                        matchRecyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+                            this,
+                            androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+                            false
+                        )
 
                         for (j in 0 until 4) {
                             val countList = mutableListOf(0, 0, 0, 0)
@@ -174,7 +178,7 @@ class MatchScoreActivity : AppCompatActivity() {
                     })
             }else{
                 pointAppDataBase.pointDataBaseDao().getAnyMatchData(nameList[0], nameList[1], nameList[2])
-                    .observe(this, android.arch.lifecycle.Observer { data ->
+                    .observe(this, androidx.lifecycle.Observer { data ->
                         mDataList = ArrayList()
                         for (i in 0 until data!!.size) {
                             val nameList: MutableList<String> =
@@ -210,7 +214,11 @@ class MatchScoreActivity : AppCompatActivity() {
                         }
                         val adapter = ItemAdapter(mDataList, null)
                         matchRecyclerView.adapter = adapter
-                        matchRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                        matchRecyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+                            this,
+                            androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+                            false
+                        )
 
                         for (j in 0 until 3) {
                             val countList = mutableListOf(0, 0, 0, 0)

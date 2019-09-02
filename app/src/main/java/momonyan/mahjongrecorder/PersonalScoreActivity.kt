@@ -1,14 +1,14 @@
 package momonyan.mahjongrecorder
 
-import android.arch.lifecycle.Observer
-import android.arch.persistence.room.Room
+import androidx.lifecycle.Observer
+import androidx.room.Room
 import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.graphics.Point
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -52,7 +52,7 @@ class PersonalScoreActivity : AppCompatActivity() {
 
         //名前リスト
         playerAppDataBase.playerDataBaseDao().getPlayerDistinct()
-            .observe(this, android.arch.lifecycle.Observer { data ->
+            .observe(this, androidx.lifecycle.Observer { data ->
                 val mutableList = mutableListOf("プレイヤーを選択してください")
                 mutableList += data!!.sortedArray()
                 val dataAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mutableList)
@@ -192,7 +192,11 @@ class PersonalScoreActivity : AppCompatActivity() {
                 mDataList.reverse()
                 val adapter = ItemAdapter(mDataList, null)
                 personalRecyclerView.adapter = adapter
-                personalRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                personalRecyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+                    this,
+                    androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+                    false
+                )
             })
 
 

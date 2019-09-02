@@ -2,7 +2,7 @@ package momonyan.mahjongrecorder
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -10,10 +10,10 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -180,7 +180,7 @@ class MainActivity : AppCompatActivity() {
         searchView.queryHint = "検索したい名前を入力してください。"
 
         //DBからの取得
-        pointAppDataBase.pointDataBaseDao().getAll().observe(this, android.arch.lifecycle.Observer { data ->
+        pointAppDataBase.pointDataBaseDao().getAll().observe(this, androidx.lifecycle.Observer { data ->
             mDataList = ArrayList()
             for (i in 0 until data!!.size) {
                 val nameList: MutableList<String> =
@@ -217,7 +217,11 @@ class MainActivity : AppCompatActivity() {
             mDataList.reverse()
             adapter = ItemAdapter(mDataList, this)
             dataRecyclerView.adapter = adapter
-            dataRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            dataRecyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+                this,
+                androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+                false
+            )
         })
 
         //データ追加（Fab）
@@ -254,7 +258,7 @@ class MainActivity : AppCompatActivity() {
 
         playerAppDataBase.playerDataBaseDao().getPlayerDistinct().observe(
             this,
-            android.arch.lifecycle.Observer { t ->
+            androidx.lifecycle.Observer { t ->
                 val adapter = ArrayAdapter<String>(
                     this, android.R.layout.simple_dropdown_item_1line, t!!
                 )
@@ -380,7 +384,7 @@ class MainActivity : AppCompatActivity() {
 
         playerAppDataBase.playerDataBaseDao().getPlayerDistinct().observe(
             this,
-            android.arch.lifecycle.Observer { t ->
+            androidx.lifecycle.Observer { t ->
                 val adapter = ArrayAdapter(
                     this, android.R.layout.simple_dropdown_item_1line, t!!
                 )

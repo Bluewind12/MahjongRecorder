@@ -1,7 +1,7 @@
 package momonyan.mahjongrecorder.datalist
 
 import android.graphics.Color
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import momonyan.mahjongrecorder.MainActivity
 import momonyan.mahjongrecorder.R
 
 class ItemAdapter(var mValue: ArrayList<ItemDataClass>, private val activity: MainActivity?) :
-    RecyclerView.Adapter<ItemHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<ItemHolder>() {
     //作成
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ItemHolder {
         val hView = LayoutInflater.from(p0.context).inflate(R.layout.card_main, p0, false)

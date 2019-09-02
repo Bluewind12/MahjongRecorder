@@ -1,9 +1,9 @@
 package momonyan.mahjongrecorder
 
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -29,7 +29,7 @@ class CardListActivity : AppCompatActivity() {
                 .build()
 
         playerAppDataBase.playerDataBaseDao().getPlayerDistinct()
-            .observe(this, android.arch.lifecycle.Observer { data ->
+            .observe(this, androidx.lifecycle.Observer { data ->
                 mDataList = ArrayList()
                 for (i in 0 until data!!.size) {
                     var matchCount: Int
@@ -38,7 +38,7 @@ class CardListActivity : AppCompatActivity() {
                     val rankList = mutableListOf(0, 0, 0, 0)
 
                     playerAppDataBase.playerDataBaseDao().getPersonalData(data[i])
-                        .observe(this, android.arch.lifecycle.Observer { playerData ->
+                        .observe(this, androidx.lifecycle.Observer { playerData ->
                             matchCount = playerData!!.size
                             for (j in 0 until matchCount) {
                                 pointSum += playerData[j].point * 100
@@ -66,7 +66,11 @@ class CardListActivity : AppCompatActivity() {
                             adapter = CardListAdapter(mDataList)
                             cardListRecyclerView.adapter = adapter
                             cardListRecyclerView.layoutManager =
-                                LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                                androidx.recyclerview.widget.LinearLayoutManager(
+                                    this,
+                                    androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+                                    false
+                                )
                         })
                 }
             })

@@ -1,12 +1,12 @@
 package momonyan.mahjongrecorder.datalist
 
-import android.support.v7.widget.CardView
-import android.support.v7.widget.RecyclerView
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import kotlinx.android.synthetic.main.card_main.view.*
 
-class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
+class ItemHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
     val vNameTextViews: ArrayList<TextView> =
         arrayListOf(view.nameTextView1, view.nameTextView2, view.nameTextView3, view.nameTextView4)
 
@@ -20,6 +20,6 @@ class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
         view.resultPointTextView4
     )
     val vDateTextViews: TextView = view.dateTextView
-    val vCardView: CardView = view.cardView
+    val vCardView: androidx.cardview.widget.CardView = view.cardView
 
 }

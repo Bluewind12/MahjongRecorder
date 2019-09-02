@@ -1,11 +1,11 @@
 package momonyan.mahjongrecorder.playerdatalist
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import kotlinx.android.synthetic.main.card_list.view.*
 
-class CardListHolder(view: View) : RecyclerView.ViewHolder(view) {
+class CardListHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
     //名前
     val vNameTextViews: TextView = view.nameCardListTextView
 
