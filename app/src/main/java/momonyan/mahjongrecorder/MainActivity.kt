@@ -177,7 +177,9 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextChange(text: String?): Boolean {
                 // テキストが変更された
                 Log.d("Search", "change text: $text")
-                searchResult(text!!)
+                if (text != "") {
+                    searchResult(text!!)
+                }
                 return false
             }
 
@@ -222,7 +224,7 @@ class MainActivity : AppCompatActivity() {
             mDataList.reverse()
             adapter = ItemAdapter(mDataList, this)
             dataRecyclerView.adapter = adapter
-            dataRecyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            dataRecyclerView.layoutManager = LinearLayoutManager(
                 this,
                 LinearLayoutManager.VERTICAL,
                 false

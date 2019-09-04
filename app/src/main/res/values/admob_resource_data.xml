@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ad_player">ca-app-pub-6499097800180510/1040026457</string>
-    <string name="ad_main">ca-app-pub-6499097800180510/9376847323</string>
-    <string name="ad_pop">ca-app-pub-6499097800180510/3825971895</string>
-    <string name="ad_result">ca-app-pub-6499097800180510/9301659853</string>
+    <!--バナー型-->
+    <string name="ad_player">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ad_main">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ad_result">ca-app-pub-3940256099942544/6300978111</string>
+    <!--インタースティシャル-->
+    <string name="ad_pop">ca-app-pub-3940256099942544/1033173712</string>
+
+
+    <!--&lt;!&ndash;バナー型&ndash;&gt;-->
+    <!--<string name="ad_player">ca-app-pub-6499097800180510/1040026457</string>-->
+    <!--<string name="ad_main">ca-app-pub-6499097800180510/9376847323</string>-->
+    <!--<string name="ad_result">ca-app-pub-6499097800180510/9301659853</string>-->
+    <!--&lt;!&ndash;インタースティシャル&ndash;&gt;-->
+    <!--<string name="ad_pop">ca-app-pub-6499097800180510/3825971895</string>-->
+
 </resources>
