@@ -2,7 +2,6 @@ package momonyan.mahjongrecorder
 
 import android.app.AlertDialog
 import android.app.Dialog
-import androidx.room.Room
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -10,16 +9,20 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Bundle
-import androidx.core.content.ContextCompat
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
@@ -30,7 +33,6 @@ import momonyan.mahjongrecorder.playerdatabase.PlayerAppDataBase
 import momonyan.mahjongrecorder.playerdatabase.PlayerDB
 import momonyan.mahjongrecorder.pointdatabase.PointAppDataBase
 import momonyan.mahjongrecorder.pointdatabase.PointDB
-import net.nend.android.NendAdInterstitialVideo
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -55,11 +57,17 @@ class MainActivity : AppCompatActivity() {
 
     private var pointCheckFrag = false
 
-    private lateinit var nendAdInterstitialVideo: NendAdInterstitialVideo
+    private lateinit var mInterstitialAd: InterstitialAd
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+        MobileAds.initialize(this) {}
+
+        val adRequest = AdRequest.Builder().build()
+        adMain.loadAd(adRequest)
 
         setSupportActionBar(tool_bar)
         val actionBarDrawerToggle =
@@ -143,13 +151,10 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        //Nend(動画)
-        nendAdInterstitialVideo = NendAdInterstitialVideo(
-            this,
-            resources.getInteger(R.integer.nend_set_end_id),
-            getString(R.string.nend_set_end_key)
-        )
-        nendAdInterstitialVideo.loadAd()
+        //AD(インタースティシャル)
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = getString(R.string.ad_pop)
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
 
         //DataBase
         pointAppDataBase =
@@ -219,7 +224,7 @@ class MainActivity : AppCompatActivity() {
             dataRecyclerView.adapter = adapter
             dataRecyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
                 this,
-                androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+                LinearLayoutManager.VERTICAL,
                 false
             )
         })
@@ -328,8 +333,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             .setOnDismissListener {
-                if (nendAdInterstitialVideo.isLoaded) {
-                    nendAdInterstitialVideo.showAd(this)
+                if (mInterstitialAd.isLoaded) {
+                    mInterstitialAd.show()
                 }
             }
             .create()
@@ -447,8 +452,8 @@ class MainActivity : AppCompatActivity() {
                         .subscribe()
                 }
 
-                if (nendAdInterstitialVideo.isLoaded && Random().nextInt(100) >= 50) {
-                    nendAdInterstitialVideo.showAd(this)
+                if (mInterstitialAd.isLoaded && Random().nextInt(100) >= 50) {
+                    mInterstitialAd.show()
                 }
             }
             .setNeutralButton("データ削除") { _, _ ->
@@ -468,13 +473,14 @@ class MainActivity : AppCompatActivity() {
                                 .subscribeOn(Schedulers.io())
                                 .subscribe()
                         }
-                        if (nendAdInterstitialVideo.isLoaded && Random().nextInt(100) >= 80) {
-                            nendAdInterstitialVideo.showAd(this)
+
+                        if (mInterstitialAd.isLoaded && Random().nextInt(100) >= 80) {
+                            mInterstitialAd.show()
                         }
                     }
                     .setNegativeButton("Cancel") { _, _ ->
-                        if (nendAdInterstitialVideo.isLoaded && Random().nextInt(100) >= 80) {
-                            nendAdInterstitialVideo.showAd(this)
+                        if (mInterstitialAd.isLoaded && Random().nextInt(100) >= 80) {
+                            mInterstitialAd.show()
                         }
                     }
                     .show()

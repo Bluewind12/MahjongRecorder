@@ -1,10 +1,7 @@
 package momonyan.mahjongrecorder
 
-import androidx.room.Room
 import android.graphics.Point
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -13,6 +10,9 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.room.Room
+import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.match_score_layout.*
 import momonyan.mahjongrecorder.datalist.ItemAdapter
 import momonyan.mahjongrecorder.datalist.ItemDataClass
@@ -37,6 +37,8 @@ class MatchScoreActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.match_score_layout)
 
+        val adRequest = AdRequest.Builder().build()
+        adResult.loadAd(adRequest)
         //DB取得
         pointAppDataBase =
             Room.databaseBuilder(this, PointAppDataBase::class.java, "MainPoint.db")

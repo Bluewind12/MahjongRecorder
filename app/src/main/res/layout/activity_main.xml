@@ -4,7 +4,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:nendsdk="http://schemas.android.com/apk/res-auto"
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -45,7 +45,7 @@
                 app:layout_constraintVertical_bias="1.0" android:layout_width="0dp" android:layout_height="0dp"
                 android:cacheColorHint="?attr/colorPrimary"
                 android:requiresFadingEdge="horizontal|vertical"
-                app:layout_constraintBottom_toTopOf="@+id/nendHome"/>
+                app:layout_constraintBottom_toTopOf="@+id/adMain"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,12 +53,12 @@
                 android:layout_marginBottom="32dp"
                 app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="32dp"
                 app:layout_constraintEnd_toEndOf="parent" android:src="@drawable/icon_plus"/>
-        <net.nend.android.NendAdView
-                android:id="@+id/nendHome"
-                android:layout_width="320dp"
-                android:layout_height="50dp"
-                nendsdk:NendApiKey="@string/nend_home_key"
-                nendsdk:NendSpotId="@integer/nend_home_id"
+        <com.google.android.gms.ads.AdView
+                android:id="@+id/adMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/ad_main"
                 app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"

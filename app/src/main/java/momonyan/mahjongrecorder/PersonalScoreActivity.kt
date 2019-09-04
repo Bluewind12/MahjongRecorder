@@ -1,25 +1,26 @@
 package momonyan.mahjongrecorder
 
-import androidx.lifecycle.Observer
-import androidx.room.Room
 import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.graphics.Point
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.personal_score_layout.*
 import momonyan.mahjongrecorder.datalist.ItemAdapter
 import momonyan.mahjongrecorder.datalist.ItemDataClass
@@ -37,6 +38,10 @@ class PersonalScoreActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.personal_score_layout)
+
+        //Ad
+        val adRequest = AdRequest.Builder().build()
+        adPersonal.loadAd(adRequest)
 
         //
         pointCriterion = arrayListOf(50, 10, -10, -30)

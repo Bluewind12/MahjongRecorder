@@ -3,6 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:nendsdk="http://schemas.android.com/apk/res-auto"
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
         android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
@@ -231,7 +232,6 @@
         <com.github.mikephil.charting.charts.LineChart
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                nendsdk:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp" nendsdk:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp"
                 android:id="@+id/lineChart2" app:layout_constraintTop_toBottomOf="@+id/titleTextView2"
@@ -255,18 +255,17 @@
                 app:layout_constraintBottom_toBottomOf="parent" android:id="@+id/space"
                 app:layout_constraintVertical_bias="0.375"/>
 
-        <net.nend.android.NendAdView
-                android:id="@+id/nendPersonal"
-                android:layout_width="320dp"
-                android:layout_height="50dp"
-                nendsdk:NendApiKey="@string/nend_personal_key"
-                nendsdk:NendSpotId="@integer/nend_personal_id"
+        <com.google.android.gms.ads.AdView
+                android:id="@+id/adPersonal"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="parent"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/ad_player"
                 app:layout_constraintHorizontal_bias="0.493" app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginTop="4dp" app:layout_constraintTop_toBottomOf="@id/tableLayout3"/>
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@id/tableLayout3"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
         <TextView
                 android:text="@string/point"
                 android:layout_width="wrap_content"
