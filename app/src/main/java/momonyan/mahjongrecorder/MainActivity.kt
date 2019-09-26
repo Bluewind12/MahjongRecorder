@@ -82,6 +82,10 @@ class MainActivity : AppCompatActivity() {
         drawer_layout.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
 
+        //
+        val data = getSharedPreferences("DataSave", Context.MODE_PRIVATE)
+
+
         //ドロワー
         nav_view.getHeaderView(0).findViewById<TextView>(R.id.versionTextView).text = getString(R.string.version_names,getVersionName(this))
         val navMenu = nav_view.menu
@@ -94,6 +98,22 @@ class MainActivity : AppCompatActivity() {
             PorterDuff.Mode.SRC_IN
         )
         navMenu.findItem(R.id.menuResult).icon.setColorFilter(
+            ContextCompat.getColor(this, R.color.iconColor),
+            PorterDuff.Mode.SRC_IN
+        )
+        navMenu.findItem(R.id.setting5_10).icon.setColorFilter(
+            ContextCompat.getColor(this, R.color.iconColor),
+            PorterDuff.Mode.SRC_IN
+        )
+        navMenu.findItem(R.id.setting10_20).icon.setColorFilter(
+            ContextCompat.getColor(this, R.color.iconColor),
+            PorterDuff.Mode.SRC_IN
+        )
+        navMenu.findItem(R.id.setting10_30).icon.setColorFilter(
+            ContextCompat.getColor(this, R.color.iconColor),
+            PorterDuff.Mode.SRC_IN
+        )
+        navMenu.findItem(R.id.setting20_30).icon.setColorFilter(
             ContextCompat.getColor(this, R.color.iconColor),
             PorterDuff.Mode.SRC_IN
         )
@@ -143,6 +163,49 @@ class MainActivity : AppCompatActivity() {
                     } catch (e: Exception) {
                         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
                     }
+                }
+                R.id.setting5_10 -> {
+                    val editor = data.edit()
+                    editor.putString("PointResult", "5-10")
+                    editor.apply()
+                    pointData = arrayListOf(30, 5, -5, -10)
+                    navMenu.findItem(R.id.setting5_10).icon = getDrawable(R.drawable.icon_check)
+                    navMenu.findItem(R.id.setting10_20).icon = getDrawable(R.drawable.icon_space)
+                    navMenu.findItem(R.id.setting10_30).icon = getDrawable(R.drawable.icon_space)
+                    navMenu.findItem(R.id.setting20_30).icon = getDrawable(R.drawable.icon_space)
+                }
+                R.id.setting10_20 -> {
+                    val editor = data.edit()
+                    editor.putString("PointResult", "10-20")
+                    editor.apply()
+                    pointData = arrayListOf(40, 10, -10, -20)
+
+                    navMenu.findItem(R.id.setting5_10).icon = getDrawable(R.drawable.icon_space)
+                    navMenu.findItem(R.id.setting10_20).icon = getDrawable(R.drawable.icon_check)
+                    navMenu.findItem(R.id.setting10_30).icon = getDrawable(R.drawable.icon_space)
+                    navMenu.findItem(R.id.setting20_30).icon = getDrawable(R.drawable.icon_space)
+                }
+                R.id.setting10_30 -> {
+                    val editor = data.edit()
+                    editor.putString("PointResult", "10-30")
+                    editor.apply()
+                    pointData = arrayListOf(50, 10, -10, -30)
+
+                    navMenu.findItem(R.id.setting5_10).icon = getDrawable(R.drawable.icon_space)
+                    navMenu.findItem(R.id.setting10_20).icon = getDrawable(R.drawable.icon_space)
+                    navMenu.findItem(R.id.setting10_30).icon = getDrawable(R.drawable.icon_check)
+                    navMenu.findItem(R.id.setting20_30).icon = getDrawable(R.drawable.icon_space)
+                }
+                R.id.setting20_30 -> {
+                    val editor = data.edit()
+                    editor.putString("PointResult", "20-30")
+                    editor.apply()
+                    pointData = arrayListOf(50, 20, -20, -30)
+
+                    navMenu.findItem(R.id.setting5_10).icon = getDrawable(R.drawable.icon_space)
+                    navMenu.findItem(R.id.setting10_20).icon = getDrawable(R.drawable.icon_space)
+                    navMenu.findItem(R.id.setting10_30).icon = getDrawable(R.drawable.icon_space)
+                    navMenu.findItem(R.id.setting20_30).icon = getDrawable(R.drawable.icon_check)
                 }
                 else -> {
                 }
