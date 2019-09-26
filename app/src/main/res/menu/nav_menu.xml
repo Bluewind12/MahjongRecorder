@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:title="@string/summary" android:id="@+id/menuItemTitle">
         <menu>
             <item android:title="@string/data_list_easy" android:id="@+id/menuDataList"
@@ -21,9 +21,34 @@
                   android:icon="@drawable/icon_rev"/>
         </menu>
     </item>
+    <item android:title="点数設定" android:id="@+id/menuItemSettings">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:title="5-10"
+                      android:id="@+id/setting5_10"
+                      app:showAsAction="always"
+                      android:icon="@drawable/icon_space"/>
+                <item android:title="10-20"
+                      android:id="@+id/setting10_20"
+                      app:showAsAction="always"
+                      android:icon="@drawable/icon_space"/>
+                <item android:title="10-30"
+                      android:id="@+id/setting10_30"
+                      app:showAsAction="always"
+                      android:icon="@drawable/icon_check"/>
+                <item android:title="20-30"
+                      android:id="@+id/setting20_30"
+                      app:showAsAction="always"
+                      android:icon="@drawable/icon_space"/>
+            </group>
+        </menu>
+    </item>
+
     <item android:title="@string/other_app" android:id="@+id/menuItemTitle3">
         <menu>
             <item android:title="@string/other_app_name1" android:id="@+id/menuAppMJ"
+                  android:icon="@drawable/icon_mj"/>
+            <item android:title="幻想乃桜工房の他のアプリ" android:id="@+id/menuAppGensou"
                   android:icon="@drawable/icon_mj"/>
         </menu>
     </item>
