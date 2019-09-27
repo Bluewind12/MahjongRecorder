@@ -164,49 +164,6 @@ class MainActivity : AppCompatActivity() {
                         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
                     }
                 }
-                R.id.setting5_10 -> {
-                    val editor = data.edit()
-                    editor.putString("PointResult", "5-10")
-                    editor.apply()
-                    pointData = arrayListOf(30, 5, -5, -10)
-                    navMenu.findItem(R.id.setting5_10).icon = getDrawable(R.drawable.icon_check)
-                    navMenu.findItem(R.id.setting10_20).icon = getDrawable(R.drawable.icon_space)
-                    navMenu.findItem(R.id.setting10_30).icon = getDrawable(R.drawable.icon_space)
-                    navMenu.findItem(R.id.setting20_30).icon = getDrawable(R.drawable.icon_space)
-                }
-                R.id.setting10_20 -> {
-                    val editor = data.edit()
-                    editor.putString("PointResult", "10-20")
-                    editor.apply()
-                    pointData = arrayListOf(40, 10, -10, -20)
-
-                    navMenu.findItem(R.id.setting5_10).icon = getDrawable(R.drawable.icon_space)
-                    navMenu.findItem(R.id.setting10_20).icon = getDrawable(R.drawable.icon_check)
-                    navMenu.findItem(R.id.setting10_30).icon = getDrawable(R.drawable.icon_space)
-                    navMenu.findItem(R.id.setting20_30).icon = getDrawable(R.drawable.icon_space)
-                }
-                R.id.setting10_30 -> {
-                    val editor = data.edit()
-                    editor.putString("PointResult", "10-30")
-                    editor.apply()
-                    pointData = arrayListOf(50, 10, -10, -30)
-
-                    navMenu.findItem(R.id.setting5_10).icon = getDrawable(R.drawable.icon_space)
-                    navMenu.findItem(R.id.setting10_20).icon = getDrawable(R.drawable.icon_space)
-                    navMenu.findItem(R.id.setting10_30).icon = getDrawable(R.drawable.icon_check)
-                    navMenu.findItem(R.id.setting20_30).icon = getDrawable(R.drawable.icon_space)
-                }
-                R.id.setting20_30 -> {
-                    val editor = data.edit()
-                    editor.putString("PointResult", "20-30")
-                    editor.apply()
-                    pointData = arrayListOf(50, 20, -20, -30)
-
-                    navMenu.findItem(R.id.setting5_10).icon = getDrawable(R.drawable.icon_space)
-                    navMenu.findItem(R.id.setting10_20).icon = getDrawable(R.drawable.icon_space)
-                    navMenu.findItem(R.id.setting10_30).icon = getDrawable(R.drawable.icon_space)
-                    navMenu.findItem(R.id.setting20_30).icon = getDrawable(R.drawable.icon_check)
-                }
                 else -> {
                 }
             }

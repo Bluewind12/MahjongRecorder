@@ -21,29 +21,6 @@
                   android:icon="@drawable/icon_rev"/>
         </menu>
     </item>
-    <item android:title="点数設定" android:id="@+id/menuItemSettings">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item android:title="5-10"
-                      android:id="@+id/setting5_10"
-                      app:showAsAction="always"
-                      android:icon="@drawable/icon_space"/>
-                <item android:title="10-20"
-                      android:id="@+id/setting10_20"
-                      app:showAsAction="always"
-                      android:icon="@drawable/icon_space"/>
-                <item android:title="10-30"
-                      android:id="@+id/setting10_30"
-                      app:showAsAction="always"
-                      android:icon="@drawable/icon_check"/>
-                <item android:title="20-30"
-                      android:id="@+id/setting20_30"
-                      app:showAsAction="always"
-                      android:icon="@drawable/icon_space"/>
-            </group>
-        </menu>
-    </item>
-
     <item android:title="@string/other_app" android:id="@+id/menuItemTitle3">
         <menu>
             <item android:title="@string/other_app_name1" android:id="@+id/menuAppMJ"
