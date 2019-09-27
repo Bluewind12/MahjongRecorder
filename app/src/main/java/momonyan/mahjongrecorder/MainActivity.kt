@@ -87,7 +87,8 @@ class MainActivity : AppCompatActivity() {
 
 
         //ドロワー
-        nav_view.getHeaderView(0).findViewById<TextView>(R.id.versionTextView).text = getString(R.string.version_names,getVersionName(this))
+        nav_view.getHeaderView(0).findViewById<TextView>(R.id.versionTextView).text =
+            getString(R.string.version_names, getVersionName(this))
         val navMenu = nav_view.menu
         navMenu.findItem(R.id.menuDataList).icon.setColorFilter(
             ContextCompat.getColor(this, R.color.iconColor),
@@ -98,22 +99,6 @@ class MainActivity : AppCompatActivity() {
             PorterDuff.Mode.SRC_IN
         )
         navMenu.findItem(R.id.menuResult).icon.setColorFilter(
-            ContextCompat.getColor(this, R.color.iconColor),
-            PorterDuff.Mode.SRC_IN
-        )
-        navMenu.findItem(R.id.setting5_10).icon.setColorFilter(
-            ContextCompat.getColor(this, R.color.iconColor),
-            PorterDuff.Mode.SRC_IN
-        )
-        navMenu.findItem(R.id.setting10_20).icon.setColorFilter(
-            ContextCompat.getColor(this, R.color.iconColor),
-            PorterDuff.Mode.SRC_IN
-        )
-        navMenu.findItem(R.id.setting10_30).icon.setColorFilter(
-            ContextCompat.getColor(this, R.color.iconColor),
-            PorterDuff.Mode.SRC_IN
-        )
-        navMenu.findItem(R.id.setting20_30).icon.setColorFilter(
             ContextCompat.getColor(this, R.color.iconColor),
             PorterDuff.Mode.SRC_IN
         )
@@ -155,13 +140,23 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
                 R.id.menuAppMJ -> {
-                    val packageName = "momonyan.mahjongg_tools"
-                    val className = "momonyan.mahjongg_tools.MainActivity"
+                    val packageName = "momonyan.mahjong_tools"
+                    val className = "momonyan.mahjong_tools.MainActivity"
                     intent.setClassName(packageName, className)
                     try {
                         startActivity(intent)
                     } catch (e: Exception) {
                         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
+                    }
+                }
+                R.id.menuAppGensou -> {
+                    val packageName = "momonyan.mahjongrecorder"
+                    val className = "momonyan.mahjongrecorder.MainActivity"
+                    intent.setClassName(packageName, className)
+                    try {
+                        startActivity(intent)
+                    } catch (e: Exception) {
+                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://dev?id=幻想乃桜工房")))
                     }
                 }
                 else -> {
