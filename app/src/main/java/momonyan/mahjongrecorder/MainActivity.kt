@@ -110,6 +110,10 @@ class MainActivity : AppCompatActivity() {
             ContextCompat.getColor(this, R.color.sakura),
             PorterDuff.Mode.SRC_IN
         )
+        navMenu.findItem(R.id.menuAppGensou).icon.setColorFilter(
+            ContextCompat.getColor(this, R.color.sakura),
+            PorterDuff.Mode.SRC_IN
+        )
         nav_view.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menuDataList -> {

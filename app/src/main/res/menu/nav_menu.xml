@@ -26,7 +26,7 @@
             <item android:title="@string/other_app_name1" android:id="@+id/menuAppMJ"
                   android:icon="@drawable/icon_mj"/>
             <item android:title="幻想乃桜工房の他のアプリ" android:id="@+id/menuAppGensou"
-                  android:icon="@drawable/icon_mj"/>
+                  android:icon="@drawable/icon_sakura"/>
         </menu>
     </item>
 </menu>
