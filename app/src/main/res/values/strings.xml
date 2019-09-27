@@ -25,8 +25,8 @@
 
     <string name="privacy_url">https://www.gensounosakura.work/posts/6348381</string>
     <string name="home_url">https://www.gensounosakura.work</string>
-    <string name="review_url">market://details?id=momonyan.mahjongrecorder</string>
-    <string name="other_app_url">market://dev?id=幻想乃桜工房</string>
+    <string name="review_url">https://play.google.com/store/apps/details?id=momonyan.mahjongrecorder</string>
+    <string name="other_app_url">https://play.google.com/store/apps/developer?id=幻想乃桜工房</string>
     <string name="back_string">戻る</string>
     <string name="other_app">他アプリ</string>
     <string name="other_app_name1">楽々麻雀ツール！</string>

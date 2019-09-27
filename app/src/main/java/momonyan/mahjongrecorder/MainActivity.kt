@@ -140,24 +140,17 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
                 R.id.menuAppMJ -> {
-                    val packageName = "momonyan.mahjong_tools"
-                    val className = "momonyan.mahjong_tools.MainActivity"
+                    val packageName = "momonyan.mahjongg_tools"
+                    val className = "momonyan.mahjongg_tools.MainActivity"
                     intent.setClassName(packageName, className)
                     try {
                         startActivity(intent)
                     } catch (e: Exception) {
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
+                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName")))
                     }
                 }
                 R.id.menuAppGensou -> {
-                    val packageName = "momonyan.mahjongrecorder"
-                    val className = "momonyan.mahjongrecorder.MainActivity"
-                    intent.setClassName(packageName, className)
-                    try {
-                        startActivity(intent)
-                    } catch (e: Exception) {
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://dev?id=幻想乃桜工房")))
-                    }
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=幻想乃桜工房")))
                 }
                 else -> {
                 }
