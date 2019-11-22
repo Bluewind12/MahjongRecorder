@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "184543211251",
+    "firebase_url": "https://mahjongrecordapp.firebaseio.com",
+    "project_id": "mahjongrecordapp",
+    "storage_bucket": "mahjongrecordapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184543211251:android:fd275c39ed220d6d6c1186",
+        "android_client_info": {
+          "package_name": "momonyan.mahjongrecorder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184543211251-o5d773vcgpkes8b4gnejthmj3ot9g1tu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "momonyan.mahjongrecorder",
+            "certificate_hash": "76c37af5142f9c4fede2013d12a2194d4da262ad"
+          }
+        },
+        {
+          "client_id": "184543211251-gc964ti0ff86m3dno2798np2olpjth6k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAmJRj1VdAFkGU96VZolSI4V_7q_rzAhE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184543211251-gc964ti0ff86m3dno2798np2olpjth6k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
