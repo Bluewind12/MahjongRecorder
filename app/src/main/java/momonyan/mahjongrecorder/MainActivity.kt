@@ -106,6 +106,10 @@ class MainActivity : AppCompatActivity() {
             ContextCompat.getColor(this, R.color.colorPrimaryDark),
             PorterDuff.Mode.SRC_IN
         )
+        navMenu.findItem(R.id.menuAppMJMemo).icon.setColorFilter(
+            ContextCompat.getColor(this, R.color.mjMemoColor),
+            PorterDuff.Mode.SRC_IN
+        )
         navMenu.findItem(R.id.menuHp).icon.setColorFilter(
             ContextCompat.getColor(this, R.color.sakura),
             PorterDuff.Mode.SRC_IN
@@ -151,6 +155,21 @@ class MainActivity : AppCompatActivity() {
                         startActivity(intent)
                     } catch (e: Exception) {
                         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName")))
+                    }
+                }
+                R.id.menuAppMJMemo -> {
+                    val packageName = "momonyan.mahjongmemo"
+                    val className = "momonyan.mahjongmemo.MainActivity"
+                    intent.setClassName(packageName, className)
+                    try {
+                        startActivity(intent)
+                    } catch (e: Exception) {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                            )
+                        )
                     }
                 }
                 R.id.menuAppGensou -> {
