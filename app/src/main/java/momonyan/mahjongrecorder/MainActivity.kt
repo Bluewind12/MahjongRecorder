@@ -154,7 +154,11 @@ class MainActivity : AppCompatActivity() {
                     try {
                         startActivity(intent)
                     } catch (e: Exception) {
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName")))
+                        startActivity(Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(getString(R.string.other_app_page_url,packageName))
+                            )
+                        )
                     }
                 }
                 R.id.menuAppMJMemo -> {
@@ -167,13 +171,13 @@ class MainActivity : AppCompatActivity() {
                         startActivity(
                             Intent(
                                 Intent.ACTION_VIEW,
-                                Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                                Uri.parse(getString(R.string.other_app_page_url,packageName))
                             )
                         )
                     }
                 }
                 R.id.menuAppGensou -> {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=幻想乃桜工房")))
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.other_app_url))))
                 }
                 else -> {
                 }
