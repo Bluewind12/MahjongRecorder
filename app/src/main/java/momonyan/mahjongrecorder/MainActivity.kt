@@ -71,11 +71,20 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(tool_bar)
         val actionBarDrawerToggle =
-            object : ActionBarDrawerToggle(this, drawer_layout, tool_bar, R.string.drawer_open, R.string.drawer_close) {
+            object : ActionBarDrawerToggle(
+                this,
+                drawer_layout,
+                tool_bar,
+                R.string.drawer_open,
+                R.string.drawer_close
+            ) {
                 override fun onDrawerStateChanged(newState: Int) {
                     val imm = getSystemService(Context.INPUT_METHOD_SERVICE)
                     if (imm is InputMethodManager) {
-                        imm.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+                        imm.hideSoftInputFromWindow(
+                            currentFocus?.windowToken,
+                            InputMethodManager.HIDE_NOT_ALWAYS
+                        )
                     }
                 }
             }
@@ -154,9 +163,10 @@ class MainActivity : AppCompatActivity() {
                     try {
                         startActivity(intent)
                     } catch (e: Exception) {
-                        startActivity(Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(getString(R.string.other_app_page_url,packageName))
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(getString(R.string.other_app_page_url, packageName))
                             )
                         )
                     }
@@ -171,13 +181,18 @@ class MainActivity : AppCompatActivity() {
                         startActivity(
                             Intent(
                                 Intent.ACTION_VIEW,
-                                Uri.parse(getString(R.string.other_app_page_url,packageName))
+                                Uri.parse(getString(R.string.other_app_page_url, packageName))
                             )
                         )
                     }
                 }
                 R.id.menuAppGensou -> {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.other_app_url))))
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(getString(R.string.other_app_url))
+                        )
+                    )
                 }
                 else -> {
                 }
@@ -222,49 +237,50 @@ class MainActivity : AppCompatActivity() {
         searchView.queryHint = "検索したい名前を入力してください。"
 
         //DBからの取得
-        pointAppDataBase.pointDataBaseDao().getAll().observe(this, androidx.lifecycle.Observer { data ->
-            mDataList = ArrayList()
-            for (i in 0 until data!!.size) {
-                val nameList: MutableList<String> =
-                    mutableListOf(
-                        data[i].name1,
-                        data[i].name2,
-                        data[i].name3,
-                        data[i].name4
+        pointAppDataBase.pointDataBaseDao().getAll()
+            .observe(this, androidx.lifecycle.Observer { data ->
+                mDataList = ArrayList()
+                for (i in 0 until data!!.size) {
+                    val nameList: MutableList<String> =
+                        mutableListOf(
+                            data[i].name1,
+                            data[i].name2,
+                            data[i].name3,
+                            data[i].name4
+                        )
+                    val pointList: MutableList<Int> =
+                        mutableListOf(
+                            data[i].point1 * 100,
+                            data[i].point2 * 100,
+                            data[i].point3 * 100,
+                            data[i].point4 * 100
+                        )
+                    val resultList: MutableList<Double> =
+                        mutableListOf(
+                            (pointList[0] - 30000) / 1000.0 + pointData[0],
+                            (pointList[1] - 30000) / 1000.0 + pointData[1],
+                            (pointList[2] - 30000) / 1000.0 + pointData[2],
+                            (pointList[3] - 30000) / 1000.0 + pointData[3]
+                        )
+                    mDataList.add(
+                        ItemDataClass(
+                            data[i].id,
+                            nameList,
+                            pointList,
+                            resultList,
+                            data[i].date
+                        )
                     )
-                val pointList: MutableList<Int> =
-                    mutableListOf(
-                        data[i].point1 * 100,
-                        data[i].point2 * 100,
-                        data[i].point3 * 100,
-                        data[i].point4 * 100
-                    )
-                val resultList: MutableList<Double> =
-                    mutableListOf(
-                        (pointList[0] - 30000) / 1000.0 + pointData[0],
-                        (pointList[1] - 30000) / 1000.0 + pointData[1],
-                        (pointList[2] - 30000) / 1000.0 + pointData[2],
-                        (pointList[3] - 30000) / 1000.0 + pointData[3]
-                    )
-                mDataList.add(
-                    ItemDataClass(
-                        data[i].id,
-                        nameList,
-                        pointList,
-                        resultList,
-                        data[i].date
-                    )
+                }
+                mDataList.reverse()
+                adapter = ItemAdapter(mDataList, this)
+                dataRecyclerView.adapter = adapter
+                dataRecyclerView.layoutManager = LinearLayoutManager(
+                    this,
+                    LinearLayoutManager.VERTICAL,
+                    false
                 )
-            }
-            mDataList.reverse()
-            adapter = ItemAdapter(mDataList, this)
-            dataRecyclerView.adapter = adapter
-            dataRecyclerView.layoutManager = LinearLayoutManager(
-                this,
-                LinearLayoutManager.VERTICAL,
-                false
-            )
-        })
+            })
 
         //データ追加（Fab）
         floatingActionButton.setOnClickListener {
@@ -315,6 +331,15 @@ class MainActivity : AppCompatActivity() {
             setNameEditEvent(nameEditTexts[i])
         }
 
+        dialogView.setOnClickListener {
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(
+                it.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
+        }
+
         val alertBuilder = AlertDialog.Builder(this)
         alert = alertBuilder
             .setView(dialogView)
@@ -356,7 +381,9 @@ class MainActivity : AppCompatActivity() {
                 pointDataBaseHolder.point4 = points[3]
                 pointDataBaseHolder.date = df.format(date)
 
-                Completable.fromAction { pointAppDataBase.pointDataBaseDao().insert(pointDataBaseHolder) }
+                Completable.fromAction {
+                    pointAppDataBase.pointDataBaseDao().insert(pointDataBaseHolder)
+                }
                     .subscribeOn(Schedulers.io())
                     .subscribe()
                 for (i in 0 until 4) {
@@ -364,7 +391,9 @@ class MainActivity : AppCompatActivity() {
                     playerDataBaseHolder[i].point = points[i]
                     playerDataBaseHolder[i].rank = i + 1
                     playerDataBaseHolder[i].date = df.format(date)
-                    Completable.fromAction { playerAppDataBase.playerDataBaseDao().insert(playerDataBaseHolder[i]) }
+                    Completable.fromAction {
+                        playerAppDataBase.playerDataBaseDao().insert(playerDataBaseHolder[i])
+                    }
                         .subscribeOn(Schedulers.io())
                         .subscribe()
                 }
@@ -381,7 +410,12 @@ class MainActivity : AppCompatActivity() {
         alert.getButton(Dialog.BUTTON_POSITIVE).isEnabled = false
     }
 
-    fun createChangeDialog(id: Int, names: MutableList<String>, point: MutableList<Int>, date: String) {
+    fun createChangeDialog(
+        id: Int,
+        names: MutableList<String>,
+        point: MutableList<Int>,
+        date: String
+    ) {
         dialogView = layoutInflater.inflate(R.layout.data_input_layout, null)
         dialogView.dialogTitleTextView.text = "変更"
 
@@ -411,7 +445,7 @@ class MainActivity : AppCompatActivity() {
             for (i in 0 until 4) {
                 shareStringData += getString(
                     R.string.share_format_string_data,
-                    i+1,
+                    i + 1,
                     nameEditTexts[i].text,
                     pointEditTexts[i].text
                 )
@@ -443,6 +477,14 @@ class MainActivity : AppCompatActivity() {
             setNameEditEvent(nameEditTexts[i])
         }
 
+        dialogView.setOnClickListener {
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(
+                it.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
+        }
         val alertBuilder = AlertDialog.Builder(this)
         alert = alertBuilder
             .setView(dialogView)
@@ -483,7 +525,8 @@ class MainActivity : AppCompatActivity() {
                     .subscribe()
                 for (i in 0 until 4) {
                     Completable.fromAction {
-                        playerAppDataBase.playerDataBaseDao().updateData(names[i], playerName[i], points[i])
+                        playerAppDataBase.playerDataBaseDao()
+                            .updateData(names[i], playerName[i], points[i])
                     }
                         .subscribeOn(Schedulers.io())
                         .subscribe()
@@ -505,7 +548,8 @@ class MainActivity : AppCompatActivity() {
                         for (i in 0 until 4) {
                             Log.d("ZZZ", names[i] + date + point[i])
                             Completable.fromAction {
-                                playerAppDataBase.playerDataBaseDao().deletePlayer(names[i], date, point[i] / 100)
+                                playerAppDataBase.playerDataBaseDao()
+                                    .deletePlayer(names[i], date, point[i] / 100)
                             }
                                 .subscribeOn(Schedulers.io())
                                 .subscribe()
@@ -536,7 +580,9 @@ class MainActivity : AppCompatActivity() {
         val adapter = adapter
         if (text != "") {
             adapter.mValue = ArrayList(mDataList.filter {
-                it.dName[0].contains(text) || it.dName[1].contains(text) || it.dName[2].contains(text) || it.dName[3].contains(
+                it.dName[0].contains(text) || it.dName[1].contains(text) || it.dName[2].contains(
+                    text
+                ) || it.dName[3].contains(
                     text
                 )
             })
@@ -589,7 +635,8 @@ class MainActivity : AppCompatActivity() {
                 sum += it.text.toString().toDouble()
             }
         }
-        dialogView.sumTextView.text = String.format("計：%.0f点\n(残り%.0f点)", sum * 100, 100000 - (sum * 100))
+        dialogView.sumTextView.text =
+            String.format("計：%.0f点\n(残り%.0f点)", sum * 100, 100000 - (sum * 100))
         Log.d("SUM", sum.toString())
         pointCheckFrag = sum == 1000.0
     }

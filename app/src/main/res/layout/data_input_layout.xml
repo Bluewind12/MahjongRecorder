@@ -1,205 +1,325 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-             android:layout_height="wrap_content" android:padding="8dp">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/dataInputTableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
     <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
         <TextView
+                android:id="@+id/dialogTitleTextView"
                 android:layout_width="0dip"
-                android:layout_height="wrap_content" android:id="@+id/dialogTitleTextView"
-                android:textSize="24sp" android:textStyle="bold" android:layout_weight="5" android:padding="8dp"
-                tools:text="登録 or 変更"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:padding="8dp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:text="登録 or 変更" />
+
         <ImageButton
+                android:id="@+id/shareImageButton"
                 android:layout_width="0dip"
-                android:layout_height="match_parent" app:srcCompat="@drawable/icon_share" android:id="@+id/shareImageButton"
-                android:layout_weight="1" android:scaleType="fitCenter" android:adjustViewBounds="true"
-                android:background="@color/colorTransparent" android:padding="8dp"/>
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="@color/colorTransparent"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/icon_share" />
     </TableRow>
-    <TableRow android:layout_width="match_parent" android:layout_height="match_parent"
-              android:gravity="center_vertical">
+
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
         <TextView
-                android:text="@string/rank_1"
+                android:id="@+id/rankTextView"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:id="@+id/rankTextView" android:layout_weight="1"
-                android:gravity="center"/>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/rank_1" />
+
         <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout1_1"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:id="@+id/textInputLayout1_1" android:layout_weight="3">
+                android:layout_weight="3">
 
             <AutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/nameEditText1"
-                    android:layout_weight="1" android:hint="名前" android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:id="@+id/textInputLayout1_2" android:layout_weight="3">
-
-            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nameEditText1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="点数" android:id="@+id/pointEditText1" android:inputType="numberSigned|number"/>
+                    android:layout_weight="1"
+                    android:hint="名前"
+                    android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
-        <TextView
-                android:text="@string/zero_zero"
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout1_2"
                 android:layout_width="0dip"
-                android:layout_height="wrap_content" android:textSize="18sp" android:layout_weight="1.5"
-                android:gravity="center"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="3">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pointEditText1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="点数"
+                    android:inputType="numberSigned|number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="center"
+                android:text="@string/zero_zero"
+                android:textSize="18sp" />
+
         <Space
                 android:layout_width="0dip"
-                android:layout_height="wrap_content" android:layout_weight="0.75"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75" />
+
         <TextView
+                android:id="@+id/resultTextView1"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:id="@+id/resultTextView1" android:layout_weight="2" android:gravity="center" tools:text="点数"/>
+                android:layout_weight="2"
+                android:gravity="center"
+                tools:text="点数" />
     </TableRow>
-    <TableRow android:layout_width="match_parent" android:layout_height="match_parent"
-              android:gravity="center_vertical">
+
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
         <TextView
-                android:text="@string/rank_2"
+                android:id="@+id/rankTextView2"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:id="@+id/rankTextView2" android:layout_weight="1"
-                android:gravity="center"/>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/rank_2" />
+
         <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout2_1"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:id="@+id/textInputLayout2_1" android:layout_weight="3">
+                android:layout_weight="3">
 
             <AutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/nameEditText2"
-                    android:layout_weight="1" android:hint="名前" android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:id="@+id/textInputLayout2_2" android:layout_weight="3">
-
-            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nameEditText2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="点数" android:id="@+id/pointEditText2" android:inputType="numberSigned|number"/>
+                    android:layout_weight="1"
+                    android:hint="名前"
+                    android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
-        <TextView
-                android:text="@string/zero_zero"
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout2_2"
                 android:layout_width="0dip"
-                android:layout_height="wrap_content" android:textSize="18sp"
-                android:layout_weight="1.5" android:gravity="center"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="3">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pointEditText2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="点数"
+                    android:inputType="numberSigned|number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="center"
+                android:text="@string/zero_zero"
+                android:textSize="18sp" />
+
         <Space
                 android:layout_width="0dip"
-                android:layout_height="wrap_content" android:layout_weight="0.75"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75" />
+
         <TextView
+                android:id="@+id/resultTextView2"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:id="@+id/resultTextView2" android:layout_weight="2" android:gravity="center" tools:text="点数"/>
+                android:layout_weight="2"
+                android:gravity="center"
+                tools:text="点数" />
     </TableRow>
-    <TableRow android:layout_width="match_parent" android:layout_height="match_parent"
-              android:gravity="center_vertical">
+
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
         <TextView
-                android:text="@string/rank_3"
+                android:id="@+id/rankTextView3"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:id="@+id/rankTextView3" android:layout_weight="1"
-                android:gravity="center"/>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/rank_3" />
+
         <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout3_1"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:id="@+id/textInputLayout3_1" android:layout_weight="3">
+                android:layout_weight="3">
 
             <AutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/nameEditText3"
-                    android:layout_weight="1" android:hint="名前" android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:id="@+id/textInputLayout3_2" android:layout_weight="3">
-
-            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nameEditText3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="点数" android:id="@+id/pointEditText3" android:inputType="numberSigned|number"/>
+                    android:layout_weight="1"
+                    android:hint="名前"
+                    android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
-        <TextView
-                android:text="@string/zero_zero"
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout3_2"
                 android:layout_width="0dip"
-                android:layout_height="wrap_content" android:textSize="18sp"
-                android:layout_weight="1.5" android:gravity="center"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="3">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pointEditText3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="点数"
+                    android:inputType="numberSigned|number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="center"
+                android:text="@string/zero_zero"
+                android:textSize="18sp" />
+
         <Space
                 android:layout_width="0dip"
-                android:layout_height="wrap_content" android:layout_weight="0.75"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75" />
+
         <TextView
+                android:id="@+id/resultTextView3"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:id="@+id/resultTextView3" android:layout_weight="2" android:gravity="center" tools:text="点数"/>
+                android:layout_weight="2"
+                android:gravity="center"
+                tools:text="点数" />
     </TableRow>
-    <TableRow android:layout_width="match_parent" android:layout_height="match_parent"
-              android:gravity="center_vertical">
+
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
         <TextView
-                android:text="@string/rank_4"
+                android:id="@+id/rankTextView4"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:id="@+id/rankTextView4" android:layout_weight="1"
-                android:gravity="center"/>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/rank_4" />
+
         <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout4_1"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:id="@+id/textInputLayout4_1" android:layout_weight="3">
+                android:layout_weight="3">
 
             <AutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/nameEditText4"
-                    android:layout_weight="1" android:hint="名前" android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:id="@+id/textInputLayout4_2" android:layout_weight="3">
-
-            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nameEditText4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="点数" android:id="@+id/pointEditText4" android:inputType="numberSigned|number"/>
+                    android:layout_weight="1"
+                    android:hint="名前"
+                    android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
-        <TextView
-                android:text="@string/zero_zero"
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout4_2"
                 android:layout_width="0dip"
-                android:layout_height="wrap_content" android:textSize="18sp"
-                android:layout_weight="1.5" android:gravity="center"/>
-        <Space
-                android:layout_width="0dip"
-                android:layout_height="wrap_content" android:layout_weight="0.75"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="3">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pointEditText4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="点数"
+                    android:inputType="numberSigned|number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <TextView
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:id="@+id/resultTextView4" android:layout_weight="2" android:gravity="center" tools:text="点数"/>
+                android:layout_weight="1.5"
+                android:gravity="center"
+                android:text="@string/zero_zero"
+                android:textSize="18sp" />
+
+        <Space
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75" />
+
+        <TextView
+                android:id="@+id/resultTextView4"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                tools:text="点数" />
     </TableRow>
 
     <Space
             android:layout_width="wrap_content"
-            android:layout_height="10dp"/>
+            android:layout_height="10dp" />
 
     <TableRow>
 
         <Space
                 android:layout_width="0dip"
-                android:layout_height="wrap_content" android:layout_weight="4"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="4" />
+
         <TextView
+                android:id="@+id/sumTextView"
                 android:layout_width="0dip"
-                android:layout_height="wrap_content" android:id="@+id/sumTextView" android:layout_weight="4"
-                android:textSize="18sp" tools:text="点数合計" android:textStyle="bold"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="点数合計" />
+
         <Space
                 android:layout_width="0dip"
-                android:layout_height="wrap_content" android:layout_weight="0.75"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75" />
+
         <TextView
+                android:id="@+id/sumResultTextView"
                 android:layout_width="0dip"
-                android:layout_height="wrap_content" android:id="@+id/sumResultTextView" android:layout_weight="2"
-                android:textSize="18sp" android:textStyle="bold"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textSize="18sp"
+                android:textStyle="bold" />
     </TableRow>
 </TableLayout>
