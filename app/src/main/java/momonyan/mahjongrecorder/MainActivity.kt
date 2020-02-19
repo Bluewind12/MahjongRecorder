@@ -91,14 +91,21 @@ class MainActivity : AppCompatActivity() {
         drawer_layout.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
 
-        //
-        val data = getSharedPreferences("DataSave", Context.MODE_PRIVATE)
-
+        mainConstraintLayout.setOnClickListener {
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(
+                it.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
+        }
 
         //ドロワー
         nav_view.getHeaderView(0).findViewById<TextView>(R.id.versionTextView).text =
             getString(R.string.version_names, getVersionName(this))
         val navMenu = nav_view.menu
+
+        //色変更
         navMenu.findItem(R.id.menuDataList).icon.setColorFilter(
             ContextCompat.getColor(this, R.color.iconColor),
             PorterDuff.Mode.SRC_IN
@@ -127,6 +134,8 @@ class MainActivity : AppCompatActivity() {
             ContextCompat.getColor(this, R.color.sakura),
             PorterDuff.Mode.SRC_IN
         )
+
+        //クリックリスナー
         nav_view.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menuDataList -> {
