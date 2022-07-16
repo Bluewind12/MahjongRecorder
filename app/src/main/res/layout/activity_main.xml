@@ -12,6 +12,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mainConstraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:descendantFocusability="beforeDescendants"
@@ -19,50 +20,67 @@
 
         <androidx.appcompat.widget.Toolbar
                 android:id="@+id/tool_bar"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:theme="@style/ToolbarTheme"
-                android:minHeight="?attr/actionBarSize"
+                android:layout_height="wrap_content"
                 android:background="?android:colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ToolbarTheme"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         <SearchView
+                android:id="@+id/searchView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/search_input_background"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:id="@+id/searchView" app:layout_constraintTop_toBottomOf="@+id/tool_bar"
-                android:layout_marginTop="8dp"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tool_bar" />
 
         <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/searchView" app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/dataRecyclerView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                android:id="@+id/dataRecyclerView" app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintVertical_bias="1.0" android:layout_width="0dp" android:layout_height="0dp"
                 android:cacheColorHint="?attr/colorPrimary"
                 android:requiresFadingEdge="horizontal|vertical"
-                app:layout_constraintBottom_toTopOf="@+id/adMain"/>
+                app:layout_constraintBottom_toTopOf="@+id/adMain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searchView"
+                app:layout_constraintVertical_bias="1.0" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/floatingActionButton"
+                android:layout_marginEnd="32dp"
                 android:layout_marginBottom="32dp"
-                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="32dp"
-                app:layout_constraintEnd_toEndOf="parent" android:src="@drawable/icon_plus"/>
+                android:src="@drawable/icon_plus"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
         <com.google.android.gms.ads.AdView
                 android:id="@+id/adMain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
                 ads:adSize="BANNER"
                 ads:adUnitId="@string/ad_main"
-                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

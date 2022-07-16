@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -71,25 +72,41 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(tool_bar)
         val actionBarDrawerToggle =
-            object : ActionBarDrawerToggle(this, drawer_layout, tool_bar, R.string.drawer_open, R.string.drawer_close) {
+            object : ActionBarDrawerToggle(
+                this,
+                drawer_layout,
+                tool_bar,
+                R.string.drawer_open,
+                R.string.drawer_close
+            ) {
                 override fun onDrawerStateChanged(newState: Int) {
                     val imm = getSystemService(Context.INPUT_METHOD_SERVICE)
                     if (imm is InputMethodManager) {
-                        imm.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+                        imm.hideSoftInputFromWindow(
+                            currentFocus?.windowToken,
+                            InputMethodManager.HIDE_NOT_ALWAYS
+                        )
                     }
                 }
             }
         drawer_layout.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
 
-        //
-        val data = getSharedPreferences("DataSave", Context.MODE_PRIVATE)
-
+        mainConstraintLayout.setOnClickListener {
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(
+                it.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
+        }
 
         //ドロワー
         nav_view.getHeaderView(0).findViewById<TextView>(R.id.versionTextView).text =
             getString(R.string.version_names, getVersionName(this))
         val navMenu = nav_view.menu
+
+        //色変更
         navMenu.findItem(R.id.menuDataList).icon?.setColorFilter(
             ContextCompat.getColor(this, R.color.iconColor),
             PorterDuff.Mode.SRC_IN
@@ -106,6 +123,10 @@ class MainActivity : AppCompatActivity() {
             ContextCompat.getColor(this, R.color.colorPrimaryDark),
             PorterDuff.Mode.SRC_IN
         )
+        navMenu.findItem(R.id.menuAppMJMemo).icon?.setColorFilter(
+            ContextCompat.getColor(this, R.color.mjMemoColor),
+            PorterDuff.Mode.SRC_IN
+        )
         navMenu.findItem(R.id.menuHp).icon?.setColorFilter(
             ContextCompat.getColor(this, R.color.sakura),
             PorterDuff.Mode.SRC_IN
@@ -114,6 +135,8 @@ class MainActivity : AppCompatActivity() {
             ContextCompat.getColor(this, R.color.sakura),
             PorterDuff.Mode.SRC_IN
         )
+
+        //クリックリスナー
         nav_view.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menuDataList -> {
@@ -150,18 +173,49 @@ class MainActivity : AppCompatActivity() {
                     try {
                         startActivity(intent)
                     } catch (e: Exception) {
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName")))
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(getString(R.string.other_app_page_url, packageName))
+                            )
+                        )
+                    }
+                }
+                R.id.menuAppMJMemo -> {
+                    val packageName = "momonyan.mahjongmemo"
+                    val className = "momonyan.mahjongmemo.MainActivity"
+                    intent.setClassName(packageName, className)
+                    try {
+                        startActivity(intent)
+                    } catch (e: Exception) {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(getString(R.string.other_app_page_url, packageName))
+                            )
+                        )
                     }
                 }
                 R.id.menuAppGensou -> {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=幻想乃桜工房")))
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(getString(R.string.other_app_url))
+                        )
+                    )
                 }
                 else -> {
                 }
             }
             false
         }
-
+        mainConstraintLayout.setOnClickListener {
+            val view = this.currentFocus
+            view?.let { v ->
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                imm?.hideSoftInputFromWindow(v.windowToken, 0)
+            }
+        }
 
         //AD(インタースティシャル)
         mInterstitialAd = InterstitialAd(this)
@@ -199,49 +253,50 @@ class MainActivity : AppCompatActivity() {
         searchView.queryHint = "検索したい名前を入力してください。"
 
         //DBからの取得
-        pointAppDataBase.pointDataBaseDao().getAll().observe(this, androidx.lifecycle.Observer { data ->
-            mDataList = ArrayList()
-            for (i in 0 until data!!.size) {
-                val nameList: MutableList<String> =
-                    mutableListOf(
-                        data[i].name1,
-                        data[i].name2,
-                        data[i].name3,
-                        data[i].name4
+        pointAppDataBase.pointDataBaseDao().getAll()
+            .observe(this, androidx.lifecycle.Observer { data ->
+                mDataList = ArrayList()
+                for (i in 0 until data!!.size) {
+                    val nameList: MutableList<String> =
+                        mutableListOf(
+                            data[i].name1,
+                            data[i].name2,
+                            data[i].name3,
+                            data[i].name4
+                        )
+                    val pointList: MutableList<Int> =
+                        mutableListOf(
+                            data[i].point1 * 100,
+                            data[i].point2 * 100,
+                            data[i].point3 * 100,
+                            data[i].point4 * 100
+                        )
+                    val resultList: MutableList<Double> =
+                        mutableListOf(
+                            (pointList[0] - 30000) / 1000.0 + pointData[0],
+                            (pointList[1] - 30000) / 1000.0 + pointData[1],
+                            (pointList[2] - 30000) / 1000.0 + pointData[2],
+                            (pointList[3] - 30000) / 1000.0 + pointData[3]
+                        )
+                    mDataList.add(
+                        ItemDataClass(
+                            data[i].id,
+                            nameList,
+                            pointList,
+                            resultList,
+                            data[i].date
+                        )
                     )
-                val pointList: MutableList<Int> =
-                    mutableListOf(
-                        data[i].point1 * 100,
-                        data[i].point2 * 100,
-                        data[i].point3 * 100,
-                        data[i].point4 * 100
-                    )
-                val resultList: MutableList<Double> =
-                    mutableListOf(
-                        (pointList[0] - 30000) / 1000.0 + pointData[0],
-                        (pointList[1] - 30000) / 1000.0 + pointData[1],
-                        (pointList[2] - 30000) / 1000.0 + pointData[2],
-                        (pointList[3] - 30000) / 1000.0 + pointData[3]
-                    )
-                mDataList.add(
-                    ItemDataClass(
-                        data[i].id,
-                        nameList,
-                        pointList,
-                        resultList,
-                        data[i].date
-                    )
+                }
+                mDataList.reverse()
+                adapter = ItemAdapter(mDataList, this)
+                dataRecyclerView.adapter = adapter
+                dataRecyclerView.layoutManager = LinearLayoutManager(
+                    this,
+                    LinearLayoutManager.VERTICAL,
+                    false
                 )
-            }
-            mDataList.reverse()
-            adapter = ItemAdapter(mDataList, this)
-            dataRecyclerView.adapter = adapter
-            dataRecyclerView.layoutManager = LinearLayoutManager(
-                this,
-                LinearLayoutManager.VERTICAL,
-                false
-            )
-        })
+            })
 
         //データ追加（Fab）
         floatingActionButton.setOnClickListener {
@@ -249,6 +304,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (currentFocus != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
+    }
 
     private fun createDialog() {
         dialogView = layoutInflater.inflate(R.layout.data_input_layout, null)
@@ -292,6 +354,15 @@ class MainActivity : AppCompatActivity() {
             setNameEditEvent(nameEditTexts[i])
         }
 
+        dialogView.setOnClickListener {
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(
+                it.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
+        }
+
         val alertBuilder = AlertDialog.Builder(this)
         alert = alertBuilder
             .setView(dialogView)
@@ -333,7 +404,9 @@ class MainActivity : AppCompatActivity() {
                 pointDataBaseHolder.point4 = points[3]
                 pointDataBaseHolder.date = df.format(date)
 
-                Completable.fromAction { pointAppDataBase.pointDataBaseDao().insert(pointDataBaseHolder) }
+                Completable.fromAction {
+                    pointAppDataBase.pointDataBaseDao().insert(pointDataBaseHolder)
+                }
                     .subscribeOn(Schedulers.io())
                     .subscribe()
                 for (i in 0 until 4) {
@@ -341,7 +414,9 @@ class MainActivity : AppCompatActivity() {
                     playerDataBaseHolder[i].point = points[i]
                     playerDataBaseHolder[i].rank = i + 1
                     playerDataBaseHolder[i].date = df.format(date)
-                    Completable.fromAction { playerAppDataBase.playerDataBaseDao().insert(playerDataBaseHolder[i]) }
+                    Completable.fromAction {
+                        playerAppDataBase.playerDataBaseDao().insert(playerDataBaseHolder[i])
+                    }
                         .subscribeOn(Schedulers.io())
                         .subscribe()
                 }
@@ -358,7 +433,12 @@ class MainActivity : AppCompatActivity() {
         alert.getButton(Dialog.BUTTON_POSITIVE).isEnabled = false
     }
 
-    fun createChangeDialog(id: Int, names: MutableList<String>, point: MutableList<Int>, date: String) {
+    fun createChangeDialog(
+        id: Int,
+        names: MutableList<String>,
+        point: MutableList<Int>,
+        date: String
+    ) {
         dialogView = layoutInflater.inflate(R.layout.data_input_layout, null)
         dialogView.dialogTitleTextView.text = "変更"
 
@@ -388,7 +468,7 @@ class MainActivity : AppCompatActivity() {
             for (i in 0 until 4) {
                 shareStringData += getString(
                     R.string.share_format_string_data,
-                    i+1,
+                    i + 1,
                     nameEditTexts[i].text,
                     pointEditTexts[i].text
                 )
@@ -420,6 +500,14 @@ class MainActivity : AppCompatActivity() {
             setNameEditEvent(nameEditTexts[i])
         }
 
+        dialogView.setOnClickListener {
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(
+                it.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
+        }
         val alertBuilder = AlertDialog.Builder(this)
         alert = alertBuilder
             .setView(dialogView)
@@ -460,7 +548,8 @@ class MainActivity : AppCompatActivity() {
                     .subscribe()
                 for (i in 0 until 4) {
                     Completable.fromAction {
-                        playerAppDataBase.playerDataBaseDao().updateData(names[i], playerName[i], points[i])
+                        playerAppDataBase.playerDataBaseDao()
+                            .updateData(names[i], playerName[i], points[i])
                     }
                         .subscribeOn(Schedulers.io())
                         .subscribe()
@@ -482,7 +571,8 @@ class MainActivity : AppCompatActivity() {
                         for (i in 0 until 4) {
                             Log.d("ZZZ", names[i] + date + point[i])
                             Completable.fromAction {
-                                playerAppDataBase.playerDataBaseDao().deletePlayer(names[i], date, point[i] / 100)
+                                playerAppDataBase.playerDataBaseDao()
+                                    .deletePlayer(names[i], date, point[i] / 100)
                             }
                                 .subscribeOn(Schedulers.io())
                                 .subscribe()
@@ -513,7 +603,9 @@ class MainActivity : AppCompatActivity() {
         val adapter = adapter
         if (text != "") {
             adapter.mValue = ArrayList(mDataList.filter {
-                it.dName[0].contains(text) || it.dName[1].contains(text) || it.dName[2].contains(text) || it.dName[3].contains(
+                it.dName[0].contains(text) || it.dName[1].contains(text) || it.dName[2].contains(
+                    text
+                ) || it.dName[3].contains(
                     text
                 )
             })
@@ -566,7 +658,8 @@ class MainActivity : AppCompatActivity() {
                 sum += it.text.toString().toDouble()
             }
         }
-        dialogView.sumTextView.text = String.format("計：%.0f点\n(残り%.0f点)", sum * 100, 100000 - (sum * 100))
+        dialogView.sumTextView.text =
+            String.format("計：%.0f点\n(残り%.0f点)", sum * 100, 100000 - (sum * 100))
         Log.d("SUM", sum.toString())
         pointCheckFrag = sum == 1000.0
     }

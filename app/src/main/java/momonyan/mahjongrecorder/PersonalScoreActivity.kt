@@ -60,7 +60,8 @@ class PersonalScoreActivity : AppCompatActivity() {
             .observe(this, androidx.lifecycle.Observer { data ->
                 val mutableList = mutableListOf("プレイヤーを選択してください")
                 mutableList += data!!.sortedArray()
-                val dataAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mutableList)
+                val dataAdapter =
+                    ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mutableList)
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 personalSpinner.adapter = dataAdapter
 
@@ -71,15 +72,21 @@ class PersonalScoreActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 dataSet(personalSpinner.selectedItem.toString())
             }
         }
 
         //テキスト下線引き
-        titleTextView.paintFlags = titleTextView.paintFlags or Paint.UNDERLINE_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
-        titleTextView2.paintFlags = titleTextView2.paintFlags or Paint.UNDERLINE_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
-
+        titleTextView.paintFlags =
+            titleTextView.paintFlags or Paint.UNDERLINE_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
+        titleTextView2.paintFlags =
+            titleTextView2.paintFlags or Paint.UNDERLINE_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
 
 
     }
@@ -110,10 +117,14 @@ class PersonalScoreActivity : AppCompatActivity() {
                 rank3CountTextView.text = String.format("%d 回 / %d 回", countRank3, allCount)
                 rank4CountTextView.text = String.format("%d 回 / %d 回", countRank4, allCount)
 
-                rank1PercentTextView.text = String.format("%.0f %%", countRank1 / allCount.toDouble() * 100)
-                rank2PercentTextView.text = String.format("%.0f %%", countRank2 / allCount.toDouble() * 100)
-                rank3PercentTextView.text = String.format("%.0f %%", countRank3 / allCount.toDouble() * 100)
-                rank4PercentTextView.text = String.format("%.0f %%", countRank4 / allCount.toDouble() * 100)
+                rank1PercentTextView.text =
+                    String.format("%.0f %%", countRank1 / allCount.toDouble() * 100)
+                rank2PercentTextView.text =
+                    String.format("%.0f %%", countRank2 / allCount.toDouble() * 100)
+                rank3PercentTextView.text =
+                    String.format("%.0f %%", countRank3 / allCount.toDouble() * 100)
+                rank4PercentTextView.text =
+                    String.format("%.0f %%", countRank4 / allCount.toDouble() * 100)
             })
 
 
@@ -197,11 +208,12 @@ class PersonalScoreActivity : AppCompatActivity() {
                 mDataList.reverse()
                 val adapter = ItemAdapter(mDataList, null)
                 personalRecyclerView.adapter = adapter
-                personalRecyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
-                    this,
-                    androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
-                    false
-                )
+                personalRecyclerView.layoutManager =
+                    androidx.recyclerview.widget.LinearLayoutManager(
+                        this,
+                        androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+                        false
+                    )
             })
 
 
@@ -287,7 +299,7 @@ class PersonalScoreActivity : AppCompatActivity() {
             set2.formLineWidth = 1f
             set2.formLineDashEffect = DashPathEffect(floatArrayOf(10f, 5f), 0f)
             set2.formSize = 15f
-            set2.fillColor = Color.argb(0, 255,255,255)
+            set2.fillColor = Color.argb(0, 255, 255, 255)
 
 
             val dataSets = ArrayList<ILineDataSet>()
