@@ -17,7 +17,8 @@
                 android:value="ca-app-pub-6499097800180510~7778848715"/>
         <activity android:name=".MainActivity"
                   android:theme="@style/AppThemeNoAction"
-                  android:screenOrientation="portrait">
+                  android:screenOrientation="portrait"
+                  android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
